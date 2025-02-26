@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Fonts\975 圆体.ttf" />
+    <None Remove="Fonts\微软雅黑.ttf" />
+    <None Remove="Fonts\悠哉字体.ttf" />
+    <None Remove="Fonts\钉钉进步体.ttf" />
+    <None Remove="Fonts\霞鹜文楷.ttf" />
+    <None Remove="Fonts\鸿蒙字体.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\975 圆体.ttf" />
+    <Resource Include="Fonts\微软雅黑.ttf" />
+    <Resource Include="Fonts\悠哉字体.ttf" />
+    <Resource Include="Fonts\钉钉进步体.ttf" />
+    <Resource Include="Fonts\霞鹜文楷.ttf" />
+    <Resource Include="Fonts\鸿蒙字体.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ThemeColors\" />
+    <Folder Include="CustomControls\" />
+  </ItemGroup>
+
+</Project>

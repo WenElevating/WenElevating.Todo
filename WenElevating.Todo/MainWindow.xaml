@@ -1,0 +1,71 @@
+﻿<Window
+    x:Class="WenElevating.Todo.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:WenElevating.Todo"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+    <Grid>
+        <StackPanel x:Name="MainStackPanel" Width="150">
+            <TextBlock
+                FontFamily="{DynamicResource Font_975_RoundBody}"
+                FontSize="18"
+                Text="975 圆体" />
+            <TextBlock
+                FontFamily="{DynamicResource Font_DingDingProgress}"
+                FontSize="18"
+                Text="钉钉进步题" />
+            <TextBlock
+                FontFamily="{DynamicResource Font_HongMeng}"
+                FontSize="18"
+                Text="鸿蒙字体" />
+            <TextBlock
+                FontFamily="{DynamicResource Font_Leisurely}"
+                FontSize="18"
+                Text="思源字体" />
+            <TextBlock
+                FontFamily="{DynamicResource Font_Microsoft_Yahei}"
+                FontSize="18"
+                Text="微软雅黑" />
+            <TextBlock
+                FontFamily="{DynamicResource Font_XiaHu_Wenkai}"
+                FontSize="18"
+                Text="霞骛字体" />
+
+            <ToggleButton
+                x:Name="TogglePopupButton"
+                Width="150"
+                Height="30"
+                HorizontalAlignment="Left">
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Run Text="Is button toggled? " />
+                        <Run Text="{Binding IsChecked, ElementName=TogglePopupButton}" />
+                    </TextBlock>
+                </StackPanel>
+            </ToggleButton>
+            <Popup
+                Name="myPopup"
+                VerticalAlignment="Bottom"
+                IsOpen="{Binding IsChecked, ElementName=TogglePopupButton}"
+                Placement="Right"
+                HorizontalOffset="10"
+                PlacementTarget="{Binding ElementName=TogglePopupButton}"
+                StaysOpen="False">
+                <Border BorderThickness="1">
+                    <TextBlock
+                        Name="myPopupText"
+                        Padding="30"
+                        Background="LightBlue"
+                        Foreground="Blue">
+                        Popup Text
+                    </TextBlock>
+                </Border>
+            </Popup>
+        </StackPanel>
+    </Grid>
+</Window>
