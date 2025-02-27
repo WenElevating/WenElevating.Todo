@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="/WenElevating.Resources;Component/Fonts/FontsDictionary.xaml" />
                 <ResourceDictionary Source="/WenElevating.Resources;Component/ControlStyles.xaml" />
                 <ResourceDictionary Source="/WenElevating.Resources;Component/SvgXamlResources.xaml" />
+                <ResourceDictionary Source="/WenElevating.Resources;Component/SvgXamlSelectedResources.xaml" />
                 <ResourceDictionary Source="/WenElevating.Resources;Component/ThemeColors/LightColors.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

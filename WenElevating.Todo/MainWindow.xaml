@@ -47,43 +47,61 @@
                         x:Name="LeftSlidebarTaskButton"
                         Width="25"
                         Margin="0,0,0,25"
+                        Checked="LeftSlidebarButton_Checked"
                         Icon="{StaticResource Todo_TaskIcon}"
-                        Style="{StaticResource Todo_CommonRadioIconButtonStyle}" />
+                        Style="{StaticResource Todo_CommonRadioIconButtonStyle}"
+                        Tag="Todo_TaskIcon"
+                        Unchecked="LeftSlidebarButton_Unchecked" />
                     <!--  日历  -->
                     <controls:IconRadioButton
                         x:Name="LeftSlidebarCalendarButton"
                         Width="25"
                         Margin="0,0,0,25"
+                        Checked="LeftSlidebarButton_Checked"
                         Icon="{StaticResource Todo_CalendarIcon}"
-                        Style="{StaticResource Todo_CommonRadioIconButtonStyle}" />
+                        Style="{StaticResource Todo_CommonRadioIconButtonStyle}"
+                        Tag="Todo_CalendarIcon"
+                        Unchecked="LeftSlidebarButton_Unchecked" />
                     <!--  四象限  -->
                     <controls:IconRadioButton
                         x:Name="LeftSlidebarFourQuadrantsButton"
                         Width="20"
                         Margin="0,0,0,25"
+                        Checked="LeftSlidebarButton_Checked"
                         Icon="{StaticResource Todo_FourQuadrantsIcon}"
-                        Style="{StaticResource Todo_CommonRadioIconButtonStyle}" />
+                        Style="{StaticResource Todo_CommonRadioIconButtonStyle}"
+                        Tag="Todo_FourQuadrantsIcon"
+                        Unchecked="LeftSlidebarButton_Unchecked" />
                     <!--  专注  -->
                     <controls:IconRadioButton
                         x:Name="LeftSliderbarFocusButton"
                         Width="23"
                         Margin="0,0,0,25"
+                        Checked="LeftSlidebarButton_Checked"
                         Icon="{StaticResource Todo_FocusIcon}"
-                        Style="{StaticResource Todo_CommonRadioIconButtonNoMouseOverStyle}" />
+                        Style="{StaticResource Todo_CommonRadioIconButtonNoMouseOverStyle}"
+                        Tag="Todo_FocusIcon"
+                        Unchecked="LeftSlidebarButton_Unchecked" />
                     <!--  习惯打卡  -->
                     <controls:IconRadioButton
                         x:Name="LeftSliderbarPunchButton"
                         Width="30"
                         Margin="0,0,0,25"
+                        Checked="LeftSlidebarButton_Checked"
                         Icon="{StaticResource Todo_PunchIcon}"
-                        Style="{StaticResource Todo_CommonRadioIconButtonStyle}" />
+                        Style="{StaticResource Todo_CommonRadioIconButtonStyle}"
+                        Tag="Todo_PunchIcon"
+                        Unchecked="LeftSlidebarButton_Unchecked" />
                     <!--  搜索  -->
                     <controls:IconRadioButton
                         x:Name="LeftSliderbarSearchButton"
                         Width="21"
                         Margin="0,0,0,25"
+                        Checked="LeftSlidebarButton_Checked"
                         Icon="{StaticResource Todo_SearchIcon}"
-                        Style="{StaticResource Todo_CommonRadioIconButtonStyle}" />
+                        Style="{StaticResource Todo_CommonRadioIconButtonStyle}"
+                        Tag="Todo_SearchIcon"
+                        Unchecked="LeftSlidebarButton_Unchecked" />
                 </StackPanel>
 
                 <!--  下半部分  -->
@@ -94,25 +112,74 @@
                         Width="25"
                         Margin="0,0,0,11"
                         Icon="{StaticResource Todo_AsyncIcon}"
-                        Style="{StaticResource Todo_CommonIconButtonStyle}" />
+                        Style="{StaticResource Todo_CommonIconButtonStyle}"
+                        Tag="Todo_AsyncIcon" />
                     <!--  通知与提醒  -->
                     <controls:IconButton
                         x:Name="LeftSliderbarBottomNotifyButton"
                         Width="32"
                         Margin="0,0,0,14"
                         Icon="{StaticResource Todo_NotifyIcon}"
-                        Style="{StaticResource Todo_CommonIconButtonStyle}" />
+                        Style="{StaticResource Todo_CommonIconButtonStyle}"
+                        Tag="Todo_NotifyIcon" />
                     <!--  更多  -->
                     <controls:IconButton
                         x:Name="LeftSliderbarBottomMoreThingsButton"
                         Width="23"
                         Margin="0,0,0,4"
                         Icon="{StaticResource Todo_MoreThingsIcon}"
-                        Style="{StaticResource Todo_CommonIconButtonStyle}" />
+                        Style="{StaticResource Todo_CommonIconButtonStyle}"
+                        Tag="Todo_MoreThingsIcon" />
                 </StackPanel>
             </Grid>
         </Border>
 
+        <Border Grid.Column="1" Margin="0,0,3,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <!--  非客户区 - 窗体操作  -->
+                <StackPanel
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    WindowChrome.IsHitTestVisibleInChrome="True">
+                    <controls:IconButton
+                        x:Name="MinimizeButton"
+                        Width="37"
+                        Click="MinimizeButton_Click"
+                        Cursor="Hand"
+                        Icon="{StaticResource Todo_WindowMinimizeIcon}"
+                        IconHeight="30"
+                        IconWidth="20"
+                        Style="{StaticResource Todo_SystemIconButtonStyle}" />
+                    <controls:IconButton
+                        x:Name="ResetButton"
+                        Width="32"
+                        Margin="2,0,2,0"
+                        Click="ResetButton_Click"
+                        Cursor="Hand"
+                        Icon="{StaticResource Todo_WindowMaximizeIcon}"
+                        IconHeight="30"
+                        IconWidth="20"
+                        Style="{StaticResource Todo_SystemIconButtonStyle}" />
+                    <controls:IconButton
+                        x:Name="CloseButton"
+                        Width="32"
+                        Click="CloseButton_Click"
+                        Cursor="Hand"
+                        Icon="{StaticResource Todo_WindowCloseIcon}"
+                        IconHeight="20"
+                        IconWidth="23"
+                        Style="{StaticResource Todo_SystemIconButtonStyle}" />
+                </StackPanel>
+                <Frame
+                    x:Name="PageFrame"
+                    Grid.Row="1"
+                    Focusable="False" />
+            </Grid>
+        </Border>
 
         <StackPanel
             x:Name="MainStackPanel"

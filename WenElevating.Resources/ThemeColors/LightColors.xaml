@@ -2,4 +2,5 @@
     <SolidColorBrush x:Key="SidebarBackground" Color="#F9F9F9" />
     <SolidColorBrush x:Key="IconBackground" Color="#9F9F9F" />
     <SolidColorBrush x:Key="IconBrush" Color="#898989" />
+    <SolidColorBrush x:Key="IconSelectedBrush" Color="#4772FA" />
 </ResourceDictionary>
