@@ -119,4 +119,22 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
+
+    <!--  VIP  -->
+    <DrawingImage x:Key="Todo_VIPIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V1024 H1024 V0 H0 Z">
+                <GeometryDrawing Brush="#FFF4EA2A" Geometry="F1 M1024,1024z M0,0z M57,438.312L166.536,927.032 863.872,927.032 973.408,438.312 714.232,595.128 526.376,262.04 321.024,595.128z" />
+                <GeometryDrawing Brush="#FFF4EA2A" Geometry="F1 M1024,1024z M0,0z M629.048,211.888C629.048,270.8 581.296,318.544 522.376,318.544 463.456,318.544 415.712,270.8 415.712,211.888 415.712,152.912 463.456,105.232 522.376,105.232 581.296,105.232 629.048,152.92 629.048,211.888z" />
+                <GeometryDrawing Brush="#FFFFD700" Geometry="F1 M1024,1024z M0,0z M522.376,105.232C463.456,105.232 415.712,152.912 415.712,211.888 415.712,270.8 463.456,318.544 522.376,318.544L522.376,105.232z" />
+                <GeometryDrawing Brush="#FFF4EA2A" Geometry="F1 M1024,1024z M0,0z M57,438.312L166.536,927.032 863.872,927.032z" />
+                <GeometryDrawing Brush="#FFF4EA2A" Geometry="F1 M1024,1024z M0,0z M973.408,438.312L863.872,927.032 166.536,927.032z" />
+                <GeometryDrawing Brush="#FFF5B617" Geometry="F1 M1024,1024z M0,0z M166.536,927.032L863.872,927.032 515.2,715.832z" />
+                <GeometryDrawing Brush="#FFFFD700" Geometry="F1 M1024,1024z M0,0z M1017.856,409.44A55.2,55.2,0,0,1,962.592,464.648A55.184,55.184,0,0,1,907.376,409.44A55.2,55.2,0,0,1,962.592,354.176A55.2,55.2,0,0,1,1017.856,409.44z" />
+                <GeometryDrawing Brush="#FFFFD700" Geometry="F1 M1024,1024z M0,0z M962.592,354.176A55.2,55.2,0,0,0,907.376,409.44A55.184,55.184,0,0,0,962.592,464.648L962.592,354.176z" />
+                <GeometryDrawing Brush="#FFFFD700" Geometry="F1 M1024,1024z M0,0z M116.656,409.44A55.216,55.216,0,0,1,61.384,464.648A55.208,55.208,0,0,1,6.144,409.44A55.208,55.208,0,0,1,61.384,354.176A55.224,55.224,0,0,1,116.656,409.44z" />
+                <GeometryDrawing Brush="#FFFFD700" Geometry="F1 M1024,1024z M0,0z M61.384,354.176A55.216,55.216,0,0,0,6.144,409.44A55.2,55.2,0,0,0,61.384,464.648L61.384,354.176z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
 </ResourceDictionary>

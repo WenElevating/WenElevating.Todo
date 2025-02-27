@@ -12,18 +12,32 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.Extensions.DependencyInjection;
 using WenElevating.Resources.CustomControls;
+using WenElevating.Todo.Interfaces;
+using WenElevating.Todo.Interfaces.Impl;
+using WenElevating.Todo.Pages;
 
 namespace WenElevating.Todo
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IObjectInjection
     {
+        /// <summary>
+        /// 页面服务
+        /// </summary>
+        private IPageService? _pageService;
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            InitializeInjection();
         }
 
         #region LeftSlide
@@ -38,10 +52,9 @@ namespace WenElevating.Todo
             {
                 return;
             }
-            // 更新样式-无选中效果
-            iconBtn.Style = (Style)Application.Current.Resources["Todo_CommonRadioIconButtonNoMouseOverStyle"];
-            // 更新选中图标
-            iconBtn.Icon = (DrawingImage)Application.Current.Resources[iconBtn.Tag.ToString() + "Selected"];
+
+            UpdateRadioButtonStyleByChecked(iconBtn);
+            NavigationPageByRadioButtonTag(iconBtn.Tag.ToString());
         }
 
         /// <summary>
@@ -55,10 +68,7 @@ namespace WenElevating.Todo
             {
                 return;
             }
-            // 更新样式-无选中效果
-            iconBtn.Style = (Style)Application.Current.Resources["Todo_CommonRadioIconButtonStyle"];
-            // 更新选中图标
-            iconBtn.Icon = (DrawingImage)Application.Current.Resources[iconBtn.Tag.ToString()];
+            UpdateRadioButtonStyleByUnChecked(iconBtn);
         }
         #endregion
 
@@ -80,5 +90,41 @@ namespace WenElevating.Todo
         private void CloseButton_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
         #endregion
 
+        /// <summary>
+        /// 导航页面
+        /// </summary>
+        /// <param name="tag"></param>
+        private void NavigationPageByRadioButtonTag(string? tag)
+        {
+            if (tag == null)
+            {
+                return;
+            }
+            // 更新导航页面
+            PageFrame.Content = _pageService?.GetPageByTag(tag);
+        }
+
+        private static void UpdateRadioButtonStyleByChecked(IconRadioButton iconBtn)
+        {
+            // 更新样式-无选中效果
+            iconBtn.Style = (Style)Application.Current.Resources["Todo_CommonRadioIconButtonNoMouseOverStyle"];
+
+            // 更新选中图标
+            iconBtn.Icon = (DrawingImage)Application.Current.Resources[iconBtn.Tag.ToString() + "Selected"];
+        }
+
+        private static void UpdateRadioButtonStyleByUnChecked(IconRadioButton iconBtn)
+        {
+            // 更新样式-无选中效果
+            iconBtn.Style = (Style)Application.Current.Resources["Todo_CommonRadioIconButtonStyle"];
+
+            // 更新选中图标
+            iconBtn.Icon = (DrawingImage)Application.Current.Resources[iconBtn.Tag.ToString()];
+        }
+
+        public void InitializeInjection()
+        {
+            _pageService = App.Current.Provider.GetRequiredService<IPageService>();
+        }
     }
 }

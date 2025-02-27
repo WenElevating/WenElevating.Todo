@@ -9,6 +9,7 @@
     Title="MainWindow"
     Width="1340"
     Height="900"
+    FontFamily="{DynamicResource Font_Microsoft_Yahei}"
     Style="{StaticResource Todo_CommonWindowStyle}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -140,11 +141,19 @@
                     <RowDefinition Height="30" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <!--  非客户区 - 窗体操作  -->
                 <StackPanel
                     HorizontalAlignment="Right"
                     Orientation="Horizontal"
                     WindowChrome.IsHitTestVisibleInChrome="True">
+                    <controls:IconButton
+                        x:Name="VipButton"
+                        Width="38"
+                        Cursor="Hand"
+                        Icon="{StaticResource Todo_VIPIcon}"
+                        IconHeight="23"
+                        IconWidth="15"
+                        Style="{StaticResource Todo_SystemIconButtonStyle}" />
+                    <!--  非客户区 - 窗体操作  -->
                     <controls:IconButton
                         x:Name="MinimizeButton"
                         Width="37"
