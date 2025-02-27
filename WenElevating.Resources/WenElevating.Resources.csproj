@@ -25,9 +25,4 @@
     <Resource Include="Fonts\鸿蒙字体.ttf" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ThemeColors\" />
-    <Folder Include="CustomControls\" />
-  </ItemGroup>
-
 </Project>

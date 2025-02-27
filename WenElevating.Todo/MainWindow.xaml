@@ -2,15 +2,122 @@
     x:Class="WenElevating.Todo.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:WenElevating.Resources.CustomControls;assembly=WenElevating.Resources"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:WenElevating.Todo"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="MainWindow"
-    Width="800"
-    Height="450"
+    Width="1340"
+    Height="900"
+    Style="{StaticResource Todo_CommonWindowStyle}"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
-        <StackPanel x:Name="MainStackPanel" Width="150">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="53" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <!--  侧边功能栏  -->
+        <Border
+            x:Name="LeftSlidebar"
+            Background="{DynamicResource SidebarBackground}"
+            BorderBrush="#F1F1F1"
+            BorderThickness="0,0,1,0">
+            <Grid Margin="0,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <!--  上半部分  -->
+                <StackPanel Grid.Row="0">
+                    <!--  用户头像  -->
+                    <Image
+                        x:Name="UserAvatar"
+                        Width="30"
+                        Height="30"
+                        Margin="10,0,5,25"
+                        controls:RoundCornerHelper.CornerRadius="4"
+                        Cursor="Hand"
+                        RenderOptions.BitmapScalingMode="HighQuality"
+                        Source="/WenElevating.Todo;component/Assets/avatar.jpg" />
+                    <!--  任务  -->
+                    <controls:IconRadioButton
+                        x:Name="LeftSlidebarTaskButton"
+                        Width="25"
+                        Margin="0,0,0,25"
+                        Icon="{StaticResource Todo_TaskIcon}"
+                        Style="{StaticResource Todo_CommonRadioIconButtonStyle}" />
+                    <!--  日历  -->
+                    <controls:IconRadioButton
+                        x:Name="LeftSlidebarCalendarButton"
+                        Width="25"
+                        Margin="0,0,0,25"
+                        Icon="{StaticResource Todo_CalendarIcon}"
+                        Style="{StaticResource Todo_CommonRadioIconButtonStyle}" />
+                    <!--  四象限  -->
+                    <controls:IconRadioButton
+                        x:Name="LeftSlidebarFourQuadrantsButton"
+                        Width="20"
+                        Margin="0,0,0,25"
+                        Icon="{StaticResource Todo_FourQuadrantsIcon}"
+                        Style="{StaticResource Todo_CommonRadioIconButtonStyle}" />
+                    <!--  专注  -->
+                    <controls:IconRadioButton
+                        x:Name="LeftSliderbarFocusButton"
+                        Width="23"
+                        Margin="0,0,0,25"
+                        Icon="{StaticResource Todo_FocusIcon}"
+                        Style="{StaticResource Todo_CommonRadioIconButtonNoMouseOverStyle}" />
+                    <!--  习惯打卡  -->
+                    <controls:IconRadioButton
+                        x:Name="LeftSliderbarPunchButton"
+                        Width="30"
+                        Margin="0,0,0,25"
+                        Icon="{StaticResource Todo_PunchIcon}"
+                        Style="{StaticResource Todo_CommonRadioIconButtonStyle}" />
+                    <!--  搜索  -->
+                    <controls:IconRadioButton
+                        x:Name="LeftSliderbarSearchButton"
+                        Width="21"
+                        Margin="0,0,0,25"
+                        Icon="{StaticResource Todo_SearchIcon}"
+                        Style="{StaticResource Todo_CommonRadioIconButtonStyle}" />
+                </StackPanel>
+
+                <!--  下半部分  -->
+                <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
+                    <!--  同步  -->
+                    <controls:IconButton
+                        x:Name="LeftSliderbarBottomAsyncButton"
+                        Width="25"
+                        Margin="0,0,0,11"
+                        Icon="{StaticResource Todo_AsyncIcon}"
+                        Style="{StaticResource Todo_CommonIconButtonStyle}" />
+                    <!--  通知与提醒  -->
+                    <controls:IconButton
+                        x:Name="LeftSliderbarBottomNotifyButton"
+                        Width="32"
+                        Margin="0,0,0,14"
+                        Icon="{StaticResource Todo_NotifyIcon}"
+                        Style="{StaticResource Todo_CommonIconButtonStyle}" />
+                    <!--  更多  -->
+                    <controls:IconButton
+                        x:Name="LeftSliderbarBottomMoreThingsButton"
+                        Width="23"
+                        Margin="0,0,0,4"
+                        Icon="{StaticResource Todo_MoreThingsIcon}"
+                        Style="{StaticResource Todo_CommonIconButtonStyle}" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+
+        <StackPanel
+            x:Name="MainStackPanel"
+            Width="150"
+            Visibility="Collapsed">
             <TextBlock
                 FontFamily="{DynamicResource Font_975_RoundBody}"
                 FontSize="18"
@@ -51,9 +158,9 @@
             <Popup
                 Name="myPopup"
                 VerticalAlignment="Bottom"
+                HorizontalOffset="10"
                 IsOpen="{Binding IsChecked, ElementName=TogglePopupButton}"
                 Placement="Right"
-                HorizontalOffset="10"
                 PlacementTarget="{Binding ElementName=TogglePopupButton}"
                 StaysOpen="False">
                 <Border BorderThickness="1">
