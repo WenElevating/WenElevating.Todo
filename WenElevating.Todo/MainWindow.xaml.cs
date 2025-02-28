@@ -81,11 +81,13 @@ namespace WenElevating.Todo
             {
                 ResetButton.Icon = (DrawingImage)Application.Current.Resources["Todo_WindowResetIcon"];
                 WindowState = WindowState.Maximized;
+                NoClientBorder.Margin = new Thickness(0, 5, 3, 0);
                 return;
             }
 
             ResetButton.Icon = (DrawingImage)Application.Current.Resources["Todo_WindowMaximizeIcon"];
             WindowState = WindowState.Normal;
+            NoClientBorder.Margin = new Thickness(0, 0, 3, 0);
         }
         private void CloseButton_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
         #endregion
