@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -38,6 +40,7 @@ namespace WenElevating.Todo
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             InitializeInjection();
+            InitializeLeftSlideCheckedControl();
         }
 
         #region LeftSlide
@@ -127,6 +130,11 @@ namespace WenElevating.Todo
         public void InitializeInjection()
         {
             _pageService = App.Current.Provider.GetRequiredService<IPageService>();
+        }
+
+        private void InitializeLeftSlideCheckedControl()
+        {
+            LeftSlidebarTaskButton.IsChecked = true;
         }
     }
 }

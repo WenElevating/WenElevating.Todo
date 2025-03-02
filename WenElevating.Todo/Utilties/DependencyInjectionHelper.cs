@@ -28,6 +28,10 @@ namespace WenElevating.Todo.Utilties
         {
             services = new ServiceCollection();
             services.AddSingleton<TaskPage>();
+            services.AddSingleton<CalendarPage>();
+            services.AddSingleton<FourQuadrantsPage>();
+            services.AddSingleton<FocusPage>();
+            services.AddSingleton<PunchPage>();
             services.AddSingleton<IPageService,PageServiceImpl>();
             serviceProvider = services.BuildServiceProvider();
             return serviceProvider;

@@ -30,6 +30,10 @@ namespace WenElevating.Todo.Interfaces.Impl
         public void InitializeInjection()
         {
             tagToElementDictionary.Add("Todo_TaskIcon", App.Current.Provider.GetRequiredService<TaskPage>());
+            tagToElementDictionary.Add("Todo_CalendarIcon", App.Current.Provider.GetRequiredService<CalendarPage>());
+            tagToElementDictionary.Add("Todo_FourQuadrantsIcon", App.Current.Provider.GetRequiredService<FourQuadrantsPage>());
+            tagToElementDictionary.Add("Todo_FocusIcon", App.Current.Provider.GetRequiredService<FocusPage>());
+            tagToElementDictionary.Add("Todo_PunchIcon", App.Current.Provider.GetRequiredService<PunchPage>());
         }
     }
 }

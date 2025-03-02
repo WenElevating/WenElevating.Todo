@@ -13,6 +13,9 @@
     Style="{StaticResource Todo_CommonWindowStyle}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+    <Window.Resources>
+        <Button x:Key="11" />
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="53" />
@@ -25,7 +28,7 @@
             Background="{DynamicResource SidebarBackground}"
             BorderBrush="#F1F1F1"
             BorderThickness="0,0,1,0">
-            <Grid Margin="0,20">
+            <Grid Margin="0,24,0,20">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
@@ -135,6 +138,25 @@
             </Grid>
         </Border>
 
+        <!--  弹窗列表  -->
+        <Grid x:Name="PopupGrid" Grid.Column="0">
+            <Popup
+                Width="175"
+                Height="50"
+                IsOpen="{Binding ElementName=LeftSlidebarTaskButton, Path=IsChecked}"
+                PlacementTarget="{Binding ElementName=UserAvatar}"
+                Style="{StaticResource Todo_PopupStyle}">
+                <Grid>
+                    <Border Style="{StaticResource Todo_PopupShadowBorderStyle}" />
+                    <Border Style="{StaticResource Todo_PopupContentBorderStyle}">
+                        <!--  主体内容  -->
+                        <TextBlock Foreground="Black" Text="111" />
+                    </Border>
+                </Grid>
+            </Popup>
+        </Grid>
+
+        <!--  非客户区+Page  -->
         <Border
             x:Name="NoClientBorder"
             Grid.Column="1"
@@ -189,7 +211,8 @@
                 <Frame
                     x:Name="PageFrame"
                     Grid.Row="1"
-                    Focusable="False" />
+                    Focusable="False"
+                    NavigationUIVisibility="Hidden" />
             </Grid>
         </Border>
 
