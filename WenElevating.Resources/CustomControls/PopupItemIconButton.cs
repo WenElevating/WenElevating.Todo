@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace WenElevating.Resources.CustomControls;
 
-namespace WenElevating.Resources.CustomControls
+public class PopupItemIconButton : IconButton
 {
-    public class ListItemIconButton : IconButton
-    {
-
-    }
 }

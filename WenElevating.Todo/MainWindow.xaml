@@ -4,18 +4,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:WenElevating.Resources.CustomControls;assembly=WenElevating.Resources"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:WenElevating.Todo"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="MainWindow"
     Width="1340"
     Height="900"
-    FontFamily="{DynamicResource Font_Microsoft_Yahei}"
+    FontFamily="{DynamicResource Font_HongMeng}"
     Style="{StaticResource Todo_CommonWindowStyle}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <Window.Resources>
-        <Button x:Key="11" />
-    </Window.Resources>
+    <Window.Resources />
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="53" />
@@ -48,7 +45,7 @@
                         Source="/WenElevating.Todo;component/Assets/avatar.jpg" />
                     <!--  任务  -->
                     <controls:IconRadioButton
-                        x:Name="LeftSlidebarTaskButton"
+                        x:Name="LeftSidebarTaskButton"
                         Width="25"
                         Margin="0,0,0,25"
                         Checked="LeftSlidebarButton_Checked"
@@ -58,7 +55,7 @@
                         Unchecked="LeftSlidebarButton_Unchecked" />
                     <!--  日历  -->
                     <controls:IconRadioButton
-                        x:Name="LeftSlidebarCalendarButton"
+                        x:Name="LeftSidebarCalendarButton"
                         Width="25"
                         Margin="0,0,0,25"
                         Checked="LeftSlidebarButton_Checked"
@@ -68,7 +65,7 @@
                         Unchecked="LeftSlidebarButton_Unchecked" />
                     <!--  四象限  -->
                     <controls:IconRadioButton
-                        x:Name="LeftSlidebarFourQuadrantsButton"
+                        x:Name="LeftSidebarFourQuadrantsButton"
                         Width="20"
                         Margin="0,0,0,25"
                         Checked="LeftSlidebarButton_Checked"
@@ -78,7 +75,7 @@
                         Unchecked="LeftSlidebarButton_Unchecked" />
                     <!--  专注  -->
                     <controls:IconRadioButton
-                        x:Name="LeftSliderbarFocusButton"
+                        x:Name="LeftSidebarFocusButton"
                         Width="23"
                         Margin="0,0,0,25"
                         Checked="LeftSlidebarButton_Checked"
@@ -88,7 +85,7 @@
                         Unchecked="LeftSlidebarButton_Unchecked" />
                     <!--  习惯打卡  -->
                     <controls:IconRadioButton
-                        x:Name="LeftSliderbarPunchButton"
+                        x:Name="LeftSidebarPunchButton"
                         Width="30"
                         Margin="0,0,0,25"
                         Checked="LeftSlidebarButton_Checked"
@@ -98,7 +95,7 @@
                         Unchecked="LeftSlidebarButton_Unchecked" />
                     <!--  搜索  -->
                     <controls:IconRadioButton
-                        x:Name="LeftSliderbarSearchButton"
+                        x:Name="LeftSidebarSearchButton"
                         Width="21"
                         Margin="0,0,0,25"
                         Checked="LeftSlidebarButton_Checked"
@@ -112,7 +109,7 @@
                 <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
                     <!--  同步  -->
                     <controls:IconButton
-                        x:Name="LeftSliderbarBottomAsyncButton"
+                        x:Name="LeftSidebarBottomAsyncButton"
                         Width="25"
                         Margin="0,0,0,11"
                         Icon="{StaticResource Todo_AsyncIcon}"
@@ -120,7 +117,7 @@
                         Tag="Todo_AsyncIcon" />
                     <!--  通知与提醒  -->
                     <controls:IconButton
-                        x:Name="LeftSliderbarBottomNotifyButton"
+                        x:Name="LeftSidebarBottomNotifyButton"
                         Width="32"
                         Margin="0,0,0,14"
                         Icon="{StaticResource Todo_NotifyIcon}"
@@ -128,7 +125,7 @@
                         Tag="Todo_NotifyIcon" />
                     <!--  更多  -->
                     <controls:IconButton
-                        x:Name="LeftSliderbarBottomMoreThingsButton"
+                        x:Name="LeftSidebarBottomMoreThingsButton"
                         Width="23"
                         Margin="0,0,0,4"
                         Icon="{StaticResource Todo_MoreThingsIcon}"
@@ -141,16 +138,41 @@
         <!--  弹窗列表  -->
         <Grid x:Name="PopupGrid" Grid.Column="0">
             <Popup
+                x:Name="SystemSettingPopup"
                 Width="175"
-                Height="50"
-                IsOpen="{Binding ElementName=LeftSlidebarTaskButton, Path=IsChecked}"
+                IsOpen="{Binding ElementName=LeftSidebarTaskButton, Path=IsChecked}"
                 PlacementTarget="{Binding ElementName=UserAvatar}"
                 Style="{StaticResource Todo_PopupStyle}">
                 <Grid>
                     <Border Style="{StaticResource Todo_PopupShadowBorderStyle}" />
                     <Border Style="{StaticResource Todo_PopupContentBorderStyle}">
                         <!--  主体内容  -->
-                        <TextBlock Foreground="Black" Text="111" />
+                        <StackPanel Margin="0,5" Orientation="Vertical">
+                            <controls:PopupItemIconButton
+                                x:Name="Setting"
+                                Background="{DynamicResource PopupContentBackground}"
+                                Content="设置"
+                                Icon="{StaticResource Todo_SystemIcon}"
+                                IconHeight="20"
+                                IconWidth="20"
+                                Style="{StaticResource Todo_PopupListItemButtonStyle}" />
+                            <controls:PopupItemIconButton
+                                x:Name="Statistic"
+                                Background="{DynamicResource PopupContentBackground}"
+                                Content="统计"
+                                Icon="{StaticResource Todo_TaskIcon}"
+                                IconHeight="20"
+                                IconWidth="20"
+                                Style="{StaticResource Todo_PopupListItemButtonStyle}" />
+                            <controls:PopupItemIconButton
+                                x:Name="SystemSetting"
+                                Background="{DynamicResource PopupContentBackground}"
+                                Content="高级会员"
+                                Icon="{StaticResource Todo_TaskIcon}"
+                                IconHeight="20"
+                                IconWidth="20"
+                                Style="{StaticResource Todo_PopupListItemButtonStyle}" />
+                        </StackPanel>
                     </Border>
                 </Grid>
             </Popup>

@@ -252,7 +252,7 @@
     <Style x:Key="Todo_PopupStyle" TargetType="{x:Type Popup}">
         <Setter Property="AllowsTransparency" Value="True" />
         <Setter Property="Focusable" Value="False" />
-        <Setter Property="HorizontalOffset" Value="10" />
+        <Setter Property="HorizontalOffset" Value="4" />
         <Setter Property="Placement" Value="Right" />
         <Setter Property="PopupAnimation" Value="Fade" />
         <Setter Property="StaysOpen" Value="False" />
@@ -282,6 +282,53 @@
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="CornerRadius" Value="5" />
         <Setter Property="BorderBrush" Value="{DynamicResource PopupContentBackground}" />
+    </Style>
+
+    <!--  弹窗列表按钮样式  -->
+    <Style x:Key="Todo_PopupListItemButtonStyle" TargetType="{x:Type controls:PopupItemIconButton}">
+        <Setter Property="Width" Value="154" />
+        <Setter Property="Height" Value="35" />
+        <Setter Property="Margin" Value="1,0" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:PopupItemIconButton}">
+                    <Border
+                        x:Name="InnerBorder"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="5">
+                        <!--  固定间距  -->
+                        <StackPanel
+                            Margin="10,0"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <Image
+                                Width="{Binding IconWidth, RelativeSource={RelativeSource TemplatedParent}}"
+                                Height="{Binding IconHeight, RelativeSource={RelativeSource TemplatedParent}}"
+                                Margin="0,0,5,0"
+                                VerticalAlignment="Center"
+                                Source="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontFamily="{TemplateBinding FontFamily}"
+                                FontSize="{TemplateBinding FontSize}"
+                                Foreground="{TemplateBinding Foreground}"
+                                Text="{TemplateBinding Content}" />
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="InnerBorder" Property="Background" Value="{DynamicResource ButtonSelectedBackground}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <!--  ToggleButton样式  -->

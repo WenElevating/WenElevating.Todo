@@ -134,7 +134,7 @@ namespace WenElevating.Todo
 
         private void InitializeLeftSlideCheckedControl()
         {
-            LeftSlidebarTaskButton.IsChecked = true;
+            LeftSidebarTaskButton.IsChecked = true;
         }
     }
 }
