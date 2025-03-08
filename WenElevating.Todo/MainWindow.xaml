@@ -5,15 +5,17 @@
     xmlns:controls="clr-namespace:WenElevating.Resources.CustomControls;assembly=WenElevating.Resources"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:WenElevating.Todo.ViewModels"
     Title="MainWindow"
     Width="1340"
     Height="900"
+    d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
     FontFamily="{DynamicResource Font_HongMeng}"
     Style="{StaticResource Todo_CommonWindowStyle}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources />
-    <Grid>
+    <Grid x:Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="53" />
             <ColumnDefinition Width="1*" />
@@ -112,6 +114,8 @@
                         x:Name="LeftSidebarBottomAsyncButton"
                         Width="25"
                         Margin="0,0,0,11"
+                        Click="LeftSidebarBottomAsyncButton_Click"
+                        Command="{Binding GetDataAsyncCommand}"
                         Icon="{StaticResource Todo_AsyncIcon}"
                         Style="{StaticResource Todo_CommonIconButtonStyle}"
                         Tag="Todo_AsyncIcon" />
