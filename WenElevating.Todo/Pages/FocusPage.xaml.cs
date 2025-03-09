@@ -19,7 +19,7 @@ namespace WenElevating.Todo.Pages
     /// <summary>
     /// FocusPage.xaml 的交互逻辑
     /// </summary>
-    [NavigationPageInfo("Todo_FocusIcon", "Todo_FocusIconSelected", "专注", "Focus")]
+    [NavigationPageInfo("Todo_FocusIcon", "Todo_FocusIconSelected", "专注", "Focus", 23, 25)]
     public partial class FocusPage : ApplicationPageBase
     {
         public FocusPage()

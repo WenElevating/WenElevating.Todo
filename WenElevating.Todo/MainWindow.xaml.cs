@@ -200,9 +200,12 @@ namespace WenElevating.Todo
 
         private void InitializeLeftSlideCheckedControl()
         {
-            LeftSidebarTaskButton.IsChecked = true;
+            //LeftSidebarTaskButton.IsChecked = true;
         }
 
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
+        }
     }
 }

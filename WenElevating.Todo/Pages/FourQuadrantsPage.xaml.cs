@@ -19,7 +19,7 @@ namespace WenElevating.Todo.Pages
     /// <summary>
     /// FourQuadrantsPage.xaml 的交互逻辑
     /// </summary>
-    [NavigationPageInfo("Todo_FourQuadrantsIcon", "Todo_FourQuadrantsIconSelected", "四象限", "FourQuadrants")]
+    [NavigationPageInfo("Todo_FourQuadrantsIcon", "Todo_FourQuadrantsIconSelected", "四象限", "FourQuadrants", 20, 25)]
     public partial class FourQuadrantsPage : ApplicationPageBase
     {
         public FourQuadrantsPage()

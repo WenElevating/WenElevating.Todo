@@ -17,12 +17,12 @@ using WenElevating.Todo.Models;
 namespace WenElevating.Todo.Pages
 {
     /// <summary>
-    /// PunchPage.xaml 的交互逻辑
+    /// SearchPage.xaml 的交互逻辑
     /// </summary>
-    [NavigationPageInfo("Todo_PunchIcon", "Todo_PunchIconSelected", "习惯打卡", "Punch", 30, 25)]
-    public partial class PunchPage : ApplicationPageBase
+    [NavigationPageInfo("Todo_SearchIcon", "Todo_SearchIconSelected", "搜索", "Search", 19, 25)]
+    public partial class SearchPage : ApplicationPageBase
     {
-        public PunchPage()
+        public SearchPage()
         {
             InitializeComponent();
         }

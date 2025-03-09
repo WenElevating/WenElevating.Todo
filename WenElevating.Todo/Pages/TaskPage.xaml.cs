@@ -19,7 +19,7 @@ namespace WenElevating.Todo.Pages
     /// <summary>
     /// TaskPage.xaml 的交互逻辑
     /// </summary>
-    [NavigationPageInfo("Todo_TaskIcon", "Todo_TaskIconSelected", "任务", "Task")]
+    [NavigationPageInfo("Todo_TaskIcon", "Todo_TaskIconSelected", "任务", "Task", 25, 25)]
     public partial class TaskPage : ApplicationPageBase
     {
         public TaskPage()

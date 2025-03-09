@@ -17,6 +17,16 @@ namespace WenElevating.Todo.Models
         public DrawingImage SelectedIcon { get; set; }
 
         /// <summary>
+        /// 图标宽度
+        /// </summary>
+        public double IconWidth { get; set; }
+
+        /// <summary>
+        /// 图标高度
+        /// </summary>
+        public double IconHeight { get; set; }
+
+        /// <summary>
         /// 导航名
         /// </summary>
         public string Title { get; set; } = "";
@@ -26,12 +36,14 @@ namespace WenElevating.Todo.Models
         /// </summary>
         public string Id { get; set; } = "";
 
-        public NavigationPageInfo(string noSelectedIcon, string selectedIcon, string title, string id = "")
+        public NavigationPageInfo(string noSelectedIcon, string selectedIcon, string title, string id = "", double iconWidth = 35, double iconHeight = 25)
         {
             NoSelectedIcon = (DrawingImage?)App.Current.Resources[noSelectedIcon] ?? (DrawingImage)App.Current.Resources["NormalNoSelectedIcon"];
             SelectedIcon = (DrawingImage?)App.Current.Resources[selectedIcon] ?? (DrawingImage)App.Current.Resources["NormalSelectedIcon"];
             Title = title;
             Id = id;
+            IconWidth = iconWidth;
+            IconHeight = iconHeight;
         }
 
         public NavigationPageInfo(string title, string id = ""): this("NormalNoSelectedIcon", "NormalSelectedIcon", title, id)

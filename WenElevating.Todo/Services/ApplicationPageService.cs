@@ -8,7 +8,7 @@ using WenElevating.Todo.Models;
 
 namespace WenElevating.Todo.Services
 {
-    public static class ApplicationPageService
+    public class ApplicationPageService
     {
 
         public static ObservableCollection<NavigationPageInfo> Registried { get; } = [];

@@ -28,6 +28,7 @@ namespace WenElevating.Todo
                 services.AddSystemPage<FourQuadrantsPage>();
                 services.AddSystemPage<FocusPage>();
                 services.AddSystemPage<PunchPage>();
+                services.AddSystemPage<SearchPage>();
                 services.AddSingleton<IPageService, PageServiceImpl>();
                 services.AddSingleton<MainWindow>();
             }).Build();

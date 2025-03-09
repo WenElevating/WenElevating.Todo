@@ -5,6 +5,7 @@
     xmlns:controls="clr-namespace:WenElevating.Resources.CustomControls;assembly=WenElevating.Resources"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:services="clr-namespace:WenElevating.Todo.Services"
     xmlns:vm="clr-namespace:WenElevating.Todo.ViewModels"
     Title="MainWindow"
     Width="1340"
@@ -14,7 +15,9 @@
     Style="{StaticResource Todo_CommonWindowStyle}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <Window.Resources />
+    <Window.Resources>
+        <CollectionViewSource x:Key="NavigationCollectionView" Source="{x:Static services:ApplicationPageService.Registried}" />
+    </Window.Resources>
     <Grid x:Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="53" />
@@ -40,73 +43,129 @@
                         x:Name="UserAvatar"
                         Width="30"
                         Height="30"
-                        Margin="10,0,5,25"
+                        Margin="10,0,5,10"
                         controls:RoundCornerHelper.CornerRadius="4"
                         Cursor="Hand"
                         RenderOptions.BitmapScalingMode="HighQuality"
                         Source="/WenElevating.Todo;component/Assets/avatar.jpg" />
 
-                    <ItemsControl />
-                    <!--  任务  -->
-                    <controls:IconRadioButton
-                        x:Name="LeftSidebarTaskButton"
-                        Width="25"
-                        Margin="0,0,0,25"
-                        Checked="LeftSlidebarButton_Checked"
-                        Icon="{StaticResource Todo_TaskIcon}"
-                        Style="{StaticResource Todo_CommonRadioIconButtonStyle}"
-                        Tag="Todo_TaskIcon"
-                        Unchecked="LeftSlidebarButton_Unchecked" />
-                    <!--  日历  -->
-                    <controls:IconRadioButton
-                        x:Name="LeftSidebarCalendarButton"
-                        Width="25"
-                        Margin="0,0,0,25"
-                        Checked="LeftSlidebarButton_Checked"
-                        Icon="{StaticResource Todo_CalendarIcon}"
-                        Style="{StaticResource Todo_CommonRadioIconButtonStyle}"
-                        Tag="Todo_CalendarIcon"
-                        Unchecked="LeftSlidebarButton_Unchecked" />
-                    <!--  四象限  -->
-                    <controls:IconRadioButton
-                        x:Name="LeftSidebarFourQuadrantsButton"
-                        Width="20"
-                        Margin="0,0,0,25"
-                        Checked="LeftSlidebarButton_Checked"
-                        Icon="{StaticResource Todo_FourQuadrantsIcon}"
-                        Style="{StaticResource Todo_CommonRadioIconButtonStyle}"
-                        Tag="Todo_FourQuadrantsIcon"
-                        Unchecked="LeftSlidebarButton_Unchecked" />
-                    <!--  专注  -->
-                    <controls:IconRadioButton
-                        x:Name="LeftSidebarFocusButton"
-                        Width="23"
-                        Margin="0,0,0,25"
-                        Checked="LeftSlidebarButton_Checked"
-                        Icon="{StaticResource Todo_FocusIcon}"
-                        Style="{StaticResource Todo_CommonRadioIconButtonNoMouseOverStyle}"
-                        Tag="Todo_FocusIcon"
-                        Unchecked="LeftSlidebarButton_Unchecked" />
-                    <!--  习惯打卡  -->
-                    <controls:IconRadioButton
-                        x:Name="LeftSidebarPunchButton"
-                        Width="30"
-                        Margin="0,0,0,25"
-                        Checked="LeftSlidebarButton_Checked"
-                        Icon="{StaticResource Todo_PunchIcon}"
-                        Style="{StaticResource Todo_CommonRadioIconButtonStyle}"
-                        Tag="Todo_PunchIcon"
-                        Unchecked="LeftSlidebarButton_Unchecked" />
-                    <!--  搜索  -->
-                    <controls:IconRadioButton
-                        x:Name="LeftSidebarSearchButton"
-                        Width="21"
-                        Margin="0,0,0,25"
-                        Checked="LeftSlidebarButton_Checked"
-                        Icon="{StaticResource Todo_SearchIcon}"
-                        Style="{StaticResource Todo_CommonRadioIconButtonStyle}"
-                        Tag="Todo_SearchIcon"
-                        Unchecked="LeftSlidebarButton_Unchecked" />
+                    <ListBox
+                        Background="{DynamicResource SidebarBackground}"
+                        BorderBrush="Transparent"
+                        ItemsSource="{Binding Source={StaticResource NavigationCollectionView}}"
+                        SelectedIndex="0"
+                        SelectionChanged="ListBox_SelectionChanged">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="Margin" Value="0,10,0,15" />
+                                <Setter Property="Background" Value="{DynamicResource SidebarBackground}" />
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="Opacity" Value="0.8" />
+                                <Setter Property="Cursor" Value="Hand" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                            <Border
+                                                x:Name="LitBoxItemBorder"
+                                                Background="Transparent"
+                                                BorderThickness="0">
+                                                <ContentPresenter />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="LitBoxItemBorder" Property="Background" Value="Transparent" />
+                                                    <Trigger.EnterActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <DoubleAnimation
+                                                                    Storyboard.TargetName="Image"
+                                                                    Storyboard.TargetProperty="Opacity"
+                                                                    To="1"
+                                                                    Duration="0:0:0.1" />
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </Trigger.EnterActions>
+                                                    <Trigger.ExitActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <DoubleAnimation
+                                                                    Storyboard.TargetName="Image"
+                                                                    Storyboard.TargetProperty="Opacity"
+                                                                    To="0.8"
+                                                                    Duration="0:0:0.1" />
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </Trigger.ExitActions>
+                                                </Trigger>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter Property="Opacity" Value="1" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <controls:IconRadioButton Tag="{Binding Id}">
+                                        <controls:IconRadioButton.Style>
+                                            <Style TargetType="{x:Type controls:IconRadioButton}">
+                                                <Setter Property="IsHitTestVisible" Value="False" />
+                                                <Setter Property="Icon" Value="{Binding NoSelectedIcon}" />
+                                                <Setter Property="IconWidth" Value="{Binding IconWidth}" />
+                                                <Setter Property="IconHeight" Value="{Binding IconHeight}" />
+                                                <Setter Property="Opacity" Value="1" />
+                                                <Setter Property="Background" Value="Transparent" />
+                                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                                <Setter Property="Focusable" Value="False" />
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type controls:IconRadioButton}">
+                                                            <Border
+                                                                x:Name="Border"
+                                                                Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}}"
+                                                                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                                                VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                                                Background="{TemplateBinding Background}"
+                                                                CornerRadius="5">
+                                                                <Image
+                                                                    x:Name="Image"
+                                                                    Width="{Binding IconWidth, RelativeSource={RelativeSource TemplatedParent}}"
+                                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                    Opacity="{TemplateBinding Opacity}"
+                                                                    Source="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBoxItem}}" Value="True">
+                                                        <Setter Property="Icon" Value="{Binding SelectedIcon}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </controls:IconRadioButton.Style>
+                                    </controls:IconRadioButton>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel
+                                    CacheLength="100"
+                                    IsVirtualizing="True"
+                                    IsVirtualizingWhenGrouping="True"
+                                    VirtualizationMode="Standard" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                    </ListBox>
+
                 </StackPanel>
 
                 <!--  下半部分  -->
