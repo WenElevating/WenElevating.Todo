@@ -21,6 +21,10 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0-preview.1.25080.5" />
+    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.183">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Sentry" Version="5.2.0" />
     <PackageReference Include="Sentry.Profiling" Version="5.2.0" />
   </ItemGroup>
@@ -31,7 +35,6 @@
 
   <ItemGroup>
     <Folder Include="Services\Impl\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\" />
     <Folder Include="Commons\" />
   </ItemGroup>

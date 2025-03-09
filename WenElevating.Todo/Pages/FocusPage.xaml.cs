@@ -12,13 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WenElevating.Todo.Models;
 
 namespace WenElevating.Todo.Pages
 {
     /// <summary>
     /// FocusPage.xaml 的交互逻辑
     /// </summary>
-    public partial class FocusPage : Page
+    [NavigationPageInfo("Todo_FocusIcon", "Todo_FocusIconSelected", "专注", "Focus")]
+    public partial class FocusPage : ApplicationPageBase
     {
         public FocusPage()
         {

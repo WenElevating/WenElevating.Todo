@@ -12,13 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WenElevating.Todo.Models;
 
 namespace WenElevating.Todo.Pages
 {
     /// <summary>
     /// CalendarPage.xaml 的交互逻辑
     /// </summary>
-    public partial class CalendarPage : Page
+    [NavigationPageInfo("Todo_CalendarIcon", "Todo_CalendarIconSelected", "日历", "Calendar")]
+    public partial class CalendarPage : ApplicationPageBase
     {
         public CalendarPage()
         {

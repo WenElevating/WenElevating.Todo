@@ -9,6 +9,7 @@ using WenElevating.Todo.Pages;
 using WenElevating.Todo.Utilties;
 using System.Windows.Threading;
 using Sentry.Infrastructure;
+using WenElevating.Todo.Extensions;
 
 namespace WenElevating.Todo
 {
@@ -22,11 +23,11 @@ namespace WenElevating.Todo
             .CreateDefaultBuilder()
             .ConfigureServices((context, services) =>
             {
-                services.AddSingleton<TaskPage>();
-                services.AddSingleton<CalendarPage>();
-                services.AddSingleton<FourQuadrantsPage>();
-                services.AddSingleton<FocusPage>();
-                services.AddSingleton<PunchPage>();
+                services.AddSystemPage<TaskPage>();
+                services.AddSystemPage<CalendarPage>();
+                services.AddSystemPage<FourQuadrantsPage>();
+                services.AddSystemPage<FocusPage>();
+                services.AddSystemPage<PunchPage>();
                 services.AddSingleton<IPageService, PageServiceImpl>();
                 services.AddSingleton<MainWindow>();
             }).Build();

@@ -52,10 +52,15 @@ namespace WenElevating.Todo
         {
             InitializeInjection();
             InitializeLeftSlideCheckedControl();
+            InitAdorner();
+        }
+
+        private void InitAdorner()
+        {
             AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(MainGrid);
             adornerLayer?.Add(new DevelopmentEnvironmentAdorner(MainGrid, new TextBlock()
             {
-                Margin = new Thickness(0,0,5,10),
+                Margin = new Thickness(0, 0, 5, 10),
                 FontSize = 12,
                 Foreground = new SolidColorBrush(Colors.Black),
                 Text = "开发中画面，不代表最终品质",

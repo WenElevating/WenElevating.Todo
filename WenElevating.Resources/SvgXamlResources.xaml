@@ -38,6 +38,7 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+
     <!--  习惯打卡图标  -->
     <DrawingImage x:Key="Todo_PunchIcon">
         <DrawingImage.Drawing>
@@ -46,6 +47,7 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
+
 
     <!--  搜索图标  -->
     <DrawingImage x:Key="Todo_SearchIcon">
@@ -56,6 +58,7 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+
     <!--  同步图标  -->
     <DrawingImage x:Key="Todo_AsyncIcon">
         <DrawingImage.Drawing>
@@ -64,6 +67,7 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
+
 
     <!--  提醒与通知图标  -->
     <DrawingImage x:Key="Todo_NotifyIcon">
@@ -74,6 +78,7 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+
     <!--  更多图标  -->
     <DrawingImage x:Key="Todo_MoreThingsIcon">
         <DrawingImage.Drawing>
@@ -82,6 +87,7 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
+
 
     <!--  最小化图标  -->
     <DrawingImage x:Key="Todo_WindowMinimizeIcon">
@@ -92,6 +98,7 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+
     <!--  最大化  -->
     <DrawingImage x:Key="Todo_WindowMaximizeIcon">
         <DrawingImage.Drawing>
@@ -100,6 +107,7 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
+
 
     <!--  还原  -->
     <DrawingImage x:Key="Todo_WindowResetIcon">
@@ -111,6 +119,7 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+
     <!--  关闭  -->
     <DrawingImage x:Key="Todo_WindowCloseIcon">
         <DrawingImage.Drawing>
@@ -119,6 +128,7 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
+
 
     <!--  VIP  -->
     <DrawingImage x:Key="Todo_VIPIcon">
@@ -137,6 +147,7 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
+
 
     <!--  系统设置  -->
     <DrawingImage x:Key="Todo_SystemIcon">

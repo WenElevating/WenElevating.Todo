@@ -12,13 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WenElevating.Todo.Models;
 
 namespace WenElevating.Todo.Pages
 {
     /// <summary>
     /// PunchPage.xaml 的交互逻辑
     /// </summary>
-    public partial class PunchPage : Page
+    [NavigationPageInfo("Todo_PunchIcon", "Todo_PunchIconSelected", "习惯打卡", "Punch")]
+    public partial class PunchPage : ApplicationPageBase
     {
         public PunchPage()
         {

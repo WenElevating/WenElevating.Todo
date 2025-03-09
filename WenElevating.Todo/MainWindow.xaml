@@ -45,6 +45,8 @@
                         Cursor="Hand"
                         RenderOptions.BitmapScalingMode="HighQuality"
                         Source="/WenElevating.Todo;component/Assets/avatar.jpg" />
+
+                    <ItemsControl />
                     <!--  任务  -->
                     <controls:IconRadioButton
                         x:Name="LeftSidebarTaskButton"

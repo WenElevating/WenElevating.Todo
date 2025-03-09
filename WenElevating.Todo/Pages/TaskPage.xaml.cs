@@ -12,13 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WenElevating.Todo.Models;
 
 namespace WenElevating.Todo.Pages
 {
     /// <summary>
     /// TaskPage.xaml 的交互逻辑
     /// </summary>
-    public partial class TaskPage : Page
+    [NavigationPageInfo("Todo_TaskIcon", "Todo_TaskIconSelected", "任务", "Task")]
+    public partial class TaskPage : ApplicationPageBase
     {
         public TaskPage()
         {
