@@ -39,21 +39,33 @@
                 <!--  上半部分  -->
                 <StackPanel Grid.Row="0">
                     <!--  用户头像  -->
-                    <Image
+                    <RadioButton
                         x:Name="UserAvatar"
-                        Width="30"
-                        Height="30"
-                        Margin="10,0,5,10"
-                        controls:RoundCornerHelper.CornerRadius="4"
-                        Cursor="Hand"
-                        RenderOptions.BitmapScalingMode="HighQuality"
-                        Source="/WenElevating.Todo;component/Assets/avatar.jpg" />
+                        HorizontalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        Checked="UserAvatar_Checked"
+                        Cursor="Hand">
+                        <RadioButton.Template>
+                            <ControlTemplate TargetType="{x:Type RadioButton}">
+                                <Border HorizontalAlignment="Center">
+                                    <Image
+                                        Width="30"
+                                        Height="30"
+                                        Margin="2,5,0,5"
+                                        HorizontalAlignment="Center"
+                                        controls:RoundCornerHelper.CornerRadius="4"
+                                        RenderOptions.BitmapScalingMode="HighQuality"
+                                        Source="/WenElevating.Todo;component/Assets/avatar.jpg" />
+                                </Border>
+                            </ControlTemplate>
+                        </RadioButton.Template>
+                    </RadioButton>
 
                     <ListBox
                         Background="{DynamicResource SidebarBackground}"
                         BorderBrush="Transparent"
                         ItemsSource="{Binding Source={StaticResource NavigationCollectionView}}"
-                        SelectedIndex="0"
+                        SelectedItem="{Binding CurrentSelectedPageInfo}"
                         SelectionChanged="ListBox_SelectionChanged">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="{x:Type ListBoxItem}">
@@ -64,6 +76,7 @@
                                 <Setter Property="BorderThickness" Value="0" />
                                 <Setter Property="Opacity" Value="0.8" />
                                 <Setter Property="Cursor" Value="Hand" />
+                                <Setter Property="ToolTip" Value="{Binding Title}" />
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -74,31 +87,32 @@
                                                 <ContentPresenter />
                                             </Border>
                                             <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="LitBoxItemBorder" Property="Background" Value="Transparent" />
-                                                    <Trigger.EnterActions>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="IsMouseOver" Value="True" />
+                                                        <Condition Property="IsSelected" Value="False" />
+                                                    </MultiTrigger.Conditions>
+                                                    <MultiTrigger.EnterActions>
                                                         <BeginStoryboard>
                                                             <Storyboard>
                                                                 <DoubleAnimation
-                                                                    Storyboard.TargetName="Image"
                                                                     Storyboard.TargetProperty="Opacity"
                                                                     To="1"
                                                                     Duration="0:0:0.1" />
                                                             </Storyboard>
                                                         </BeginStoryboard>
-                                                    </Trigger.EnterActions>
-                                                    <Trigger.ExitActions>
+                                                    </MultiTrigger.EnterActions>
+                                                    <MultiTrigger.ExitActions>
                                                         <BeginStoryboard>
                                                             <Storyboard>
                                                                 <DoubleAnimation
-                                                                    Storyboard.TargetName="Image"
                                                                     Storyboard.TargetProperty="Opacity"
                                                                     To="0.8"
                                                                     Duration="0:0:0.1" />
                                                             </Storyboard>
                                                         </BeginStoryboard>
-                                                    </Trigger.ExitActions>
-                                                </Trigger>
+                                                    </MultiTrigger.ExitActions>
+                                                </MultiTrigger>
                                                 <Trigger Property="IsSelected" Value="True">
                                                     <Setter Property="Opacity" Value="1" />
                                                 </Trigger>
@@ -205,7 +219,7 @@
             <Popup
                 x:Name="SystemSettingPopup"
                 Width="175"
-                IsOpen="{Binding ElementName=LeftSidebarTaskButton, Path=IsChecked}"
+                IsOpen="{Binding ElementName=UserAvatar, Path=IsChecked}"
                 PlacementTarget="{Binding ElementName=UserAvatar}"
                 Style="{StaticResource Todo_PopupStyle}">
                 <Grid>
@@ -225,15 +239,15 @@
                                 x:Name="Statistic"
                                 Background="{DynamicResource PopupContentBackground}"
                                 Content="统计"
-                                Icon="{StaticResource Todo_TaskIcon}"
-                                IconHeight="20"
-                                IconWidth="20"
+                                Icon="{StaticResource Todo_Statisic}"
+                                IconHeight="18"
+                                IconWidth="15"
                                 Style="{StaticResource Todo_PopupListItemButtonStyle}" />
                             <controls:PopupItemIconButton
                                 x:Name="SystemSetting"
                                 Background="{DynamicResource PopupContentBackground}"
                                 Content="高级会员"
-                                Icon="{StaticResource Todo_TaskIcon}"
+                                Icon="{StaticResource Todo_HigherVip}"
                                 IconHeight="20"
                                 IconWidth="20"
                                 Style="{StaticResource Todo_PopupListItemButtonStyle}" />
@@ -298,6 +312,7 @@
                 <Frame
                     x:Name="PageFrame"
                     Grid.Row="1"
+                    Content="{Binding CurrentPage}"
                     Focusable="False"
                     NavigationUIVisibility="Hidden" />
             </Grid>

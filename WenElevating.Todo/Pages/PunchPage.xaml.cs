@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WenElevating.Todo.Models;
+using WenElevating.Todo.Attributies;
 
 namespace WenElevating.Todo.Pages
 {

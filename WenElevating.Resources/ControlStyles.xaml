@@ -315,23 +315,28 @@
                         Background="{TemplateBinding Background}"
                         CornerRadius="5">
                         <!--  固定间距  -->
-                        <StackPanel
-                            Margin="10,0"
-                            VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                        <Grid VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="6" />
+                                <ColumnDefinition Width="25" />
+                                <ColumnDefinition Width="3" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
                             <Image
+                                Grid.Column="1"
                                 Width="{Binding IconWidth, RelativeSource={RelativeSource TemplatedParent}}"
                                 Height="{Binding IconHeight, RelativeSource={RelativeSource TemplatedParent}}"
                                 Margin="0,0,5,0"
                                 VerticalAlignment="Center"
                                 Source="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
                             <TextBlock
+                                Grid.Column="3"
                                 VerticalAlignment="Center"
                                 FontFamily="{TemplateBinding FontFamily}"
                                 FontSize="{TemplateBinding FontSize}"
                                 Foreground="{TemplateBinding Foreground}"
                                 Text="{TemplateBinding Content}" />
-                        </StackPanel>
+                        </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">

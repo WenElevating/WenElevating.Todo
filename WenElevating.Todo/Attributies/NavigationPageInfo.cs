@@ -1,6 +1,6 @@
 ﻿using System.Windows.Media;
 
-namespace WenElevating.Todo.Models
+namespace WenElevating.Todo.Attributies
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public class NavigationPageInfo : Attribute

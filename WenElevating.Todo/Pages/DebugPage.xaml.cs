@@ -17,12 +17,12 @@ using WenElevating.Todo.Attributies;
 namespace WenElevating.Todo.Pages
 {
     /// <summary>
-    /// FocusPage.xaml 的交互逻辑
+    /// DebugPage.xaml 的交互逻辑
     /// </summary>
-    [NavigationPageInfo("Todo_FocusIcon", "Todo_FocusIconSelected", "专注", "Focus", 23, 25)]
-    public partial class FocusPage : ApplicationPageBase
+    [NavigationPageInfo("Todo_DebugIcon", "Todo_DebugSelectedIcon", "调试", "Debug", 25, 25)]
+    public partial class DebugPage : ApplicationPageBase
     {
-        public FocusPage()
+        public DebugPage()
         {
             InitializeComponent();
         }

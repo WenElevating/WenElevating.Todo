@@ -5,23 +5,69 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
+using WenElevating.Todo.Attributies;
+using WenElevating.Todo.Pages;
+using WenElevating.Todo.Services;
 
 namespace WenElevating.Todo.ViewModels
 {
     public partial class MainWindowViewModel : ObservableObject
     {
 
+        private NavigationPageInfo _currentPageInfo;
+        public NavigationPageInfo CurrentSelectedPageInfo
+        {
+            get => _currentPageInfo;
+            set
+            {
+                if (_currentPageInfo != value)
+                {
+                    _currentPageInfo = value;
+                    UpdateCurrentPage(_currentPageInfo);
+                    OnNavigationPageInfoChanged?.Invoke(_currentPageInfo);
+                    SetProperty(ref _currentPageInfo, value);
+                }
+            }
+        }
+
+        private ApplicationPageBase _currentPage;
+        public ApplicationPageBase CurrentPage
+        {
+            get => _currentPage;
+            set
+            {
+                if (_currentPage != value)
+                {
+                    _currentPage = value;
+                    SetProperty(ref _currentPage, value);
+                }
+            }
+        }
+
         public IRelayCommand GetDataAsyncCommand { get; set; }
+
+        /// <summary>
+        /// 页面更新事件
+        /// </summary>
+        public Action<NavigationPageInfo>? OnNavigationPageInfoChanged;
 
 
         public MainWindowViewModel()
         {
+            _currentPageInfo = ApplicationPageService.Registried[0];
+            _currentPage = App.host.Services.GetRequiredKeyedService<ApplicationPageBase>(_currentPageInfo.Id);
             GetDataAsyncCommand = new AsyncRelayCommand(GetSystemDataAsync);
         }
 
         private async Task GetSystemDataAsync()
         {
             await Task.Delay(1);
+        }
+
+        private void UpdateCurrentPage(NavigationPageInfo currentPageInfo)
+        {
+            CurrentPage = App.host.Services.GetRequiredKeyedService<ApplicationPageBase>(currentPageInfo.Id);
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using WenElevating.Todo.Models;
+using WenElevating.Todo.Attributies;
 using WenElevating.Todo.Pages;
 using WenElevating.Todo.Services;
 
@@ -29,8 +29,20 @@ namespace WenElevating.Todo.Extensions
             }
 
             ApplicationPageService.Registried.Add(pageInfo);
+
+            //加载默认选中
+            SetDefaultSelectedPage();
+
             // 加载策略 Todo
             return services.AddKeyedTransient<ApplicationPageBase,T>(pageInfo.Id);
+        }
+
+        private static void SetDefaultSelectedPage()
+        {
+            if (ApplicationPageService.Registried.Count == 1)
+            {
+                ApplicationPageService.DefaultSelectedPage = ApplicationPageService.Registried[0].Id;
+            }
         }
     }
 }
