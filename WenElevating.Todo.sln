@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WenElevating.Todo", "WenElevating.Todo\WenElevating.Todo.csproj", "{CCE1E25D-7C24-4DED-98DD-9ACDE89D175C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WenElevating.Resources", "WenElevating.Resources\WenElevating.Resources.csproj", "{48580E91-C20A-45B7-B115-C9DC57B4E5A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WenElevating.Core", "WenElevating.Core\WenElevating.Core.csproj", "{FF4127AB-21D6-4B57-87B0-BECA01A8039D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{48580E91-C20A-45B7-B115-C9DC57B4E5A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48580E91-C20A-45B7-B115-C9DC57B4E5A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48580E91-C20A-45B7-B115-C9DC57B4E5A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF4127AB-21D6-4B57-87B0-BECA01A8039D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF4127AB-21D6-4B57-87B0-BECA01A8039D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF4127AB-21D6-4B57-87B0-BECA01A8039D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF4127AB-21D6-4B57-87B0-BECA01A8039D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

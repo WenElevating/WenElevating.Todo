@@ -5,12 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Win32;
 
-namespace WenElevating.Todo.Services
+namespace WenElevating.Core.Services
 {
-    public class ApplicationDebugService
+    public class DebugWindowService
     {
-
-        public static void CreateDebugWindow()
+        public static void CreateWindow()
         {
             PInvoke.AllocConsole();
             PInvoke.SetConsoleTitle("TODO");

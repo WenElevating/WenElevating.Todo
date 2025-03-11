@@ -14,6 +14,7 @@ using WenElevating.Todo.ViewModels;
 using Microsoft.Win32;
 using Windows.Win32;
 using WenElevating.Todo.Services;
+using WenElevating.Core.Services;
 
 namespace WenElevating.Todo
 {
@@ -47,7 +48,7 @@ namespace WenElevating.Todo
         {
 #if DEBUG
             IsDebugMode = true;
-            ApplicationDebugService.CreateDebugWindow();
+            DebugWindowService.CreateWindow();
 #endif
             DispatcherUnhandledException += App_DispatcherUnhandledException;
         }

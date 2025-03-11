@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WenElevating.Core\WenElevating.Core.csproj" />
     <ProjectReference Include="..\WenElevating.Resources\WenElevating.Resources.csproj" />
   </ItemGroup>
 
