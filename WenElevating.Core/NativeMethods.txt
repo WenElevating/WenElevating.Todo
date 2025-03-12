@@ -1,3 +1,11 @@
 AllocConsole
 GetConsoleTitle
 SetConsoleTitle
+CreateConsoleScreenBuffer
+WriteConsoleOutput
+SetConsoleMode 
+GetConsoleMode 
+SetConsoleActiveScreenBuffer
+GetStdHandle
+CloseHandle
+WriteConsoleOutputCharacter

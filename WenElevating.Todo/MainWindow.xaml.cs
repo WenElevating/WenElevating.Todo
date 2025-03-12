@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using WenElevating.Resources.CustomControls;
 using WenElevating.Todo.Attributies;
 using WenElevating.Todo.Controls;
@@ -47,10 +48,16 @@ namespace WenElevating.Todo
         /// </summary>
         private NavigationService? _navigationService;
 
-        public MainWindow(IPageService pageService, MainWindowViewModel viewModel)
+        /// <summary>
+        /// 日志
+        /// </summary>
+        private readonly ILogger _logger;
+
+        public MainWindow(IPageService pageService, MainWindowViewModel viewModel, ILogger<MainWindow> logger)
         {
             _pageService = pageService;
             _viewModel = viewModel;
+            _logger = logger;
             DataContext = _viewModel;
             InitializeComponent();
             Loaded += MainWindow_Loaded;
@@ -61,6 +68,7 @@ namespace WenElevating.Todo
             InitAdorner();
             _navigationService = PageFrame.NavigationService;
             _viewModel.OnNavigationPageInfoChanged += OnNavigationPageInfoChanged;
+            _logger.LogInformation("MainWindow is loaded");
         }
 
         private void OnNavigationPageInfoChanged(NavigationPageInfo info)

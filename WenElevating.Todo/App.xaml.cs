@@ -15,6 +15,7 @@ using Microsoft.Win32;
 using Windows.Win32;
 using WenElevating.Todo.Services;
 using WenElevating.Core.Services;
+using Microsoft.Extensions.Logging;
 
 namespace WenElevating.Todo
 {
@@ -27,6 +28,11 @@ namespace WenElevating.Todo
         public static new App Current = (App)Application.Current;
         public static readonly IHost host = Host
                         .CreateDefaultBuilder()
+                        .ConfigureLogging((context,logging) =>
+                        {
+                            logging.AddDebug();
+                            logging.AddConsole();
+                        })
                         .ConfigureServices((context, services) =>
                         {
                             services.AddSystemPage<TaskPage>();
@@ -47,10 +53,18 @@ namespace WenElevating.Todo
         public App()
         {
 #if DEBUG
-            IsDebugMode = true;
-            DebugWindowService.CreateWindow();
+            InitializeDebugService();
 #endif
             DispatcherUnhandledException += App_DispatcherUnhandledException;
+        }
+
+        private void InitializeDebugService()
+        {
+            IsDebugMode = true;
+            DebugWindowService.InitializeDefaultWindow();
+            // 版本信息
+            DebugWindowService.PrintInformation("1.1.0");
+            DebugWindowService.PrintInformation("「相信奇迹的人，本身就和奇迹一样了不起！」", ConsoleColor.Green);
         }
 
         private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
@@ -72,7 +86,6 @@ namespace WenElevating.Todo
         {
             //base.OnExit(e);
             await host.StopAsync();
-
             host.Dispose();
         }
 
