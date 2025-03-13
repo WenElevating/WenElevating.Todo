@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Policy;
@@ -73,6 +74,7 @@ namespace WenElevating.Todo
 
         private void OnNavigationPageInfoChanged(NavigationPageInfo info)
         {
+            Console.WriteLine($"Trace：Navigation to {info.Id}\n\t开始导航");
             _navigationService?.Navigate(App.host.Services.GetRequiredKeyedService<ApplicationPageBase>(info.Id));
         }
 
