@@ -58,6 +58,8 @@ namespace WenElevating.Core.Services
             Red = 0x0003,
         }
 
+        private static readonly string Id = "DebugWindowService";
+
         /// <summary>
         /// 输出字符背景颜色
         /// </summary>
@@ -86,7 +88,7 @@ namespace WenElevating.Core.Services
             SetDebugWindowBeautifulTitle();
         }
 
-        public static void PrintInformation(string msg, ConsoleColor forground = ConsoleColor.White)
+        public static void PrintInformation(string msg,ConsoleColor forground = ConsoleColor.White)
         {
             if (string.IsNullOrWhiteSpace(msg))
             {
@@ -94,7 +96,7 @@ namespace WenElevating.Core.Services
             }
 
             Console.ForegroundColor = forground;
-            Console.WriteLine(msg);
+            Console.WriteLine($"[{Id}] {msg}");
             Console.WriteLine();
         }
 

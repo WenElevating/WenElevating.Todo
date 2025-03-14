@@ -14,7 +14,6 @@ namespace WenElevating.Todo.ViewModels
 {
     public partial class MainWindowViewModel : ObservableObject
     {
-
         private NavigationPageInfo _currentPageInfo;
 
         public NavigationPageInfo CurrentSelectedPageInfo
@@ -47,6 +46,9 @@ namespace WenElevating.Todo.ViewModels
             }
         }
 
+        /// <summary>
+        /// 数据同步
+        /// </summary>
         public IRelayCommand SynchronousDataAsyncCommand { get; set; }
 
         /// <summary>
@@ -61,14 +63,14 @@ namespace WenElevating.Todo.ViewModels
             SynchronousDataAsyncCommand = new AsyncRelayCommand(SynchronousDataAsync);
         }
 
-        private async Task SynchronousDataAsync()
-        {
-            await Task.Delay(1);
-        }
-
         private void UpdateCurrentPage(NavigationPageInfo currentPageInfo)
         {
             CurrentPage = App.host.Services.GetRequiredKeyedService<ApplicationPageBase>(currentPageInfo.Id);
+        }
+
+        private async Task SynchronousDataAsync()
+        {
+            await Task.Delay(1);
         }
     }
 }

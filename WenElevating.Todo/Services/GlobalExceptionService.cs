@@ -28,11 +28,11 @@ namespace WenElevating.Todo.Services
         /// <summary>
         /// 日志记录
         /// </summary>
-        private static ILogger<GlobalExceptionService>? _lazyLogger;
+        private ILogger<GlobalExceptionService>? _logger;
 
         public GlobalExceptionService(ILogger<GlobalExceptionService> logger)
         {
-            _lazyLogger = logger;    
+            _logger = logger;    
         }
 
         /// <summary>
@@ -68,13 +68,18 @@ namespace WenElevating.Todo.Services
             e.Handled = true;
         }
 
+        private void LogConsole(string message)
+        {
+            _logger?.LogError(AppLogEvents.UnCatch, message);
+        }
+
         /// <summary>
         /// 考虑线程安全
         /// </summary>
         /// <param name="ex"></param>
         /// <param name="functionName"></param>
         /// <param name="recordType"></param>
-        public static void Capture(Exception ex, string functionName = "", ExceptionRecordType recordType = ExceptionRecordType.Console)
+        public void Capture(Exception ex, string functionName = "", ExceptionRecordType recordType = ExceptionRecordType.Console)
         {
             string message = BuildExceptionMessage(ex, functionName);
 
@@ -82,7 +87,7 @@ namespace WenElevating.Todo.Services
             switch (recordType)
             {
                 case ExceptionRecordType.Console:
-                    _lazyLogger?.LogError(AppLogEvents.UnCatch, message);
+                    LogConsole(message);
                     break;
                 case ExceptionRecordType.File:
                     // Todo

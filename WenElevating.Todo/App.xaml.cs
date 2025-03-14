@@ -16,6 +16,7 @@ using Windows.Win32;
 using WenElevating.Todo.Services;
 using WenElevating.Core.Services;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace WenElevating.Todo
 {
@@ -24,11 +25,6 @@ namespace WenElevating.Todo
     /// </summary>
     public partial class App : Application
     {
-        /// <summary>
-        /// 全局异常服务
-        /// </summary>
-        private GlobalExceptionService? _exceptionService;
-
         /// <summary>
         /// 主窗体
         /// </summary>
@@ -45,6 +41,16 @@ namespace WenElevating.Todo
         public bool IsDebugMode = false;
 
         /// <summary>
+        /// 异常处理服务
+        /// </summary>
+        public GlobalExceptionService? _exceptionService;
+
+        /// <summary>
+        /// 系统配置服务
+        /// </summary>
+        public ApplicationConfigurationService? _configurationService;
+
+        /// <summary>
         /// 全局应用实例
         /// </summary>
         public static new App Current = (App)Application.Current;
@@ -54,11 +60,21 @@ namespace WenElevating.Todo
         /// </summary>
         public static readonly IHost host = Host
                         .CreateDefaultBuilder()
-                        .ConfigureLogging((context,logging) =>
+                        .UseContentRoot(AppContext.BaseDirectory)
+                        // 配置应用程序环境配置
+                        .ConfigureAppConfiguration((context, configuration) =>
+                        {
+                            configuration.AddJsonFile("appsettings.json")
+                            .AddEnvironmentVariables()
+                            .Build();
+                        })
+                        // 配置日志管理
+                        .ConfigureLogging((context, logging) =>
                         {
                             logging.AddDebug();
                             logging.AddConsole();
                         })
+                        // 配置DI服务
                         .ConfigureServices((context, services) =>
                         {
                             services.AddSystemPage<TaskPage>();
@@ -72,6 +88,7 @@ namespace WenElevating.Todo
 #endif
                             services.AddSingleton<IPageService, PageServiceImpl>();
                             services.AddSingleton<GlobalExceptionService>();
+                            services.AddSingleton<ApplicationConfigurationService>();
 
                             // host service
                             services.AddHostedService<MemoryMonitoringService>();

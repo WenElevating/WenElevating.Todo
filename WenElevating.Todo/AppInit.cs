@@ -10,6 +10,7 @@ using WenElevating.Core.Services;
 using System.Windows;
 using Microsoft.Extensions.Hosting;
 using WenElevating.Todo.Services;
+using Microsoft.Extensions.Configuration;
 
 namespace WenElevating.Todo
 {
@@ -42,18 +43,8 @@ namespace WenElevating.Todo
             InitializeLogger();
 
             InitializeApplicationExceptionHandler();
-        }
 
-        private void InitializeLogger()
-        {
-            _logger ??= host.Services.GetRequiredService<ILogger<App>>();
-        }
-
-        private void InitializeMainWindow()
-        {
-            // 主窗体初始化
-            _mainWindow ??= host.Services.GetRequiredService<MainWindow>();
-            _mainWindow.Show();
+            InitializeApplicationConfiguration();
         }
 
         private void InitializeDebugService()
@@ -65,7 +56,27 @@ namespace WenElevating.Todo
 
             // 设置应用版本信息
             DebugWindowService.PrintInformation("1.1.0");
+
+            // 提示语
             DebugWindowService.PrintInformation("「相信奇迹的人，本身就和奇迹一样了不起！」", ConsoleColor.Green);
+
+            // log输出
+            DebugWindowService.PrintInformation("[Loading]：调试窗口已完成初始化");
+        }
+
+        private void InitializeMainWindow()
+        {
+            // 主窗体初始化
+            _mainWindow ??= host.Services.GetRequiredService<MainWindow>();
+            _mainWindow.Show();
+
+            // 提示语
+            DebugWindowService.PrintInformation("[Loading]：主界面已完成初始化");
+        }
+
+        private void InitializeLogger()
+        {
+            _logger ??= host.Services.GetRequiredService<ILogger<App>>();
         }
 
         private void InitializeApplicationExceptionHandler()
@@ -81,6 +92,14 @@ namespace WenElevating.Todo
 
             // 非UI线程未捕获异常
             AppDomain.CurrentDomain.UnhandledException += _exceptionService.CurrentDomain_UnhandledException;
+
+            // log输出
+            DebugWindowService.PrintInformation("[Loading]：全局异常捕获服务已完成初始化");
+        }
+
+        private void InitializeApplicationConfiguration()
+        {
+            _configurationService ??= host.Services.GetRequiredService<ApplicationConfigurationService>();
         }
     }
 }

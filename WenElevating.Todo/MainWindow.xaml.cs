@@ -23,6 +23,7 @@ using WenElevating.Resources.CustomControls;
 using WenElevating.Todo.Attributies;
 using WenElevating.Todo.Commons.Logs;
 using WenElevating.Todo.Controls;
+using WenElevating.Todo.Extensions;
 using WenElevating.Todo.Interfaces;
 using WenElevating.Todo.Interfaces.Impl;
 using WenElevating.Todo.Pages;
@@ -67,16 +68,6 @@ namespace WenElevating.Todo
         }
 
         /// <summary>
-        /// Frame导航事件
-        /// </summary>
-        /// <param name="info"></param>
-        private void OnNavigationPageInfoChanged(NavigationPageInfo info)
-        {
-            _logger.LogInformation(AppLogEvents.Navigation, "开始导航");
-            _navigationService?.Navigate(App.host.Services.GetRequiredKeyedService<ApplicationPageBase>(info.Id));
-        }
-
-        /// <summary>
         /// 初始化装饰器
         /// </summary>
         private void InitAdorner()
@@ -91,6 +82,16 @@ namespace WenElevating.Todo
                 VerticalAlignment = VerticalAlignment.Bottom,
                 HorizontalAlignment = HorizontalAlignment.Right,
             }));
+        }
+
+        /// <summary>
+        /// Frame导航事件
+        /// </summary>
+        /// <param name="info"></param>
+        private void OnNavigationPageInfoChanged(NavigationPageInfo info)
+        {
+            _logger.LogInfo(AppLogEvents.Navigation, $"开始导航到{info.Title}");
+            _navigationService?.Navigate(App.host.Services.GetRequiredKeyedService<ApplicationPageBase>(info.Id));
         }
 
         /// <summary>
@@ -132,6 +133,7 @@ namespace WenElevating.Todo
 
         private void UserAvatar_Checked(object sender, RoutedEventArgs e)
         {
+
         }
 
         #region SystemOperation

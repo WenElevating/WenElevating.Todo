@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using WenElevating.Todo.Extensions;
 
 namespace WenElevating.Todo.Services
 {
@@ -25,52 +26,52 @@ namespace WenElevating.Todo.Services
 
         private void OnStopped()
         {
-            _logger.LogInformation("on stopped callback is enable");
+            _logger.LogInfo("on stopped callback is enable");
         }
 
         private void OnStopping()
         {
-            _logger.LogInformation("on stopping callback is enable");
+            _logger.LogInfo("on stopping callback is enable");
         }
 
         private void OnStarted()
         {
-            _logger.LogInformation("on started callback is enable");
+            _logger.LogInfo("on started callback is enable");
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("async start task");
+            _logger.LogInfo("async start task");
             return Task.CompletedTask;
         }
 
         public Task StartedAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("async task is started");
+            _logger.LogInfo("async task is started");
             return Task.CompletedTask;
         }
 
         public Task StartingAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("async task is starting");
+            _logger.LogInfo("async task is starting");
             return Task.CompletedTask;
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("async task is stop");
+            _logger.LogInfo("async task is stop");
             return Task.CompletedTask;
         }
 
         public Task StoppedAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("async task is stoped");
+            _logger.LogInfo("async task is stoped");
             return Task.CompletedTask;
         }
 
         public Task StoppingAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("async task is Stoping");
+            _logger.LogInfo("async task is Stoping");
             return Task.CompletedTask;
         }
     }
