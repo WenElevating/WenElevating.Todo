@@ -16,6 +16,7 @@ namespace WenElevating.Todo.ViewModels
     {
 
         private NavigationPageInfo _currentPageInfo;
+
         public NavigationPageInfo CurrentSelectedPageInfo
         {
             get => _currentPageInfo;
@@ -32,6 +33,7 @@ namespace WenElevating.Todo.ViewModels
         }
 
         private ApplicationPageBase _currentPage;
+
         public ApplicationPageBase CurrentPage
         {
             get => _currentPage;
@@ -45,22 +47,21 @@ namespace WenElevating.Todo.ViewModels
             }
         }
 
-        public IRelayCommand GetDataAsyncCommand { get; set; }
+        public IRelayCommand SynchronousDataAsyncCommand { get; set; }
 
         /// <summary>
         /// 页面更新事件
         /// </summary>
         public Action<NavigationPageInfo>? OnNavigationPageInfoChanged;
 
-
         public MainWindowViewModel()
         {
             _currentPageInfo = ApplicationPageService.Registried[0];
             _currentPage = App.host.Services.GetRequiredKeyedService<ApplicationPageBase>(_currentPageInfo.Id);
-            GetDataAsyncCommand = new AsyncRelayCommand(GetSystemDataAsync);
+            SynchronousDataAsyncCommand = new AsyncRelayCommand(SynchronousDataAsync);
         }
 
-        private async Task GetSystemDataAsync()
+        private async Task SynchronousDataAsync()
         {
             await Task.Delay(1);
         }

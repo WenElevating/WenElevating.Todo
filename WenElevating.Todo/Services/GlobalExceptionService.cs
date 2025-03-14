@@ -9,23 +9,30 @@ using WenElevating.Todo.Commons.Logs;
 
 namespace WenElevating.Todo.Services
 {
+    public enum ExceptionRecordType
+    {
+        // 控制台
+        Console,
+        // 本地文件
+        File,
+        // 远程服务
+        Web,
+        // 控制台 + 本地文件
+        ConsoleAndFile,
+        // 全部方式
+        All,
+    }
+
     public class GlobalExceptionService
     {
         /// <summary>
-        /// 日志记录（懒加载）
+        /// 日志记录
         /// </summary>
-        private static Lazy<ILogger<GlobalExceptionService>>? _lazyLogger;
-
-        private enum ExceptionLevel
-        {
-            Error,
-            Warning,
-            Information,
-        }
+        private static ILogger<GlobalExceptionService>? _lazyLogger;
 
         public GlobalExceptionService(ILogger<GlobalExceptionService> logger)
         {
-            _lazyLogger = new Lazy<ILogger<GlobalExceptionService>>(logger);    
+            _lazyLogger = logger;    
         }
 
         /// <summary>
@@ -49,7 +56,7 @@ namespace WenElevating.Todo.Services
             // 已察觉异常，避免崩溃
             e.SetObserved();
         }
-
+        
         /// <summary>
         /// 非UI线程未捕获异常
         /// </summary>
@@ -61,9 +68,42 @@ namespace WenElevating.Todo.Services
             e.Handled = true;
         }
 
-        public static void Capture(Exception ex, string functionName = "")
+        /// <summary>
+        /// 考虑线程安全
+        /// </summary>
+        /// <param name="ex"></param>
+        /// <param name="functionName"></param>
+        /// <param name="recordType"></param>
+        public static void Capture(Exception ex, string functionName = "", ExceptionRecordType recordType = ExceptionRecordType.Console)
         {
-            _lazyLogger?.Value.LogError(AppLogEvents.UnCatch, $"[{functionName}]: {ex.Message}");
+            string message = BuildExceptionMessage(ex, functionName);
+
+            //根据异常类型选择记录方式
+            switch (recordType)
+            {
+                case ExceptionRecordType.Console:
+                    _lazyLogger?.LogError(AppLogEvents.UnCatch, message);
+                    break;
+                case ExceptionRecordType.File:
+                    // Todo
+                    break;
+                case ExceptionRecordType.Web: 
+                    // Todo
+                    break;
+                default:
+                    // Todo
+                    break;
+            }
+        }
+
+        private static string BuildExceptionMessage(Exception ex, string functionName)
+        {
+            var builder = new StringBuilder();
+            builder.Append($"[{DateTime.Now}] [{functionName}]: {ex.Message}");
+            builder.Append($"[ExceptionName] : {ex.GetType().Name}");
+            builder.Append($"[StackTrace] : {ex.StackTrace}");
+            builder.Append($"[InnerException] : {ex.InnerException}");
+            return builder.ToString();
         }
     }
 }

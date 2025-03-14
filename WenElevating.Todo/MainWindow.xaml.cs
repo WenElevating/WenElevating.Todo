@@ -36,11 +36,6 @@ namespace WenElevating.Todo
     public partial class MainWindow : Window
     {
         /// <summary>
-        /// 页面服务
-        /// </summary>
-        private IPageService? _pageService;
-
-        /// <summary>
         /// ViewModel
         /// </summary>
         private MainWindowViewModel _viewModel;
@@ -55,9 +50,8 @@ namespace WenElevating.Todo
         /// </summary>
         private readonly ILogger _logger;
 
-        public MainWindow(IPageService pageService, MainWindowViewModel viewModel, ILogger<MainWindow> logger)
+        public MainWindow(MainWindowViewModel viewModel, ILogger<MainWindow> logger)
         {
-            _pageService = pageService;
             _viewModel = viewModel;
             _logger = logger;
             DataContext = _viewModel;

@@ -190,7 +190,7 @@
                         Width="25"
                         Margin="0,0,0,11"
                         Click="LeftSidebarBottomAsyncButton_Click"
-                        Command="{Binding GetDataAsyncCommand}"
+                        Command="{Binding SynchronousDataAsyncCommand}"
                         Icon="{StaticResource Todo_AsyncIcon}"
                         Style="{StaticResource Todo_CommonIconButtonStyle}"
                         Tag="Todo_AsyncIcon" />
