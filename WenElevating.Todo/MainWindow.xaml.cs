@@ -21,6 +21,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using WenElevating.Resources.CustomControls;
 using WenElevating.Todo.Attributies;
+using WenElevating.Todo.Commons.Logs;
 using WenElevating.Todo.Controls;
 using WenElevating.Todo.Interfaces;
 using WenElevating.Todo.Interfaces.Impl;
@@ -69,15 +70,21 @@ namespace WenElevating.Todo
             InitAdorner();
             _navigationService = PageFrame.NavigationService;
             _viewModel.OnNavigationPageInfoChanged += OnNavigationPageInfoChanged;
-            _logger.LogInformation("MainWindow is loaded");
         }
 
+        /// <summary>
+        /// Frame导航事件
+        /// </summary>
+        /// <param name="info"></param>
         private void OnNavigationPageInfoChanged(NavigationPageInfo info)
         {
-            Console.WriteLine($"Trace：Navigation to {info.Id}\n\t开始导航");
+            _logger.LogInformation(AppLogEvents.Navigation, "开始导航");
             _navigationService?.Navigate(App.host.Services.GetRequiredKeyedService<ApplicationPageBase>(info.Id));
         }
 
+        /// <summary>
+        /// 初始化装饰器
+        /// </summary>
         private void InitAdorner()
         {
             AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(MainGrid);

@@ -9,6 +9,7 @@ using System.Windows.Threading;
 using WenElevating.Core.Services;
 using System.Windows;
 using Microsoft.Extensions.Hosting;
+using WenElevating.Todo.Services;
 
 namespace WenElevating.Todo
 {
@@ -19,19 +20,40 @@ namespace WenElevating.Todo
 #if DEBUG
             InitializeDebugService();
 #endif
-            InitializeApplicationExceptionHandler();
-            
-            LoadCompleted += App_LoadCompleted;
         }
 
-        private void App_LoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
+            await host.StartAsync();
+
+            InitializeApplicationService();
+        }
+
+        protected override async void OnExit(ExitEventArgs e)
+        {
+            await host.StopAsync();
+            host.Dispose();
+        }
+
+        private void InitializeApplicationService()
+        {
+            InitializeMainWindow();
+
             InitializeLogger();
+
+            InitializeApplicationExceptionHandler();
         }
 
         private void InitializeLogger()
         {
             _logger ??= host.Services.GetRequiredService<ILogger<App>>();
+        }
+
+        private void InitializeMainWindow()
+        {
+            // 主窗体初始化
+            _mainWindow ??= host.Services.GetRequiredService<MainWindow>();
+            _mainWindow.Show();
         }
 
         private void InitializeDebugService()
@@ -48,26 +70,17 @@ namespace WenElevating.Todo
 
         private void InitializeApplicationExceptionHandler()
         {
-            DispatcherUnhandledException += App_DispatcherUnhandledException;
-        }
+            // 全局异常服务
+            _exceptionService ??= host.Services.GetRequiredService<GlobalExceptionService>();
 
-        private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
-        {
-            //logger?.LogError(e.Exception.Message);
-            e.Handled = true;
-        }
+            // UI线程未捕获异常
+            DispatcherUnhandledException += _exceptionService.App_DispatcherUnhandledException;
 
-        protected override async void OnStartup(StartupEventArgs e)
-        {
-            await host.StartAsync();
-            MainWindow mainWindow = host.Services.GetRequiredService<MainWindow>();
-            mainWindow.Show();
-        }
+            // Task任务未捕获异常
+            TaskScheduler.UnobservedTaskException += _exceptionService.App_UnobservedTaskException;
 
-        protected override async void OnExit(ExitEventArgs e)
-        {
-            await host.StopAsync();
-            host.Dispose();
+            // 非UI线程未捕获异常
+            AppDomain.CurrentDomain.UnhandledException += _exceptionService.CurrentDomain_UnhandledException;
         }
     }
 }

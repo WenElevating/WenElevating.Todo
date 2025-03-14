@@ -24,6 +24,19 @@ namespace WenElevating.Todo
     /// </summary>
     public partial class App : Application
     {
+        /// <summary>
+        /// 全局异常服务
+        /// </summary>
+        private GlobalExceptionService? _exceptionService;
+
+        /// <summary>
+        /// 主窗体
+        /// </summary>
+        private Window? _mainWindow;
+
+        /// <summary>
+        /// 日志记录
+        /// </summary>
         private ILogger? _logger;
 
         /// <summary>
@@ -58,6 +71,7 @@ namespace WenElevating.Todo
                             services.AddSystemPage<DebugPage>();
 #endif
                             services.AddSingleton<IPageService, PageServiceImpl>();
+                            services.AddSingleton<GlobalExceptionService>();
 
                             // host service
                             services.AddHostedService<MemoryMonitoringService>();
