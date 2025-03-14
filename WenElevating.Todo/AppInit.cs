@@ -19,14 +19,19 @@ namespace WenElevating.Todo
 #if DEBUG
             InitializeDebugService();
 #endif
-            InitializeLogger();
-
             InitializeApplicationExceptionHandler();
+            
+            LoadCompleted += App_LoadCompleted;
+        }
+
+        private void App_LoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        {
+            InitializeLogger();
         }
 
         private void InitializeLogger()
         {
-            _logger = host.Services.GetRequiredService<ILogger<App>>();
+            _logger ??= host.Services.GetRequiredService<ILogger<App>>();
         }
 
         private void InitializeDebugService()
