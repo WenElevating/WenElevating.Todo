@@ -14,36 +14,39 @@ namespace WenElevating.Core.Services
     public class DebugWindowService
     {
         /// <summary>
-        /// 请求对控制台屏幕缓冲区的读取访问权限，使进程能够从缓冲区读取数据。
+        /// 请求对控制台屏幕缓冲区通用读取权限。
         /// </summary>
         private static readonly long GENERIC_READ = 0x80000000L;
 
         /// <summary>
-        /// 请求对控制台屏幕缓冲区的写权限，使进程能够将数据写入缓冲区。
+        /// 请求对控制台屏幕缓冲区通用写入权限。
         /// </summary>
         private static readonly long GENERIC_WRITE = 0x40000000L;
 
         /// <summary>
-        /// 可以在控制台屏幕缓冲区上执行其他打开操作，以便进行读取访问。
+        /// 控制台屏幕缓冲区上执行读取访问。
         /// </summary>
         private static readonly uint FILE_SHARE_READ = 0x00000001;
 
         /// <summary>
-        /// 可以在控制台屏幕缓冲区上执行其他打开操作，以便进行写入访问
+        /// 控制台屏幕缓冲区上执行写入访问
         /// </summary>
         private static readonly uint FILE_SHARE_WRITE = 0x00000002;
 
         /// <summary>
-        /// 要创建的控制台屏幕缓冲区的类型。 唯一支持的屏幕缓冲区类型是 CONSOLE_TEXTMODE_BUFFER
+        /// 控制台屏幕缓冲区类型。 唯一类型是 CONSOLE_TEXTMODE_BUFFER
         /// </summary>
         private static readonly uint CONSOLE_TEXTMODE_BUFFER = 0x00000001;
 
         /// <summary>
-        /// 控制台输入句柄
+        /// 控制台屏幕输出缓冲区句柄
         /// </summary>
-        private static IntPtr ConsoleInputHandle;
+        private static IntPtr ConsoleOuputHandle;
 
-        private static SafeFileHandle SafeConsoleHandle;
+        /// <summary>
+        /// 安全文件句柄
+        /// </summary>
+        private static SafeFileHandle? SafeConsoleHandle;
 
         /// <summary>
         /// 输出字符颜色
@@ -55,8 +58,10 @@ namespace WenElevating.Core.Services
             Red = 0x0003,
         }
 
+        private static readonly string Id = "DebugWindowService";
+
         /// <summary>
-        /// 输出字符背景色
+        /// 输出字符背景颜色
         /// </summary>
         private enum FontBackground
         {
@@ -76,13 +81,14 @@ namespace WenElevating.Core.Services
         public static void InitializeDefaultWindow()
         {
             CreateWindow();
-            SetTitle("TODO");
-            ConsoleInputHandle = PInvoke.GetStdHandle(STD_HANDLE.STD_OUTPUT_HANDLE);
-            SafeConsoleHandle = new(ConsoleInputHandle, true);
+            //SetTitle("TODO");
+            ConsoleOuputHandle = PInvoke.GetStdHandle(STD_HANDLE.STD_OUTPUT_HANDLE);
+            SafeConsoleHandle = new(ConsoleOuputHandle, true);
+            PInvoke.SetConsoleMode(SafeConsoleHandle, CONSOLE_MODE.ENABLE_PROCESSED_OUTPUT);
             SetDebugWindowBeautifulTitle();
         }
 
-        public static void PrintInformation(string msg, ConsoleColor forground = ConsoleColor.White)
+        public static void PrintInformation(string msg,ConsoleColor forground = ConsoleColor.White)
         {
             if (string.IsNullOrWhiteSpace(msg))
             {
@@ -90,7 +96,7 @@ namespace WenElevating.Core.Services
             }
 
             Console.ForegroundColor = forground;
-            Console.WriteLine(msg);
+            Console.WriteLine($"[{Id}] {msg}");
             Console.WriteLine();
         }
 
@@ -101,7 +107,7 @@ namespace WenElevating.Core.Services
         public static bool CreateWindow()
         {
             // 创建控制台
-            Windows.Win32.Foundation.BOOL result = PInvoke.AllocConsole();
+            BOOL result = PInvoke.AllocConsole();
             return result;
         }
 
@@ -137,7 +143,8 @@ namespace WenElevating.Core.Services
                 throw new ArgumentNullException(nameof(text), "");
             }
 
-            COORD dwBufferCoord = new() // 缓冲区左上角的起始位置(即控制台左上角的第一个字符)
+            // 缓冲区左上角的起始位置(即控制台左上角的第一个字符)
+            COORD dwBufferCoord = new()
             {
                 X = 0,
                 Y = 0

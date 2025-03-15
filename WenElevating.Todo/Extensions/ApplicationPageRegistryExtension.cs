@@ -18,6 +18,7 @@ namespace WenElevating.Todo.Extensions
         public static IServiceCollection AddSystemPage<T>(this IServiceCollection services) where T : ApplicationPageBase
         {
             Type pageType = typeof(T);
+            NavigationPageInfo? info = pageType.GetCustomAttribute<NavigationPageInfo>();
             if (pageType.GetCustomAttribute<NavigationPageInfo>() is not NavigationPageInfo pageInfo)
             {
                 throw new ArgumentException("页面未加载配置信息，请检查！");

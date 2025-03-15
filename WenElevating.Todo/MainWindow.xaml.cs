@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Policy;
@@ -20,9 +21,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using WenElevating.Resources.CustomControls;
 using WenElevating.Todo.Attributies;
+using WenElevating.Todo.Commons.Logs;
 using WenElevating.Todo.Controls;
+using WenElevating.Todo.Extensions;
 using WenElevating.Todo.Interfaces;
-using WenElevating.Todo.Interfaces.Impl;
 using WenElevating.Todo.Pages;
 using WenElevating.Todo.ViewModels;
 
@@ -33,11 +35,6 @@ namespace WenElevating.Todo
     /// </summary>
     public partial class MainWindow : Window
     {
-        /// <summary>
-        /// 页面服务
-        /// </summary>
-        private IPageService? _pageService;
-
         /// <summary>
         /// ViewModel
         /// </summary>
@@ -53,9 +50,8 @@ namespace WenElevating.Todo
         /// </summary>
         private readonly ILogger _logger;
 
-        public MainWindow(IPageService pageService, MainWindowViewModel viewModel, ILogger<MainWindow> logger)
+        public MainWindow(MainWindowViewModel viewModel, ILogger<MainWindow> logger)
         {
-            _pageService = pageService;
             _viewModel = viewModel;
             _logger = logger;
             DataContext = _viewModel;
@@ -68,14 +64,11 @@ namespace WenElevating.Todo
             InitAdorner();
             _navigationService = PageFrame.NavigationService;
             _viewModel.OnNavigationPageInfoChanged += OnNavigationPageInfoChanged;
-            _logger.LogInformation("MainWindow is loaded");
         }
 
-        private void OnNavigationPageInfoChanged(NavigationPageInfo info)
-        {
-            _navigationService?.Navigate(App.host.Services.GetRequiredKeyedService<ApplicationPageBase>(info.Id));
-        }
-
+        /// <summary>
+        /// 初始化装饰器
+        /// </summary>
         private void InitAdorner()
         {
             AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(MainGrid);
@@ -88,6 +81,16 @@ namespace WenElevating.Todo
                 VerticalAlignment = VerticalAlignment.Bottom,
                 HorizontalAlignment = HorizontalAlignment.Right,
             }));
+        }
+
+        /// <summary>
+        /// Frame导航事件
+        /// </summary>
+        /// <param name="info"></param>
+        private void OnNavigationPageInfoChanged(NavigationPageInfo info)
+        {
+            _logger.LogInfo(AppLogEvents.Navigation, $"开始导航到{info.Title}");
+            _navigationService?.Navigate(App.host.Services.GetRequiredKeyedService<ApplicationPageBase>(info.Id));
         }
 
         /// <summary>
@@ -129,6 +132,7 @@ namespace WenElevating.Todo
 
         private void UserAvatar_Checked(object sender, RoutedEventArgs e)
         {
+
         }
 
         #region SystemOperation

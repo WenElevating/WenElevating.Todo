@@ -9,3 +9,4 @@ SetConsoleActiveScreenBuffer
 GetStdHandle
 CloseHandle
 WriteConsoleOutputCharacter
+FreeConsole
