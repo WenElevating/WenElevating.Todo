@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Threading;
 using Microsoft.Extensions.Logging;
 using WenElevating.Todo.Commons.Logs;
+using WenElevating.Todo.Services.Bases;
 
 namespace WenElevating.Todo.Services
 {
@@ -23,7 +24,7 @@ namespace WenElevating.Todo.Services
         All,
     }
 
-    public class GlobalExceptionService
+    public class GlobalExceptionService : ExceptionServiceBase
     {
         /// <summary>
         /// 日志记录
@@ -40,7 +41,7 @@ namespace WenElevating.Todo.Services
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        public override void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Capture((Exception)e.ExceptionObject);
         }
@@ -50,7 +51,7 @@ namespace WenElevating.Todo.Services
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void App_UnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
+        public override void App_UnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
         {
             Capture(e.Exception);
             // 已察觉异常，避免崩溃
@@ -62,7 +63,7 @@ namespace WenElevating.Todo.Services
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        public override void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             Capture(e.Exception);
             e.Handled = true;
@@ -79,7 +80,7 @@ namespace WenElevating.Todo.Services
         /// <param name="ex"></param>
         /// <param name="functionName"></param>
         /// <param name="recordType"></param>
-        public void Capture(Exception ex, string functionName = "", ExceptionRecordType recordType = ExceptionRecordType.Console)
+        public override void Capture(Exception ex, string functionName = "", ExceptionRecordType recordType = ExceptionRecordType.Console)
         {
             string message = BuildExceptionMessage(ex, functionName);
 
@@ -104,10 +105,10 @@ namespace WenElevating.Todo.Services
         private static string BuildExceptionMessage(Exception ex, string functionName)
         {
             var builder = new StringBuilder();
-            builder.Append($"[{DateTime.Now}] [{functionName}]: {ex.Message}");
-            builder.Append($"[ExceptionName] : {ex.GetType().Name}");
-            builder.Append($"[StackTrace] : {ex.StackTrace}");
-            builder.Append($"[InnerException] : {ex.InnerException}");
+            builder.AppendLine($"[{DateTime.Now}] [{functionName}]: {ex.Message}");
+            builder.AppendLine($"[ExceptionName] : {ex.GetType().Name}");
+            builder.AppendLine($"[StackTrace] : {ex.StackTrace}");
+            builder.AppendLine($"[InnerException] : {ex.InnerException}");
             return builder.ToString();
         }
     }

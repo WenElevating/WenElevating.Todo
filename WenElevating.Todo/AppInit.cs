@@ -28,6 +28,8 @@ namespace WenElevating.Todo
             await host.StartAsync();
 
             InitializeApplicationService();
+
+            IsLoaded = true;
         }
 
         protected override async void OnExit(ExitEventArgs e)

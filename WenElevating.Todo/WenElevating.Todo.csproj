@@ -36,8 +36,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Interfaces\Impl\" />
     <Folder Include="Models\" />
-    <Folder Include="Services\Impl\" />
+    <Folder Include="Utilties\" />
     <Folder Include="Views\" />
   </ItemGroup>
 

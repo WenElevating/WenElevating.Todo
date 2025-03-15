@@ -44,7 +44,8 @@
                         HorizontalAlignment="Center"
                         HorizontalContentAlignment="Center"
                         Checked="UserAvatar_Checked"
-                        Cursor="Hand">
+                        Cursor="Hand"
+                        FocusVisualStyle="{x:Null}">
                         <RadioButton.Template>
                             <ControlTemplate TargetType="{x:Type RadioButton}">
                                 <Border HorizontalAlignment="Center">
@@ -76,6 +77,7 @@
                                 <Setter Property="BorderThickness" Value="0" />
                                 <Setter Property="Opacity" Value="0.8" />
                                 <Setter Property="Cursor" Value="Hand" />
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                                 <Setter Property="ToolTip" Value="{Binding Title}" />
                                 <Setter Property="Template">
                                     <Setter.Value>

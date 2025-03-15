@@ -25,7 +25,6 @@ using WenElevating.Todo.Commons.Logs;
 using WenElevating.Todo.Controls;
 using WenElevating.Todo.Extensions;
 using WenElevating.Todo.Interfaces;
-using WenElevating.Todo.Interfaces.Impl;
 using WenElevating.Todo.Pages;
 using WenElevating.Todo.ViewModels;
 

@@ -3,10 +3,8 @@ using System.Data;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WenElevating.Todo.Interfaces.Impl;
 using WenElevating.Todo.Interfaces;
 using WenElevating.Todo.Pages;
-using WenElevating.Todo.Utilties;
 using System.Windows.Threading;
 using Sentry.Infrastructure;
 using WenElevating.Todo.Extensions;
@@ -17,6 +15,7 @@ using WenElevating.Todo.Services;
 using WenElevating.Core.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+using WenElevating.Todo.Services.Bases;
 
 namespace WenElevating.Todo
 {
@@ -41,14 +40,19 @@ namespace WenElevating.Todo
         public bool IsDebugMode = false;
 
         /// <summary>
+        /// 加载状态
+        /// </summary>
+        public bool IsLoaded = false;
+
+        /// <summary>
         /// 异常处理服务
         /// </summary>
-        public GlobalExceptionService? _exceptionService;
+        public ExceptionServiceBase? _exceptionService;
 
         /// <summary>
         /// 系统配置服务
         /// </summary>
-        public ApplicationConfigurationService? _configurationService;
+        public CongurationServiceBase? _configurationService;
 
         /// <summary>
         /// 全局应用实例
@@ -86,7 +90,6 @@ namespace WenElevating.Todo
 #if DEBUG
                             services.AddSystemPage<DebugPage>();
 #endif
-                            services.AddSingleton<IPageService, PageServiceImpl>();
                             services.AddSingleton<GlobalExceptionService>();
                             services.AddSingleton<ApplicationConfigurationService>();
 

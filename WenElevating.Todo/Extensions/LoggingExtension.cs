@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace WenElevating.Todo.Extensions
 {
-    public static class LoggingInformationExtension
+    public static class LoggingExtension
     {
         public static void LogInfo(this ILogger logger, string? message, params object?[] args)
         {
@@ -17,6 +17,16 @@ namespace WenElevating.Todo.Extensions
         public static void LogInfo(this ILogger logger, EventId eventId, string? message, params object?[] args)
         {
             logger.Log(LogLevel.Information, eventId, message + "\n", args);
+        }
+
+        public static void LogWarn(this ILogger logger, EventId eventId, Exception? exception, string? message, params object?[] args)
+        {
+            logger.Log(LogLevel.Warning, eventId, exception, message + "\n", args);
+        }
+
+        public static void LogWarn(this ILogger logger, EventId eventId, string? message, params object?[] args)
+        {
+            logger.Log(LogLevel.Warning, eventId, message + "\n", args);
         }
     }
 }
