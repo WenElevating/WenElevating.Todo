@@ -358,4 +358,12 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+
+    <!--  GridSplitter样式  -->
+    <Style x:Key="Todo_GridSplitterStyle" TargetType="{x:Type GridSplitter}">
+        <Setter Property="Width" Value="1" />
+        <Setter Property="ShowsPreview" Value="False" />
+        <Setter Property="ResizeDirection" Value="Columns" />
+    </Style>
 </ResourceDictionary>

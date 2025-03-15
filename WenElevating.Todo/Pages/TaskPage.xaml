@@ -12,6 +12,28 @@
     mc:Ignorable="d">
 
     <Grid>
-        <TextBlock Text="Task Page" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" MinWidth="200" />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <TextBlock
+                Margin="0,0,5,0"
+                HorizontalAlignment="Right"
+                Text="111" />
+        </Grid>
+
+        <!-- 可 -->
+        <GridSplitter Style="{StaticResource Todo_GridSplitterStyle}" />
+
+        <Grid Grid.Column="1">
+            <TextBlock Text="222" />
+        </Grid>
+
+        <WrapPanel Grid.Column="2">
+            <TextBlock Text="333" />
+        </WrapPanel>
     </Grid>
 </local:ApplicationPageBase>
