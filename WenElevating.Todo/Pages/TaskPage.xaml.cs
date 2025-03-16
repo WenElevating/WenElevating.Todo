@@ -26,5 +26,6 @@ namespace WenElevating.Todo.Pages
         {
             InitializeComponent();
         }
+
     }
 }
