@@ -21,22 +21,12 @@
 
         <Grid Grid.Column="0" Width="315">
             <Canvas>
-                <StackPanel>
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Margin="20,20,0,0"
-                        controls:DragControlHelper.IsCanDrag="True"
-                        Background="Red"
-                        CornerRadius="5" />
-                    <Border
-                        Width="50"
-                        Height="50"
-                        Margin="20,20,0,0"
-                        controls:DragControlHelper.IsCanDrag="True"
-                        Background="Red"
-                        CornerRadius="5" />
-                </StackPanel>
+                <Border
+                    Width="50"
+                    Height="50"
+                    controls:DragControlHelper.IsCanDrag="True"
+                    Background="Red"
+                    CornerRadius="5" />
             </Canvas>
         </Grid>
 

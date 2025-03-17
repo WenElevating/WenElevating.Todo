@@ -11,6 +11,10 @@ namespace WenElevating.Todo.Extensions
     {
         public static void LogInfo(this ILogger logger, string? message, params object?[] args)
         {
+            if (!App.Current.IsDebugMode)
+            {
+
+            }
             logger.Log(LogLevel.Information, message + "\n", args);
         }
 

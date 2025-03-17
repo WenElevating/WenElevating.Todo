@@ -11,6 +11,8 @@ using System.Windows;
 using Microsoft.Extensions.Hosting;
 using WenElevating.Todo.Services;
 using Microsoft.Extensions.Configuration;
+using WenElevating.Todo.Services.interfaces;
+using System.Collections;
 
 namespace WenElevating.Todo
 {
@@ -78,7 +80,22 @@ namespace WenElevating.Todo
 
         private void InitializeLogger()
         {
-            _logger ??= host.Services.GetRequiredService<ILogger<App>>();
+            _logService ??= host.Services.GetRequiredService<IApplicationLogService>();
+            // 测试线程安全问题
+            //Task.Run(() =>
+            //{
+            //    Parallel.ForEach(Enumerable.Range(0, 10), (item) =>
+            //    {
+            //        _logService.LogInfo(item.ToString());
+            //    });
+            //});
+            //Task.Run(() =>
+            //{
+            //    Parallel.ForEach(Enumerable.Range(10, 20), (item) =>
+            //    {
+            //        _logService.LogInfo(item.ToString());
+            //    });
+            //});
         }
 
         private void InitializeApplicationExceptionHandler()

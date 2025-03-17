@@ -16,7 +16,10 @@ using WenElevating.Core.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using WenElevating.Todo.Services.Bases;
+using log4net;
+using WenElevating.Todo.Services.interfaces;
 
+[assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", ConfigFileExtension = "config", Watch = true)]
 namespace WenElevating.Todo
 {
     /// <summary>
@@ -32,7 +35,7 @@ namespace WenElevating.Todo
         /// <summary>
         /// 日志记录
         /// </summary>
-        private ILogger? _logger;
+        private IApplicationLogService? _logService;
 
         /// <summary>
         /// 是否为调试模式
@@ -92,6 +95,10 @@ namespace WenElevating.Todo
 #endif
                             services.AddSingleton<GlobalExceptionService>();
                             services.AddSingleton<ApplicationConfigurationService>();
+                            services.AddKeyedSingleton<ILogService, ConsoleLogService>("Console");
+                            services.AddKeyedSingleton<ILogService, Log4netService>("Log4net");
+                            services.AddKeyedSingleton<ILogService, ConsoleAndFileLogService>("ConsoleAndFile");
+                            services.AddSingleton<IApplicationLogService, ApplicationLogService>();
 
                             // host service
                             services.AddHostedService<MemoryMonitoringService>();
