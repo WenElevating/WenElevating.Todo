@@ -14,7 +14,8 @@ namespace WenElevating.Todo.Services
 
         public ApplicationConfigurationService(IConfiguration configuration)
         {
-            _configuration = configuration;    
+            _configuration = configuration;
+            _configuration.GetSection("Settings").Bind(App.Current.settings);
         }
 
         public override object? GetConfiguration(Type type,string key) 

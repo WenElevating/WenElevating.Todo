@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using Microsoft.Diagnostics.Tracing.StackSources;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WenElevating.Core.Services;
@@ -28,11 +29,6 @@ namespace WenElevating.Todo.Services
         private readonly IHostApplicationLifetime _lifeTime;
 
         /// <summary>
-        /// 配置服务
-        /// </summary>
-        private CongurationServiceBase _congurationService;
-
-        /// <summary>
         /// 内存占用上限（MB）
         /// </summary>
         private readonly long MaximumMemoryUsage = 0;
@@ -52,7 +48,7 @@ namespace WenElevating.Todo.Services
         /// </summary>
         private PerformanceCounter? _cpuCounter;
 
-        public MemoryMonitoringService(IHostApplicationLifetime lifetime, ILogger<MemoryMonitoringService> logger, ApplicationConfigurationService configurationService)
+        public MemoryMonitoringService(IHostApplicationLifetime lifetime, ILogger<MemoryMonitoringService> logger)
         {
             _logger = logger;
             _lifeTime = lifetime;
@@ -61,9 +57,8 @@ namespace WenElevating.Todo.Services
             _lifeTime.ApplicationStarted.Register(OnStopped);
 
             // 加载配置
-            _congurationService = configurationService;
-            MaximumMemoryUsage = Convert.ToInt64(_congurationService.GetConfiguration<long>("Settings:MaximumMemoryUsage"));
-            MemoryMonitorInterval = Convert.ToInt64(_congurationService.GetConfiguration<long>("Settings:MemoryMonitorInterval"));
+            MaximumMemoryUsage = App.Current.settings.MaximumMemoryUsage;
+            MemoryMonitorInterval = App.Current.settings.MemoryMonitorInterval;
 
             // 启动定时器
             _timer = new System.Timers.Timer
@@ -102,9 +97,9 @@ namespace WenElevating.Todo.Services
                 _logger.LogWarn(AppLogEvents.CpuUsed, $"[{now}] - CPU占用超过20%，请检查代码！");
             }
 
-            if (memoryUsed > 300)
+            if (memoryUsed > MaximumMemoryUsage)
             {
-                _logger.LogWarn(AppLogEvents.CpuUsed, $"[{now}] - 内存占用超过300MB，请检查代码！");
+                _logger.LogWarn(AppLogEvents.CpuUsed, $"[{now}] - 内存占用超过{MaximumMemoryUsage}MB，请检查代码！");
             }
         }
 

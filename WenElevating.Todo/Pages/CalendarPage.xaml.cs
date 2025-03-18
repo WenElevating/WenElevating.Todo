@@ -17,12 +17,12 @@ using WenElevating.Todo.Attributies;
 namespace WenElevating.Todo.Pages
 {
     /// <summary>
-    /// CalendarPage.xaml 的交互逻辑
+    /// TodayPage.xaml 的交互逻辑
     /// </summary>
-    [NavigationPageInfo("Todo_CalendarIcon", "Todo_CalendarIconSelected", "日历", "Calendar", 25, 25)]
-    public partial class CalendarPage : ApplicationPageBase
+    [NavigationPageInfo("Todo_CalendarIcon", "Todo_CalendarIconSelected", "日历", "Today", 25, 25)]
+    public partial class TodayPage : ApplicationPageBase
     {
-        public CalendarPage()
+        public TodayPage()
         {
             InitializeComponent();
         }

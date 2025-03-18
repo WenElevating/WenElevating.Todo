@@ -18,6 +18,7 @@ using Microsoft.Extensions.Configuration;
 using WenElevating.Todo.Services.Bases;
 using log4net;
 using WenElevating.Todo.Services.interfaces;
+using WenElevating.Todo.Models;
 
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", ConfigFileExtension = "config", Watch = true)]
 namespace WenElevating.Todo
@@ -38,6 +39,16 @@ namespace WenElevating.Todo
         private IApplicationLogService? _logService;
 
         /// <summary>
+        /// 异常处理服务
+        /// </summary>
+        private ExceptionServiceBase? _exceptionService;
+
+        /// <summary>
+        /// 系统配置服务
+        /// </summary>
+        private IConfiguration? _configuration;
+
+        /// <summary>
         /// 是否为调试模式
         /// </summary>
         public bool IsDebugMode = false;
@@ -48,14 +59,9 @@ namespace WenElevating.Todo
         public bool IsLoaded = false;
 
         /// <summary>
-        /// 异常处理服务
+        /// 加载配置
         /// </summary>
-        public ExceptionServiceBase? _exceptionService;
-
-        /// <summary>
-        /// 系统配置服务
-        /// </summary>
-        public CongurationServiceBase? _configurationService;
+        public Settings? settings;
 
         /// <summary>
         /// 全局应用实例
@@ -85,7 +91,7 @@ namespace WenElevating.Todo
                         .ConfigureServices((context, services) =>
                         {
                             services.AddSystemPage<TaskPage>();
-                            services.AddSystemPage<CalendarPage>();
+                            services.AddSystemPage<TodayPage>();
                             services.AddSystemPage<FourQuadrantsPage>();
                             services.AddSystemPage<FocusPage>();
                             services.AddSystemPage<PunchPage>();
@@ -93,8 +99,8 @@ namespace WenElevating.Todo
 #if DEBUG
                             services.AddSystemPage<DebugPage>();
 #endif
+                            services.AddSingleton<Settings>();
                             services.AddSingleton<GlobalExceptionService>();
-                            services.AddSingleton<ApplicationConfigurationService>();
                             services.AddKeyedSingleton<ILogService, ConsoleLogService>("Console");
                             services.AddKeyedSingleton<ILogService, Log4netService>("Log4net");
                             services.AddKeyedSingleton<ILogService, ConsoleAndFileLogService>("ConsoleAndFile");
@@ -103,6 +109,8 @@ namespace WenElevating.Todo
                             // host service
                             services.AddHostedService<MemoryMonitoringService>();
 
+                            // viewmodels
+                            services.AddSingleton<TaskPageViewModel>();
                             services.AddSingleton<MainWindowViewModel>();
                             services.AddSingleton<MainWindow>();
                         }).Build();

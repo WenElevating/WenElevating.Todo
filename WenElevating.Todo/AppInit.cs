@@ -13,6 +13,8 @@ using WenElevating.Todo.Services;
 using Microsoft.Extensions.Configuration;
 using WenElevating.Todo.Services.interfaces;
 using System.Collections;
+using System.Globalization;
+using WenElevating.Todo.Models;
 
 namespace WenElevating.Todo
 {
@@ -27,10 +29,8 @@ namespace WenElevating.Todo
 
         protected override async void OnStartup(StartupEventArgs e)
         {
-            await host.StartAsync();
-
             InitializeApplicationService();
-
+            await host.StartAsync();
             IsLoaded = true;
         }
 
@@ -49,6 +49,8 @@ namespace WenElevating.Todo
             InitializeApplicationExceptionHandler();
 
             InitializeApplicationConfiguration();
+
+            InitialLocalization();
         }
 
         private void InitializeDebugService()
@@ -118,9 +120,16 @@ namespace WenElevating.Todo
             DebugWindowService.PrintInformation("[Loading]：全局异常捕获服务已完成初始化");
         }
 
+        private void InitialLocalization()
+        {
+            WPFLocalizeExtension.Engine.LocalizeDictionary.Instance.Culture = CultureInfo.CreateSpecificCulture("zh-CN");
+        }
+
         private void InitializeApplicationConfiguration()
         {
-            _configurationService ??= host.Services.GetRequiredService<ApplicationConfigurationService>();
+            settings ??= host.Services.GetRequiredService<Settings>();
+            _configuration ??= host.Services.GetRequiredService<IConfiguration>();
+            _configuration.GetSection("Settings").Bind(settings);
         }
     }
 }

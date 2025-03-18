@@ -20,22 +20,58 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0" Width="315">
-            <ListBox />
-            <Canvas x:Name="TaskTypeListCanvas">
-                <Border
-                    Width="50"
-                    Height="50"
-                    controls:DragControlHelper.IsCanDrag="True"
-                    Background="Red"
-                    CornerRadius="5" />
-                <Border
-                    Width="50"
-                    Height="50"
-                    Margin="0,10,0,0"
-                    controls:DragControlHelper.IsCanDrag="True"
-                    Background="Red"
-                    CornerRadius="5" />
-            </Canvas>
+            <ListBox BorderThickness="0" ItemsSource="{Binding}">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}" />
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Canvas>
+                            <Border
+                                x:Name="TodoTypeItemBorder"
+                                controls:DragControlHelper.IsCanDrag="True"
+                                Background="Red"
+                                CornerRadius="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="10" />
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="10" />
+                                        <ColumnDefinition Width="25" />
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="15" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image
+                                        Grid.Column="1"
+                                        Width="20"
+                                        Source="{Binding Icon}" />
+                                    <TextBlock
+                                        Grid.Column="3"
+                                        Width="25"
+                                        Text="{Binding Title}" />
+                                    <Grid>
+                                        <TextBlock
+                                            x:Name="NoteCountBlock"
+                                            Width="15"
+                                            Panel.ZIndex="100"
+                                            Text="{Binding NoteCount}" />
+                                        <RadioButton
+                                            x:Name="MoreOperationButton"
+                                            Width="15"
+                                            Panel.ZIndex="99"
+                                            Content="{StaticResource Todo_NoteList_More}" />
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </Canvas>
+                        <DataTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="NoteCountBlock" Property="Panel.ZIndex" Value="98" />
+                            </Trigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
 
         <!--  可拉伸Grid  -->

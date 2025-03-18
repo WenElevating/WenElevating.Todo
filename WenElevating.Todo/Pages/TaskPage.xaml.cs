@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Extensions.DependencyInjection;
 using WenElevating.Todo.Attributies;
+using WenElevating.Todo.ViewModels;
 
 namespace WenElevating.Todo.Pages
 {
@@ -22,9 +24,12 @@ namespace WenElevating.Todo.Pages
     [NavigationPageInfo("Todo_TaskIcon", "Todo_TaskIconSelected", "任务", "Task", 25, 25)]
     public partial class TaskPage : ApplicationPageBase
     {
+        private TaskPageViewModel _viewModel;
         public TaskPage()
         {
             InitializeComponent();
+            _viewModel = App.host.Services.GetRequiredService<TaskPageViewModel>();
+            DataContext = _viewModel;
         }
 
     }
