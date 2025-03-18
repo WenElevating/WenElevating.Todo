@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Media;
 using WenElevating.Resources.CustomAdorners;
+using WenElevating.Resources.Helpers;
 
 namespace WenElevating.Resources.CustomControls
 {
+    /// <summary>
+    /// 此功能需要控件的父容器必须为Canvas
+    /// </summary>
     public class DragControlHelper
     {
 

@@ -13,6 +13,9 @@ namespace WenElevating.Todo.Services
 {
     public class ApplicationLogService : IApplicationLogService
     {
+        /// <summary>
+        /// 日志类型枚举
+        /// </summary>
         private enum LogType
         {
             Console,
@@ -20,13 +23,24 @@ namespace WenElevating.Todo.Services
             FileAndConsole,
         }
 
+        /// <summary>
+        /// 日志服务
+        /// </summary>
         private readonly ILogService? _logService;
 
+        /// <summary>
+        /// 日志类型
+        /// </summary>
         private readonly LogType _logType;
+
+        /// <summary>
+        /// 日志类型配置名称
+        /// </summary>
+        private readonly string _logTypeConfigName = "Settings:LogType";
 
         public ApplicationLogService(IConfiguration configuration)
         {
-            _logType = (LogType)configuration.GetValue<int>("Settings:LogType");
+            _logType = (LogType)configuration.GetValue<int>(_logTypeConfigName);
             _logService = GetLogService();
         }
 

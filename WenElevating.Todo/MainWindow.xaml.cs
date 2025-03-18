@@ -20,6 +20,7 @@ using System.Windows.Shapes;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using WenElevating.Resources.CustomControls;
+using WenElevating.Resources.Helpers;
 using WenElevating.Todo.Attributies;
 using WenElevating.Todo.Commons.Logs;
 using WenElevating.Todo.Controls;
@@ -64,6 +65,7 @@ namespace WenElevating.Todo
             InitAdorner();
             _navigationService = PageFrame.NavigationService;
             _viewModel.OnNavigationPageInfoChanged += OnNavigationPageInfoChanged;
+            FrameworkElement? control = CustomVisualTreeHelper.FindControlParentByName<RadioButton>(MainGrid, "UserAvatar");
         }
 
         /// <summary>
