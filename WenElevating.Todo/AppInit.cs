@@ -120,7 +120,7 @@ namespace WenElevating.Todo
             DebugWindowService.PrintInformation("[Loading]：全局异常捕获服务已完成初始化");
         }
 
-        private void InitialLocalization()
+        private static void InitialLocalization()
         {
             WPFLocalizeExtension.Engine.LocalizeDictionary.Instance.Culture = CultureInfo.CreateSpecificCulture("zh-CN");
         }
