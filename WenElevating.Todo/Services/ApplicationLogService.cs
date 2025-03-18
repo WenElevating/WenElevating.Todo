@@ -15,8 +15,8 @@ namespace WenElevating.Todo.Services
     {
         private enum LogType
         {
-            File,
             Console,
+            File,
             FileAndConsole,
         }
 
@@ -36,7 +36,7 @@ namespace WenElevating.Todo.Services
             {
                 LogType.Console => App.host.Services.GetRequiredKeyedService<ILogService>("Console"),
                 LogType.File => App.host.Services.GetRequiredKeyedService<ILogService>("Log4net"),
-                _ => App.host.Services.GetRequiredKeyedService<ConsoleAndFileLogService>("ConsoleAndFile"),
+                _ => App.host.Services.GetRequiredKeyedService<ILogService>("ConsoleAndFile"),
             };
             return logService;
         }

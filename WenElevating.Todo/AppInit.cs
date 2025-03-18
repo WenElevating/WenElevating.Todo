@@ -81,6 +81,8 @@ namespace WenElevating.Todo
         private void InitializeLogger()
         {
             _logService ??= host.Services.GetRequiredService<IApplicationLogService>();
+            _logService.LogInfo("日志测试...");
+            DebugWindowService.PrintInformation("[Loading]：日志组件已完成初始化");
             // 测试线程安全问题
             //Task.Run(() =>
             //{

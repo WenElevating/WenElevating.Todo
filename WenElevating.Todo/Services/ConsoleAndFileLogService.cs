@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using WenElevating.Todo.Commons.Logs;
 using WenElevating.Todo.Services.interfaces;
@@ -11,13 +12,13 @@ namespace WenElevating.Todo.Services
 {
     public class ConsoleAndFileLogService : ILogService
     {
-        private readonly ConsoleLogService _consoleLogService;
-        private readonly Log4netService _log4netService;
+        private readonly ILogService _consoleLogService;
+        private readonly ILogService _log4netService;
 
-        public ConsoleAndFileLogService(ConsoleLogService consoleLogService, Log4netService log4NetService)
+        public ConsoleAndFileLogService()
         {
-            _consoleLogService = consoleLogService;
-            _log4netService = log4NetService;
+            _consoleLogService = App.host.Services.GetRequiredKeyedService<ILogService>("Console");
+            _log4netService = App.host.Services.GetRequiredKeyedService<ILogService>("Log4net");
         }
 
         public void LogError(string message, EventId? eventId = null)
