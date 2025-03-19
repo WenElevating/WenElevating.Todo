@@ -42,15 +42,15 @@ namespace WenElevating.Todo
 
         private void InitializeApplicationService()
         {
-            InitializeMainWindow();
-
-            InitializeLogger();
-
-            InitializeApplicationExceptionHandler();
-
             InitializeApplicationConfiguration();
 
             InitialLocalization();
+            
+            InitializeLogger();
+
+            InitializeApplicationExceptionHandler();
+            
+            InitializeMainWindow();
         }
 
         private void InitializeDebugService()

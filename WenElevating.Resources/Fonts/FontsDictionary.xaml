@@ -17,4 +17,5 @@
     <FontFamily x:Key="Font_Leisurely">
         /WenElevating.Resources;Component/Fonts/悠哉字体.ttf
     </FontFamily>
+    <FontFamily x:Key="Font_Default" />
 </ResourceDictionary>

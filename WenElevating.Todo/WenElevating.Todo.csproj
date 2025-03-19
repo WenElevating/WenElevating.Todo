@@ -12,19 +12,13 @@
 
   <ItemGroup>
     <EmbeddedResource Remove="Assets\Resources.en-US.resx" />
+    <EmbeddedResource Remove="Assets\Resources.resx" />
     <EmbeddedResource Remove="Assets\Resources.zh-CN.resx" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Assets\avatar.jpg" />
     <None Remove="Assets\Power.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <CodeAnalysisDictionary Include="Assets\Resources.zh-CN.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.CN.Designer.cs</LastGenOutput>
-    </CodeAnalysisDictionary>
   </ItemGroup>
 
   <ItemGroup>
@@ -58,7 +52,25 @@
   <ItemGroup>
     <Resource Include="Assets\avatar.jpg" />
     <Resource Include="Assets\Power.png" />
-    <Resource Include="Assets\Resources.en-US.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Langs\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Langs\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Langs\Resources.zh-CN.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.CN.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

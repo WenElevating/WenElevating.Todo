@@ -6,4 +6,5 @@
     <SolidColorBrush x:Key="PopupBackground" Color="#DDDDDD" />
     <SolidColorBrush x:Key="PopupContentBackground" Color="#FFFFFF" />
     <SolidColorBrush x:Key="ButtonSelectedBackground" Color="#F2F2F2" />
+    <SolidColorBrush x:Key="PageBackground" Color="#FFFFFF" />
 </ResourceDictionary>

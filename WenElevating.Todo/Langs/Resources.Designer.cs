@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WenElevating.Todo.Assets {
+namespace WenElevating.Todo.Langs {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace WenElevating.Todo.Assets {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WenElevating.Todo.Assets.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WenElevating.Todo.Langs.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,69 @@ namespace WenElevating.Todo.Assets {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 所有 的本地化字符串。
+        /// </summary>
+        internal static string Todo_NoteList_All {
+            get {
+                return ResourceManager.GetString("Todo_NoteList_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        internal static string Todo_NoteList_Assigned {
+            get {
+                return ResourceManager.GetString("Todo_NoteList_Assigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        internal static string Todo_NoteList_Collect {
+            get {
+                return ResourceManager.GetString("Todo_NoteList_Collect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        internal static string Todo_NoteList_LastSevenDays {
+            get {
+                return ResourceManager.GetString("Todo_NoteList_LastSevenDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        internal static string Todo_NoteList_Summary {
+            get {
+                return ResourceManager.GetString("Todo_NoteList_Summary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        internal static string Todo_NoteList_Today {
+            get {
+                return ResourceManager.GetString("Todo_NoteList_Today", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        internal static string Todo_NoteList_Tomorrow {
+            get {
+                return ResourceManager.GetString("Todo_NoteList_Tomorrow", resourceCulture);
             }
         }
     }

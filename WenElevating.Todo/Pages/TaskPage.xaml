@@ -6,10 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:WenElevating.Todo.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:WenElevating.Todo.ViewModels"
     Title="TaskPage"
+    d:DataContext="{d:DesignInstance Type=vm:TaskPageViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    Background="White"
+    Background="{DynamicResource PageBackground}"
     mc:Ignorable="d">
 
     <Grid>
@@ -19,59 +21,82 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" Width="315">
-            <ListBox BorderThickness="0" ItemsSource="{Binding}">
+        <Grid
+            Grid.Column="0"
+            Width="318"
+            Margin="0,30,0,0">
+            <ListBox BorderThickness="0" ItemsSource="{Binding Classifications}">
                 <ListBox.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListBoxItem}" />
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="Margin" Value="6,0,7,1" />
+                        <Setter Property="Height" Value="42" />
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                        <Setter Property="FontSize" Value="14" />
+                        <Setter Property="Cursor" Value="Hand" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Border
+                                        x:Name="border"
+                                        Width="{TemplateBinding Width}"
+                                        Height="{TemplateBinding Height}"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="5">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="10" />
+                                                <ColumnDefinition Width="20" />
+                                                <ColumnDefinition Width="10" />
+                                                <ColumnDefinition Width="55" />
+                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="25" />
+                                            </Grid.ColumnDefinitions>
+                                            <Image
+                                                Grid.Column="1"
+                                                Width="19"
+                                                Source="{Binding Icon}" />
+                                            <TextBlock
+                                                Grid.Column="3"
+                                                VerticalAlignment="Center"
+                                                Foreground="#191919"
+                                                Text="{Binding Title}" />
+                                            <Grid
+                                                Grid.Column="5"
+                                                Margin="0,0,9,0"
+                                                HorizontalAlignment="Stretch">
+                                                <TextBlock
+                                                    x:Name="NoteCountBlock"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="11"
+                                                    Foreground="#838383"
+                                                    Text="{Binding NoteCount}" />
+                                                <controls:IconRadioButton
+                                                    x:Name="MoreOperationButton"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Center"
+                                                    Icon="{StaticResource Todo_NoteList_More}"
+                                                    Style="{StaticResource Todo_CommonRadioIconButtonNoMouseOverStyle}"
+                                                    Visibility="Collapsed" />
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="#F2F2F2" />
+                                            <Setter TargetName="NoteCountBlock" Property="Visibility" Value="Collapsed" />
+                                            <Setter TargetName="MoreOperationButton" Property="Visibility" Value="Visible" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
                 </ListBox.ItemContainerStyle>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Canvas>
-                            <Border
-                                x:Name="TodoTypeItemBorder"
-                                controls:DragControlHelper.IsCanDrag="True"
-                                Background="Red"
-                                CornerRadius="5">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="10" />
-                                        <ColumnDefinition Width="20" />
-                                        <ColumnDefinition Width="10" />
-                                        <ColumnDefinition Width="25" />
-                                        <ColumnDefinition Width="auto" />
-                                        <ColumnDefinition Width="15" />
-                                    </Grid.ColumnDefinitions>
-                                    <Image
-                                        Grid.Column="1"
-                                        Width="20"
-                                        Source="{Binding Icon}" />
-                                    <TextBlock
-                                        Grid.Column="3"
-                                        Width="25"
-                                        Text="{Binding Title}" />
-                                    <Grid>
-                                        <TextBlock
-                                            x:Name="NoteCountBlock"
-                                            Width="15"
-                                            Panel.ZIndex="100"
-                                            Text="{Binding NoteCount}" />
-                                        <RadioButton
-                                            x:Name="MoreOperationButton"
-                                            Width="15"
-                                            Panel.ZIndex="99"
-                                            Content="{StaticResource Todo_NoteList_More}" />
-                                    </Grid>
-                                </Grid>
-                            </Border>
-                        </Canvas>
-                        <DataTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="NoteCountBlock" Property="Panel.ZIndex" Value="98" />
-                            </Trigger>
-                        </DataTemplate.Triggers>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
             </ListBox>
+            <Canvas />
         </Grid>
 
         <!--  可拉伸Grid  -->

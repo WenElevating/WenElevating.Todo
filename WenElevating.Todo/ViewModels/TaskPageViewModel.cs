@@ -18,11 +18,7 @@ namespace WenElevating.Todo.ViewModels
     {
         private readonly string _classificationPrefix = "Todo_NoteList_";
 
-        private readonly string _classificationKey = "Settings:NoteClassification";
-
         private readonly IApplicationLogService _logService;
-
-        private readonly IConfiguration _configuration;
 
         public ObservableCollection<TaskClassification> Classifications
         {
@@ -30,12 +26,10 @@ namespace WenElevating.Todo.ViewModels
             set;
         }
 
-        public TaskPageViewModel(IApplicationLogService logService, IConfiguration configuration)
+        public TaskPageViewModel(IApplicationLogService logService)
         {
             _logService = logService;
-            _configuration = configuration;
-            var classifications = _configuration["Settings:NoteClassification"];
-            //Classifications = LoadingClassifications(classifications);
+            Classifications = LoadingClassifications(App.Current.settings?.NoteClassification);
         }
 
         private ObservableCollection<TaskClassification> LoadingClassifications(List<string>? classifications)
@@ -47,7 +41,7 @@ namespace WenElevating.Todo.ViewModels
             {
                 // Todo 获取指定分类日志数量
                 var key = _classificationPrefix + item;
-                var task = new TaskClassification(item, key, LocalizationHelper.GetLocalizationString(key));
+                var task = new TaskClassification(item, item == "Today" ? key + "_" + DateTime.Today.Day: key, LocalizationHelper.GetLocalizationString(key));
                 classifciationCollection.Add(task);
             });
 

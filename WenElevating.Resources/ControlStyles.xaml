@@ -365,5 +365,6 @@
         <Setter Property="Width" Value="1" />
         <Setter Property="ShowsPreview" Value="False" />
         <Setter Property="ResizeDirection" Value="Columns" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
     </Style>
 </ResourceDictionary>
