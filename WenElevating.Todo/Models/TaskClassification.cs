@@ -12,7 +12,7 @@ namespace WenElevating.Todo.Models
     /// <summary>
     /// 任务分类
     /// </summary>
-    public class TaskClassification : INotifyPropertyChanged
+    public class TaskClassification : INotifyPropertyChanged, ICloneable
     {
         public string Id { get; set; }
 
@@ -41,10 +41,26 @@ namespace WenElevating.Todo.Models
             Title = title ?? "";
         }
 
+        public void Clear()
+        {
+            Icon = null;
+            Title = string.Empty;
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string name ="")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        public override string? ToString()
+        {
+            return Title;
         }
     }
 }

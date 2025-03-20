@@ -30,7 +30,7 @@
             Background="{DynamicResource SidebarBackground}"
             BorderBrush="#F1F1F1"
             BorderThickness="0,0,1,0">
-            <Grid Margin="0,24,0,20">
+            <Grid Name="TestGrid" Margin="0,24,0,20">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
@@ -43,6 +43,7 @@
                         x:Name="UserAvatar"
                         HorizontalAlignment="Center"
                         HorizontalContentAlignment="Center"
+                        AutomationProperties.Name="UserAvatar"
                         Checked="UserAvatar_Checked"
                         Cursor="Hand"
                         FocusVisualStyle="{x:Null}">
@@ -63,6 +64,7 @@
                     </RadioButton>
 
                     <ListBox
+                        AutomationProperties.Name="SystemList"
                         Background="{DynamicResource SidebarBackground}"
                         BorderBrush="Transparent"
                         ItemsSource="{Binding Source={StaticResource NavigationCollectionView}}"
@@ -138,7 +140,7 @@
                                                 <Setter Property="Background" Value="Transparent" />
                                                 <Setter Property="HorizontalAlignment" Value="Center" />
                                                 <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                                <Setter Property="Focusable" Value="False" />
+                                                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                                                 <Setter Property="Template">
                                                     <Setter.Value>
                                                         <ControlTemplate TargetType="{x:Type controls:IconRadioButton}">
@@ -312,8 +314,10 @@
                 </StackPanel>
                 <Frame
                     x:Name="PageFrame"
+                    AutomationProperties.Name="PageFrame"
                     Content="{Binding CurrentPage}"
-                    Focusable="False"
+                    FocusVisualStyle="{x:Null}"
+                    Focusable="True"
                     NavigationUIVisibility="Hidden" />
             </Grid>
         </Border>

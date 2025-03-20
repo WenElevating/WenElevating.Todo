@@ -12,7 +12,128 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     Background="{DynamicResource PageBackground}"
+    Focusable="True"
     mc:Ignorable="d">
+    <Page.Resources>
+        <Style x:Key="ClassificationListItemStyle" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Margin" Value="6,0,7,1" />
+            <Setter Property="Height" Value="42" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="AutomationProperties.Name" Value="{Binding Title}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border
+                            x:Name="border"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="55" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="25" />
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    Grid.Column="1"
+                                    Width="19"
+                                    Source="{Binding Icon}" />
+                                <TextBlock
+                                    Grid.Column="3"
+                                    VerticalAlignment="Center"
+                                    Foreground="#191919"
+                                    Text="{Binding Title}" />
+                                <Grid
+                                    Grid.Column="5"
+                                    Margin="0,0,9,0"
+                                    HorizontalAlignment="Stretch">
+                                    <TextBlock
+                                        x:Name="NoteCountBlock"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        FontSize="11"
+                                        Foreground="#838383"
+                                        Text="{Binding NoteCount}" />
+                                    <controls:IconRadioButton
+                                        x:Name="MoreOperationButton"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Icon="{StaticResource Todo_NoteList_More}"
+                                        Style="{StaticResource Todo_CommonRadioIconButtonNoMouseOverStyle}"
+                                        Visibility="Collapsed" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{DynamicResource ListBoxMouseBackground}" />
+                                <Setter TargetName="NoteCountBlock" Property="Visibility" Value="Collapsed" />
+                                <Setter TargetName="MoreOperationButton" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{DynamicResource ListBoxSelectedBackground}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ClassificationListItemNoTriggerStyle" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Margin" Value="6,0,7,1" />
+            <Setter Property="Height" Value="42" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Background" Value="{DynamicResource ListBoxMouseBackground}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border
+                            x:Name="border"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="55" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="25" />
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    Grid.Column="1"
+                                    Width="19"
+                                    Source="{Binding Icon}" />
+                                <TextBlock
+                                    Grid.Column="3"
+                                    VerticalAlignment="Center"
+                                    Foreground="#191919"
+                                    Text="{Binding Title}" />
+                                <Grid
+                                    Grid.Column="5"
+                                    Margin="0,0,9,0"
+                                    HorizontalAlignment="Stretch" />
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -24,79 +145,28 @@
         <Grid
             Grid.Column="0"
             Width="318"
+            MinWidth="250"
             Margin="0,30,0,0">
-            <ListBox BorderThickness="0" ItemsSource="{Binding Classifications}">
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListBoxItem}">
-                        <Setter Property="Margin" Value="6,0,7,1" />
-                        <Setter Property="Height" Value="42" />
-                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                        <Setter Property="FontSize" Value="14" />
-                        <Setter Property="Cursor" Value="Hand" />
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                    <Border
-                                        x:Name="border"
-                                        Width="{TemplateBinding Width}"
-                                        Height="{TemplateBinding Height}"
-                                        Background="{TemplateBinding Background}"
-                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                        BorderThickness="{TemplateBinding BorderThickness}"
-                                        CornerRadius="5">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="10" />
-                                                <ColumnDefinition Width="20" />
-                                                <ColumnDefinition Width="10" />
-                                                <ColumnDefinition Width="55" />
-                                                <ColumnDefinition />
-                                                <ColumnDefinition Width="25" />
-                                            </Grid.ColumnDefinitions>
-                                            <Image
-                                                Grid.Column="1"
-                                                Width="19"
-                                                Source="{Binding Icon}" />
-                                            <TextBlock
-                                                Grid.Column="3"
-                                                VerticalAlignment="Center"
-                                                Foreground="#191919"
-                                                Text="{Binding Title}" />
-                                            <Grid
-                                                Grid.Column="5"
-                                                Margin="0,0,9,0"
-                                                HorizontalAlignment="Stretch">
-                                                <TextBlock
-                                                    x:Name="NoteCountBlock"
-                                                    HorizontalAlignment="Right"
-                                                    VerticalAlignment="Center"
-                                                    FontSize="11"
-                                                    Foreground="#838383"
-                                                    Text="{Binding NoteCount}" />
-                                                <controls:IconRadioButton
-                                                    x:Name="MoreOperationButton"
-                                                    HorizontalAlignment="Right"
-                                                    VerticalAlignment="Center"
-                                                    Icon="{StaticResource Todo_NoteList_More}"
-                                                    Style="{StaticResource Todo_CommonRadioIconButtonNoMouseOverStyle}"
-                                                    Visibility="Collapsed" />
-                                            </Grid>
-                                        </Grid>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter TargetName="border" Property="Background" Value="#F2F2F2" />
-                                            <Setter TargetName="NoteCountBlock" Property="Visibility" Value="Collapsed" />
-                                            <Setter TargetName="MoreOperationButton" Property="Visibility" Value="Visible" />
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ListBox.ItemContainerStyle>
-            </ListBox>
-            <Canvas />
+            <ListBox
+                x:Name="TaskClassifiactionList"
+                AutomationProperties.Name="TaskClassifiactionList"
+                BorderThickness="0"
+                FocusVisualStyle="{x:Null}"
+                ItemContainerStyle="{StaticResource ClassificationListItemStyle}"
+                ItemsSource="{Binding Classifications}"
+                PreviewMouseLeftButtonDown="TaskClassifiactionList_PreviewMouseLeftButtonDown"
+                PreviewMouseLeftButtonUp="TaskClassifiactionList_PreviewMouseLeftButtonUp"
+                SelectedItem="{Binding SelectedClassifciation}"
+                SelectionChanged="TaskClassifiactionList_SelectionChanged" />
+            <!--  拖拽功能区  -->
+            <Canvas x:Name="TaskClassifiactionCanvas" FocusVisualStyle="{x:Null}">
+                <ListBox
+                    x:Name="CanvasList"
+                    Canvas.Top="500"
+                    Width="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=ActualWidth}"
+                    BorderThickness="0"
+                    ItemContainerStyle="{StaticResource ClassificationListItemNoTriggerStyle}" />
+            </Canvas>
         </Grid>
 
         <!--  可拉伸Grid  -->

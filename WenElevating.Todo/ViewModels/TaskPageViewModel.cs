@@ -26,10 +26,18 @@ namespace WenElevating.Todo.ViewModels
             set;
         }
 
+        private TaskClassification _selectedClassification;
+        public TaskClassification SelectedClassifciation
+        {
+            get => _selectedClassification;
+            set => SetProperty(ref _selectedClassification, value);
+        }
+
         public TaskPageViewModel(IApplicationLogService logService)
         {
             _logService = logService;
             Classifications = LoadingClassifications(App.Current.settings?.NoteClassification);
+            _selectedClassification = Classifications.First();
         }
 
         private ObservableCollection<TaskClassification> LoadingClassifications(List<string>? classifications)
