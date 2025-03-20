@@ -29,10 +29,17 @@
                             x:Name="border"
                             Width="{TemplateBinding Width}"
                             Height="{TemplateBinding Height}"
+                            AllowDrop="True"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="5">
+                            CornerRadius="5"
+                            DragOver="ApplicationPageBase_DragOver"
+                            Drop="ApplicationPageBase_Drop"
+                            FocusVisualStyle="{x:Null}"
+                            GiveFeedback="border_GiveFeedback"
+                            MouseDown="TaskClassifiactionList_PreviewMouseLeftButtonDown"
+                            MouseMove="TodoControl_MouseMove">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="10" />
@@ -154,8 +161,6 @@
                 FocusVisualStyle="{x:Null}"
                 ItemContainerStyle="{StaticResource ClassificationListItemStyle}"
                 ItemsSource="{Binding Classifications}"
-                PreviewMouseLeftButtonDown="TaskClassifiactionList_PreviewMouseLeftButtonDown"
-                PreviewMouseLeftButtonUp="TaskClassifiactionList_PreviewMouseLeftButtonUp"
                 SelectedItem="{Binding SelectedClassifciation}"
                 SelectionChanged="TaskClassifiactionList_SelectionChanged" />
             <!--  拖拽功能区  -->

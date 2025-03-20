@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing.Imaging;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,7 +42,43 @@ namespace WenElevating.Todo.Pages
 
         private void TaskClassifiactionList_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            
+            if (sender is not Border border)
+            {
+                return;
+            }
+            TaskClassification context = (TaskClassification)border.DataContext;
+            StackPanel panel = new()
+            {
+                Orientation = Orientation.Horizontal,
+                Children =
+                {
+                    new System.Windows.Controls.Image()
+                    {
+                        Source = context.Icon,
+                        Width = 19,
+                        Margin = new Thickness(10, 0, 10, 0),
+                        VerticalAlignment = VerticalAlignment.Center
+                    },
+                    new TextBlock()
+                    {
+                        Text = context.Title,
+                        VerticalAlignment = VerticalAlignment.Center
+                    }
+                }
+            };
+
+            var mouseDownBorder = new Border()
+            {
+                Width = border.ActualWidth,
+                Height = border.ActualHeight,
+                Background = border.Background,
+                CornerRadius = new CornerRadius(5),
+                Visibility = Visibility.Collapsed,
+                Child = panel
+            };
+            Canvas.SetTop(mouseDownBorder, 500);
+            TaskClassifiactionCanvas.Children.Clear();
+            TaskClassifiactionCanvas.Children.Add(mouseDownBorder);
         }
 
         private void TaskClassifiactionList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -63,6 +101,48 @@ namespace WenElevating.Todo.Pages
         private void TaskClassifiactionList_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
 
+        }
+
+        private void TaskClassifiactionList_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void TodoControl_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (sender is Border border && e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(border, border, DragDropEffects.All);
+            }
+        }
+
+        private void ApplicationPageBase_Drop(object sender, DragEventArgs e)
+        {
+            if (sender is Border border)
+            {
+                if (e.Data.GetDataPresent(DataFormats.StringFormat))
+                {
+                    string dataString = (string)e.Data.GetData(DataFormats.StringFormat);
+                    Console.WriteLine(dataString);
+                }
+            }
+        }
+
+        private void ApplicationPageBase_DragOver(object sender, DragEventArgs e)
+        {
+            if (sender is Border border)
+            {
+                if (e.Data.GetDataPresent(DataFormats.StringFormat))
+                {
+                    string dataString = (string)e.Data.GetData(DataFormats.StringFormat);
+                    Console.WriteLine(dataString);
+                }
+            }
+        }
+
+        private void border_GiveFeedback(object sender, GiveFeedbackEventArgs e)
+        {
+            e.UseDefaultCursors = false;
         }
     }
 }
