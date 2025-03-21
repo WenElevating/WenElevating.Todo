@@ -40,79 +40,112 @@ namespace WenElevating.Todo.Pages
             DataContext = _viewModel;
         }
 
+        private TaskClassification? _lastSelectedDataContext;
+        private Border? _selectedClassificationBorder;
+        private System.Windows.Point _leftMouseDownPositon;
+        private bool _isMoseDown;
+
         private void TaskClassifiactionList_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (sender is not Border border)
             {
                 return;
             }
-            TaskClassification context = (TaskClassification)border.DataContext;
-            StackPanel panel = new()
-            {
-                Orientation = Orientation.Horizontal,
-                Children =
-                {
-                    new System.Windows.Controls.Image()
-                    {
-                        Source = context.Icon,
-                        Width = 19,
-                        Margin = new Thickness(10, 0, 10, 0),
-                        VerticalAlignment = VerticalAlignment.Center
-                    },
-                    new TextBlock()
-                    {
-                        Text = context.Title,
-                        VerticalAlignment = VerticalAlignment.Center
-                    }
-                }
-            };
 
-            var mouseDownBorder = new Border()
+            TaskClassification context = (TaskClassification)border.DataContext;
+
+            if (_lastSelectedDataContext != null && _lastSelectedDataContext == context)
+            {
+                return;
+            }
+
+            border.Visibility = Visibility.Hidden;
+            _lastSelectedDataContext = context;
+            _selectedClassificationBorder = new Border()
             {
                 Width = border.ActualWidth,
                 Height = border.ActualHeight,
                 Background = border.Background,
                 CornerRadius = new CornerRadius(5),
-                Visibility = Visibility.Collapsed,
-                Child = panel
+                Child = new StackPanel()
+                {
+                    Orientation = Orientation.Horizontal,
+                    Children =
+                    {
+                        new System.Windows.Controls.Image()
+                        {
+                            Source = context.Icon,
+                            Width = 19,
+                            Margin = new Thickness(10, 0, 10, 0),
+                            VerticalAlignment = VerticalAlignment.Center
+                        },
+                        new TextBlock()
+                        {
+                            Text = context.Title,
+                            VerticalAlignment = VerticalAlignment.Center
+                        }
+                    }
+                }
             };
-            Canvas.SetTop(mouseDownBorder, 500);
             TaskClassifiactionCanvas.Children.Clear();
-            TaskClassifiactionCanvas.Children.Add(mouseDownBorder);
+            TaskClassifiactionCanvas.Children.Add(_selectedClassificationBorder);
+
+            _selectedClassificationBorder.CaptureMouse();
+            _leftMouseDownPositon = e.GetPosition(this);
+            _isMoseDown = true;
         }
 
         private void TaskClassifiactionList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //ListBox box = (ListBox)sender;
-            //ListBoxItem item = (ListBoxItem)box.ItemContainerGenerator.ContainerFromIndex(box.SelectedIndex);
-            //if (item == null)
-            //{
-            //    return;
-            //}
-            //item.Visibility = Visibility.Hidden;
-            //TaskClassification? selectedItem = (TaskClassification?)(box?.SelectedItem);
-            //if (selectedItem == null || box?.ItemsSource is not ObservableCollection<TaskClassification> list)
-            //{
-            //    return;
-            //}
-            //CanvasList.ItemsSource = new ObservableCollection<TaskClassification>() { (TaskClassification)selectedItem.Clone() };
         }
 
         private void TaskClassifiactionList_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            _isMoseDown = false;
+            if (sender is not Border border)
+            {
+                return;
+            }
 
+            // 边界检测复位
+
+            // 隐藏Canvas内容
+            if (_selectedClassificationBorder != null)
+            {
+                _selectedClassificationBorder.ReleaseMouseCapture();
+                _selectedClassificationBorder.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void TaskClassifiactionList_MouseMove(object sender, MouseEventArgs e)
         {
+            if (_selectedClassificationBorder == null)
+            {
+                return;
+            }
 
+            if (_isMoseDown && e.LeftButton == MouseButtonState.Pressed)
+            {
+                System.Windows.Point currentPostion = e.GetPosition(this);
+                var offestPostion = currentPostion - _leftMouseDownPositon;
+                Canvas.SetTop(_selectedClassificationBorder, currentPostion.Y);
+                Canvas.SetLeft(_selectedClassificationBorder, currentPostion.X - _selectedClassificationBorder.ActualWidth / 2);
+            }
         }
 
         private void TodoControl_MouseMove(object sender, MouseEventArgs e)
         {
-            if (sender is Border border && e.LeftButton == MouseButtonState.Pressed)
+            if (_selectedClassificationBorder == null)
             {
-                DragDrop.DoDragDrop(border, border, DragDropEffects.All);
+                return;
+            }
+
+            if (_isMoseDown)
+            {
+                System.Windows.Point currentPostion = e.GetPosition(this);
+                var offestPostion = currentPostion - _leftMouseDownPositon;
+                Canvas.SetTop(_selectedClassificationBorder, offestPostion.Y + _leftMouseDownPositon.Y - _selectedClassificationBorder.ActualHeight / 2);
+                Canvas.SetLeft(_selectedClassificationBorder, offestPostion.X + _leftMouseDownPositon.X - _selectedClassificationBorder.ActualWidth / 2);
             }
         }
 

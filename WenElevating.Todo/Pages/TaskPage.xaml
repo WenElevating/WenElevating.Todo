@@ -13,6 +13,8 @@
     d:DesignWidth="800"
     Background="{DynamicResource PageBackground}"
     Focusable="True"
+    MouseLeftButtonUp="TaskClassifiactionList_PreviewMouseLeftButtonUp"
+    MouseMove="TodoControl_MouseMove"
     mc:Ignorable="d">
     <Page.Resources>
         <Style x:Key="ClassificationListItemStyle" TargetType="{x:Type ListBoxItem}">
@@ -38,8 +40,7 @@
                             Drop="ApplicationPageBase_Drop"
                             FocusVisualStyle="{x:Null}"
                             GiveFeedback="border_GiveFeedback"
-                            MouseDown="TaskClassifiactionList_PreviewMouseLeftButtonDown"
-                            MouseMove="TodoControl_MouseMove">
+                            MouseDown="TaskClassifiactionList_PreviewMouseLeftButtonDown">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="10" />

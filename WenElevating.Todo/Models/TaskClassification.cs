@@ -62,5 +62,17 @@ namespace WenElevating.Todo.Models
         {
             return Title;
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is TaskClassification classification &&
+                   EqualityComparer<DrawingImage?>.Default.Equals(Icon, classification.Icon) &&
+                   Title == classification.Title;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Icon, Title);
+        }
     }
 }
