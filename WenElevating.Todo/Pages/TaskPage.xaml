@@ -11,10 +11,11 @@
     d:DataContext="{d:DesignInstance Type=vm:TaskPageViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    AllowDrop="True"
     Background="{DynamicResource PageBackground}"
     Focusable="True"
-    MouseLeftButtonUp="TaskClassifiactionList_PreviewMouseLeftButtonUp"
     MouseMove="TodoControl_MouseMove"
+    MouseUp="TaskClassifiactionList_PreviewMouseLeftButtonUp"
     mc:Ignorable="d">
     <Page.Resources>
         <Style x:Key="ClassificationListItemStyle" TargetType="{x:Type ListBoxItem}">
@@ -36,11 +37,8 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="5"
-                            DragOver="ApplicationPageBase_DragOver"
-                            Drop="ApplicationPageBase_Drop"
                             FocusVisualStyle="{x:Null}"
-                            GiveFeedback="border_GiveFeedback"
-                            MouseDown="TaskClassifiactionList_PreviewMouseLeftButtonDown">
+                            PreviewMouseLeftButtonDown="TaskClassifiactionList_PreviewMouseLeftButtonDown">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="10" />
@@ -153,7 +151,8 @@
             Grid.Column="0"
             Width="318"
             MinWidth="250"
-            Margin="0,30,0,0">
+            Margin="0,30,0,0"
+            AllowDrop="True">
             <ListBox
                 x:Name="TaskClassifiactionList"
                 AutomationProperties.Name="TaskClassifiactionList"
@@ -161,10 +160,12 @@
                 FocusVisualStyle="{x:Null}"
                 ItemContainerStyle="{StaticResource ClassificationListItemStyle}"
                 ItemsSource="{Binding Classifications}"
-                SelectedItem="{Binding SelectedClassifciation}"
-                SelectionChanged="TaskClassifiactionList_SelectionChanged" />
+                SelectedItem="{Binding SelectedClassifciation}" />
             <!--  拖拽功能区  -->
-            <Canvas x:Name="TaskClassifiactionCanvas" FocusVisualStyle="{x:Null}" />
+            <Canvas
+                x:Name="TaskClassifiactionCanvas"
+                AllowDrop="True"
+                FocusVisualStyle="{x:Null}" />
         </Grid>
 
         <!--  可拉伸Grid  -->

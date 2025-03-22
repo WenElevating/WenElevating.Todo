@@ -19,6 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 using WenElevating.Todo.Attributies;
 using WenElevating.Todo.Models;
 using WenElevating.Todo.ViewModels;
+using System.Diagnostics;
 
 namespace WenElevating.Todo.Pages
 {
@@ -32,7 +33,7 @@ namespace WenElevating.Todo.Pages
         /// ViewModel
         /// </summary>
         private TaskPageViewModel _viewModel;
-        
+
         public TaskPage()
         {
             InitializeComponent();
@@ -44,90 +45,106 @@ namespace WenElevating.Todo.Pages
         private Border? _selectedClassificationBorder;
         private Border? _selectedBackgroundColorBorder;
         private System.Windows.Point _leftMouseDownPositon;
-        private bool _isMoseDown;
+        private bool _isMouseDown;
 
         private void TaskClassifiactionList_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (sender is not Border border)
-            {
-                return;
-            }
-
-            _selectedBackgroundColorBorder = border;
-            TaskClassification context = (TaskClassification)border.DataContext;
-            if (context == null)
-            {
-                return;
-            }
-
-            if (_lastSelectedDataContext != null && _lastSelectedDataContext == context)
+            if (sender is not Border border || border.DataContext is not TaskClassification context)
             {
                 return;
             }
 
             // 获取鼠标按下位置、鼠标按下状态、上一次选中的数据
+            _selectedBackgroundColorBorder = border;
             _leftMouseDownPositon = e.GetPosition(this);
-            _isMoseDown = true;
+            _isMouseDown = true;
+
+            // 减少重复封装
+            if (_lastSelectedDataContext == context)
+            {
+                return;
+            }
+
             _lastSelectedDataContext = context;
 
             // 生成选中的内容
-            _selectedClassificationBorder = new Border()
+            CreateSelectedBorder();
+        }
+
+        /// <summary>
+        /// 创建选中项的边框
+        /// </summary>
+        private void CreateSelectedBorder()
+        {
+            if (_selectedBackgroundColorBorder == null || _lastSelectedDataContext == null)
+            {
+                return;
+            }
+
+            // 生成选中边框
+            _selectedClassificationBorder = new Border
             {
                 Width = _selectedBackgroundColorBorder.ActualWidth,
                 Height = _selectedBackgroundColorBorder.ActualHeight,
                 Background = _selectedBackgroundColorBorder.Background,
                 CornerRadius = new CornerRadius(5),
                 Visibility = Visibility.Collapsed,
-                Child = new StackPanel()
-                {
-                    Orientation = Orientation.Horizontal,
-                    Children =
-                    {
-                        new System.Windows.Controls.Image()
-                        {
-                            Source = context.Icon,
-                            Width = 19,
-                            Margin = new Thickness(10, 0, 10, 0),
-                            VerticalAlignment = VerticalAlignment.Center
-                        },
-                        new TextBlock()
-                        {
-                            Text = context.Title,
-                            VerticalAlignment = VerticalAlignment.Center
-                        }
-                    }
-                },
-                Cursor = Cursors.Hand
+                Cursor = Cursors.Hand,
+                Child = CreateSelectedContent(_lastSelectedDataContext),
+                AllowDrop = true,
             };
 
-            // 加入Canvas
+            // 加入 Canvas
             TaskClassifiactionCanvas.Children.Clear();
             TaskClassifiactionCanvas.Children.Add(_selectedClassificationBorder);
+
         }
 
-        private void TaskClassifiactionList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        /// <summary>
+        /// 生成选中项的内容
+        /// </summary>
+        private static StackPanel CreateSelectedContent(TaskClassification context)
         {
+            return new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Children =
+                {
+                    new System.Windows.Controls.Image
+                    {
+                        Source = context.Icon,
+                        Width = 19,
+                        Margin = new Thickness(10, 0, 10, 0),
+                        VerticalAlignment = VerticalAlignment.Center
+                    },
+                    new TextBlock
+                    {
+                        Text = context.Title,
+                        VerticalAlignment = VerticalAlignment.Center
+                    }
+                }
+            };
         }
 
         private void TaskClassifiactionList_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            _isMoseDown = false;
-            if (sender is not Border border)
+            if (!_isMouseDown)
             {
                 return;
             }
 
-            // 边界检测复位
+            _isMouseDown = false;
 
             // 隐藏Canvas内容
             if (_selectedClassificationBorder != null)
             {
                 _selectedClassificationBorder.Visibility = Visibility.Collapsed;
             }
-        }
 
-        private void TaskClassifiactionList_MouseMove(object sender, MouseEventArgs e)
-        {
+            if (_selectedBackgroundColorBorder != null && _selectedBackgroundColorBorder.Visibility == Visibility.Hidden)
+            {
+                _selectedBackgroundColorBorder.Visibility = Visibility.Visible;
+            }
         }
 
         private void TodoControl_MouseMove(object sender, MouseEventArgs e)
@@ -137,7 +154,7 @@ namespace WenElevating.Todo.Pages
                 return;
             }
 
-            if (_isMoseDown)
+            if (_isMouseDown)
             {
                 if (_selectedClassificationBorder.Visibility == Visibility.Collapsed)
                 {
@@ -154,36 +171,19 @@ namespace WenElevating.Todo.Pages
                 var offestPostion = currentPostion - _leftMouseDownPositon;
                 Canvas.SetTop(_selectedClassificationBorder, offestPostion.Y + _leftMouseDownPositon.Y - _selectedClassificationBorder.ActualHeight);
                 Canvas.SetLeft(_selectedClassificationBorder, offestPostion.X + _leftMouseDownPositon.X - _selectedClassificationBorder.ActualWidth / 2);
-            }
-        }
 
-        private void ApplicationPageBase_Drop(object sender, DragEventArgs e)
-        {
-            if (sender is Border border)
-            {
-                if (e.Data.GetDataPresent(DataFormats.StringFormat))
+                // 视觉检测
+                HitTestResult hitTestResult = VisualTreeHelper.HitTest(TaskClassifiactionList, currentPostion);
+                if (hitTestResult != null && hitTestResult.VisualHit is Border border 
+                    && border.DataContext is TaskClassification classification 
+                    && _lastSelectedDataContext != null
+                    && classification != _lastSelectedDataContext)
                 {
-                    string dataString = (string)e.Data.GetData(DataFormats.StringFormat);
-                    Console.WriteLine(dataString);
+                    Console.WriteLine(classification.Title);
+                    _viewModel.Swap(classification, _lastSelectedDataContext);
                 }
             }
         }
 
-        private void ApplicationPageBase_DragOver(object sender, DragEventArgs e)
-        {
-            if (sender is Border border)
-            {
-                if (e.Data.GetDataPresent(DataFormats.StringFormat))
-                {
-                    string dataString = (string)e.Data.GetData(DataFormats.StringFormat);
-                    Console.WriteLine(dataString);
-                }
-            }
-        }
-
-        private void border_GiveFeedback(object sender, GiveFeedbackEventArgs e)
-        {
-            e.UseDefaultCursors = false;
-        }
     }
 }

@@ -8,6 +8,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.Configuration;
 using WenElevating.Todo.Commons.Helpers;
+using WenElevating.Todo.Extensions;
 using WenElevating.Todo.Models;
 using WenElevating.Todo.Services;
 using WenElevating.Todo.Services.interfaces;
@@ -55,6 +56,11 @@ namespace WenElevating.Todo.ViewModels
 
             _logService.LogInfo("已完成笔记分类加载...");
             return classifciationCollection;
+        }
+
+        public void Swap(TaskClassification firstData, TaskClassification secondData)
+        {
+            Classifications.Swap(firstData, secondData);
         }
 
         protected override void OnActivated()
