@@ -42,6 +42,7 @@ namespace WenElevating.Todo.Pages
 
         private TaskClassification? _lastSelectedDataContext;
         private Border? _selectedClassificationBorder;
+        private Border? _selectedBackgroundColorBorder;
         private System.Windows.Point _leftMouseDownPositon;
         private bool _isMoseDown;
 
@@ -52,21 +53,31 @@ namespace WenElevating.Todo.Pages
                 return;
             }
 
+            _selectedBackgroundColorBorder = border;
             TaskClassification context = (TaskClassification)border.DataContext;
+            if (context == null)
+            {
+                return;
+            }
 
             if (_lastSelectedDataContext != null && _lastSelectedDataContext == context)
             {
                 return;
             }
 
-            border.Visibility = Visibility.Hidden;
+            // 获取鼠标按下位置、鼠标按下状态、上一次选中的数据
+            _leftMouseDownPositon = e.GetPosition(this);
+            _isMoseDown = true;
             _lastSelectedDataContext = context;
+
+            // 生成选中的内容
             _selectedClassificationBorder = new Border()
             {
-                Width = border.ActualWidth,
-                Height = border.ActualHeight,
-                Background = border.Background,
+                Width = _selectedBackgroundColorBorder.ActualWidth,
+                Height = _selectedBackgroundColorBorder.ActualHeight,
+                Background = _selectedBackgroundColorBorder.Background,
                 CornerRadius = new CornerRadius(5),
+                Visibility = Visibility.Collapsed,
                 Child = new StackPanel()
                 {
                     Orientation = Orientation.Horizontal,
@@ -85,14 +96,13 @@ namespace WenElevating.Todo.Pages
                             VerticalAlignment = VerticalAlignment.Center
                         }
                     }
-                }
+                },
+                Cursor = Cursors.Hand
             };
+
+            // 加入Canvas
             TaskClassifiactionCanvas.Children.Clear();
             TaskClassifiactionCanvas.Children.Add(_selectedClassificationBorder);
-
-            _selectedClassificationBorder.CaptureMouse();
-            _leftMouseDownPositon = e.GetPosition(this);
-            _isMoseDown = true;
         }
 
         private void TaskClassifiactionList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -112,39 +122,37 @@ namespace WenElevating.Todo.Pages
             // 隐藏Canvas内容
             if (_selectedClassificationBorder != null)
             {
-                _selectedClassificationBorder.ReleaseMouseCapture();
                 _selectedClassificationBorder.Visibility = Visibility.Collapsed;
             }
         }
 
         private void TaskClassifiactionList_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_selectedClassificationBorder == null)
-            {
-                return;
-            }
-
-            if (_isMoseDown && e.LeftButton == MouseButtonState.Pressed)
-            {
-                System.Windows.Point currentPostion = e.GetPosition(this);
-                var offestPostion = currentPostion - _leftMouseDownPositon;
-                Canvas.SetTop(_selectedClassificationBorder, currentPostion.Y);
-                Canvas.SetLeft(_selectedClassificationBorder, currentPostion.X - _selectedClassificationBorder.ActualWidth / 2);
-            }
         }
 
         private void TodoControl_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_selectedClassificationBorder == null)
+            if (_selectedClassificationBorder == null || _selectedBackgroundColorBorder == null)
             {
                 return;
             }
 
             if (_isMoseDown)
             {
+                if (_selectedClassificationBorder.Visibility == Visibility.Collapsed)
+                {
+                    _selectedClassificationBorder.Visibility = Visibility.Visible;
+                }
+
+                if (_selectedBackgroundColorBorder.Visibility == Visibility.Visible)
+                {
+                    _selectedBackgroundColorBorder.Visibility = Visibility.Hidden;
+                }
+
+                // 更新选中内容位置
                 System.Windows.Point currentPostion = e.GetPosition(this);
                 var offestPostion = currentPostion - _leftMouseDownPositon;
-                Canvas.SetTop(_selectedClassificationBorder, offestPostion.Y + _leftMouseDownPositon.Y - _selectedClassificationBorder.ActualHeight / 2);
+                Canvas.SetTop(_selectedClassificationBorder, offestPostion.Y + _leftMouseDownPositon.Y - _selectedClassificationBorder.ActualHeight);
                 Canvas.SetLeft(_selectedClassificationBorder, offestPostion.X + _leftMouseDownPositon.X - _selectedClassificationBorder.ActualWidth / 2);
             }
         }

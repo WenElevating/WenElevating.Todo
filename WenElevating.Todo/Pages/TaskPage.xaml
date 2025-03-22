@@ -96,7 +96,6 @@
         </Style>
 
         <Style x:Key="ClassificationListItemNoTriggerStyle" TargetType="{x:Type ListBoxItem}">
-            <Setter Property="Margin" Value="6,0,7,1" />
             <Setter Property="Height" Value="42" />
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             <Setter Property="FontSize" Value="14" />
@@ -165,14 +164,7 @@
                 SelectedItem="{Binding SelectedClassifciation}"
                 SelectionChanged="TaskClassifiactionList_SelectionChanged" />
             <!--  拖拽功能区  -->
-            <Canvas x:Name="TaskClassifiactionCanvas" FocusVisualStyle="{x:Null}">
-                <ListBox
-                    x:Name="CanvasList"
-                    Canvas.Top="500"
-                    Width="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=ActualWidth}"
-                    BorderThickness="0"
-                    ItemContainerStyle="{StaticResource ClassificationListItemNoTriggerStyle}" />
-            </Canvas>
+            <Canvas x:Name="TaskClassifiactionCanvas" FocusVisualStyle="{x:Null}" />
         </Grid>
 
         <!--  可拉伸Grid  -->
