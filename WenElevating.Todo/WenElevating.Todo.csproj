@@ -45,7 +45,6 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\Impl\" />
-    <Folder Include="Utilties\" />
     <Folder Include="Views\" />
   </ItemGroup>
 

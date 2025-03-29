@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:WenElevating.Resources.CustomControls;assembly=WenElevating.Resources"
+    xmlns:convert="clr-namespace:WenElevating.Resources.Converters;assembly=WenElevating.Resources"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:WenElevating.Todo.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -18,6 +19,10 @@
     MouseUp="TaskClassifiactionList_PreviewMouseLeftButtonUp"
     mc:Ignorable="d">
     <Page.Resources>
+        <!--  转换器  -->
+        <convert:NoteCountToVisibilityConverter x:Key="NoteCountToVisibilityConverter" />
+
+        <!--  样式  -->
         <Style x:Key="ClassificationListItemStyle" TargetType="{x:Type ListBoxItem}">
             <Setter Property="Margin" Value="6,0,7,1" />
             <Setter Property="Height" Value="42" />
@@ -67,7 +72,8 @@
                                         VerticalAlignment="Center"
                                         FontSize="11"
                                         Foreground="#838383"
-                                        Text="{Binding NoteCount}" />
+                                        Text="{Binding NoteCount}"
+                                        Visibility="{Binding NoteCount, Converter={StaticResource NoteCountToVisibilityConverter}}" />
                                     <controls:IconRadioButton
                                         x:Name="MoreOperationButton"
                                         HorizontalAlignment="Right"
@@ -153,6 +159,11 @@
             MinWidth="250"
             Margin="0,30,0,0"
             AllowDrop="True">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="5" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
             <ListBox
                 x:Name="TaskClassifiactionList"
                 AutomationProperties.Name="TaskClassifiactionList"
@@ -160,12 +171,25 @@
                 FocusVisualStyle="{x:Null}"
                 ItemContainerStyle="{StaticResource ClassificationListItemStyle}"
                 ItemsSource="{Binding Classifications}"
+                ScrollViewer.VerticalScrollBarVisibility="Disabled"
                 SelectedItem="{Binding SelectedClassifciation}" />
             <!--  拖拽功能区  -->
             <Canvas
                 x:Name="TaskClassifiactionCanvas"
+                Grid.RowSpan="3"
                 AllowDrop="True"
                 FocusVisualStyle="{x:Null}" />
+
+            <!--  分割线  -->
+            <Line
+                Grid.Row="1"
+                Margin="5,0,5,0"
+                Stroke="{DynamicResource TaskPageSpiltBursh}"
+                StrokeThickness="1"
+                X1="0"
+                X2="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=ActualWidth}"
+                Y1="0"
+                Y2="0" />
         </Grid>
 
         <!--  可拉伸Grid  -->

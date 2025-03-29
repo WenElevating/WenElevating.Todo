@@ -12,6 +12,7 @@ using WenElevating.Todo.Extensions;
 using WenElevating.Todo.Models;
 using WenElevating.Todo.Services;
 using WenElevating.Todo.Services.interfaces;
+using WenElevating.Todo.Utilties;
 
 namespace WenElevating.Todo.ViewModels
 {
@@ -50,7 +51,11 @@ namespace WenElevating.Todo.ViewModels
             {
                 // Todo 获取指定分类日志数量
                 var key = _classificationPrefix + item;
-                var task = new TaskClassification(item, item == "Today" ? key + "_" + DateTime.Today.Day: key, LocalizationHelper.GetLocalizationString(key));
+                var task = new TaskClassification(item, item == "Today" ? key + "_" + DateTime.Today.Day : key, LocalizationHelper.GetLocalizationString(key))
+                {
+                    // Todo 暂时随机生成
+                    NoteCount = RandomUtil.Number(0, 15)
+                };
                 classifciationCollection.Add(task);
             });
 
