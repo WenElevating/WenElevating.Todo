@@ -10,4 +10,5 @@
     <SolidColorBrush x:Key="ListBoxMouseBackground" Color="#F5F5F5" />
     <SolidColorBrush x:Key="ListBoxSelectedBackground" Color="#F4F4F4" />
     <SolidColorBrush x:Key="TaskPageSpiltBursh" Color="#F3F3F3" />
+    <SolidColorBrush x:Key="TaskPageIconBursh" Color="#757575" />
 </ResourceDictionary>

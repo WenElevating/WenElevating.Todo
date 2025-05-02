@@ -144,26 +144,34 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="ExpanderStyle" TargetType="{x:Type Expander}">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        </Style>
     </Page.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" MaxWidth="350" />
             <ColumnDefinition Width="auto" />
-            <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
         <Grid
+            x:Name="LeftTaskTypeList"
             Grid.Column="0"
-            Width="318"
-            MinWidth="250"
+            MaxWidth="350"
             Margin="0,30,0,0"
             AllowDrop="True">
             <Grid.RowDefinitions>
+                <RowDefinition Height="315" />
+                <RowDefinition Height="5" />
                 <RowDefinition />
                 <RowDefinition Height="5" />
                 <RowDefinition />
             </Grid.RowDefinitions>
+
+            <!--  分类列表  -->
             <ListBox
                 x:Name="TaskClassifiactionList"
                 AutomationProperties.Name="TaskClassifiactionList"
@@ -171,6 +179,7 @@
                 FocusVisualStyle="{x:Null}"
                 ItemContainerStyle="{StaticResource ClassificationListItemStyle}"
                 ItemsSource="{Binding Classifications}"
+                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
                 SelectedItem="{Binding SelectedClassifciation}" />
             <!--  拖拽功能区  -->
@@ -185,11 +194,36 @@
                 Grid.Row="1"
                 Margin="5,0,5,0"
                 Stroke="{DynamicResource TaskPageSpiltBursh}"
-                StrokeThickness="1"
+                StrokeThickness="1.2"
                 X1="0"
                 X2="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=ActualWidth}"
                 Y1="0"
                 Y2="0" />
+
+            <!--  分类功能区  -->
+            <Grid Grid.Row="2">
+                <StackPanel>
+                    <Expander
+                        Content="这是一个清单..."
+                        FocusVisualStyle="{x:Null}"
+                        Header="清单" />
+                </StackPanel>
+            </Grid>
+
+
+            <!--  分割线  -->
+            <Line
+                Grid.Row="3"
+                Margin="5,0,5,0"
+                Stroke="{DynamicResource TaskPageSpiltBursh}"
+                StrokeThickness="1.2"
+                X1="0"
+                X2="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=ActualWidth}"
+                Y1="0"
+                Y2="0" />
+
+            <!--  归档区  -->
+
         </Grid>
 
         <!--  可拉伸Grid  -->
@@ -198,6 +232,89 @@
             Grid.Column="0"
             Style="{StaticResource Todo_GridSplitterStyle}" />
 
-        <Frame Grid.Column="1" />
+        <Grid
+            Grid.Column="1"
+            Margin="17,25,17,0"
+            FocusVisualStyle="{x:Null}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Width="auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel
+                    Grid.Column="0"
+                    Width="500"
+                    Orientation="Horizontal">
+                    <Grid>
+                        <controls:IconButton
+                            x:Name="FlodGridButton"
+                            Width="22"
+                            Height="20"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Click="GridFlodOpeartionButton_Click"
+                            Icon="{StaticResource Todo_NoteList_Flod}"
+                            Style="{StaticResource Todo_CommonIconButtonWithBackgroundMouseOverStyle}" />
+                        <controls:IconButton
+                            x:Name="ExpandGridButton"
+                            Width="22"
+                            Height="20"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Click="GridExpandOpeartionButton_Click"
+                            Icon="{StaticResource Todo_NoteList_Expand}"
+                            Style="{StaticResource Todo_CommonIconButtonWithBackgroundMouseOverStyle}"
+                            Visibility="Collapsed" />
+                    </Grid>
+                    <TextBlock
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Text="{Binding SelectedClassifciation.Title}" />
+                </StackPanel>
+                <StackPanel
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <controls:IconButton
+                        x:Name="SortTaskButton"
+                        Width="22"
+                        Height="20"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Click="GridFlodOpeartionButton_Click"
+                        Icon="{StaticResource Todo_NoteList_Sort}"
+                        Style="{StaticResource Todo_CommonIconButtonWithBackgroundMouseOverStyle}" />
+                    <controls:IconButton
+                        x:Name="MoreOperationButton"
+                        Width="22"
+                        Height="20"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Click="GridFlodOpeartionButton_Click"
+                        Icon="{StaticResource Todo_NoteList_More}"
+                        Style="{StaticResource Todo_CommonIconButtonWithBackgroundMouseOverStyle}" />
+                </StackPanel>
+            </Grid>
+            <Frame Grid.Column="1" />
+        </Grid>
+
+        <!--  可拉伸Grid  -->
+        <GridSplitter Grid.Column="1" Style="{StaticResource Todo_GridSplitterStyle}" />
+
+
+        <!--  Frame  -->
+        <Frame
+            x:Name="TaskPageCategoryFrame"
+            Grid.Column="2"
+            AutomationProperties.Name="TaskPageFrame"
+            FocusVisualStyle="{x:Null}"
+            Focusable="True"
+            NavigationUIVisibility="Hidden" />
     </Grid>
 </local:ApplicationPageBase>

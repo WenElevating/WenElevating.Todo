@@ -20,6 +20,8 @@ using WenElevating.Todo.Attributies;
 using WenElevating.Todo.Models;
 using WenElevating.Todo.ViewModels;
 using System.Diagnostics;
+using System.Windows.Media.Animation;
+using WenElevating.Todo.Extensions;
 
 namespace WenElevating.Todo.Pages
 {
@@ -34,6 +36,14 @@ namespace WenElevating.Todo.Pages
         /// </summary>
         private TaskPageViewModel _viewModel;
 
+        private readonly DoubleAnimation expandAnimation = new DoubleAnimation()
+        {
+            To = 318,
+            Duration = TimeSpan.FromSeconds(0.1),
+            EasingFunction = new CircleEase(),
+            AutoReverse = false
+        };
+
         public TaskPage()
         {
             InitializeComponent();
@@ -41,6 +51,7 @@ namespace WenElevating.Todo.Pages
             DataContext = _viewModel;
         }
 
+        #region ListBox drag
         private TaskClassification? _lastSelectedDataContext;
         private Border? _selectedClassificationBorder;
         private Border? _selectedBackgroundColorBorder;
@@ -184,6 +195,44 @@ namespace WenElevating.Todo.Pages
                 }
             }
         }
+        #endregion
 
+        private void GridFlodOpeartionButton_Click(object sender, RoutedEventArgs e)
+        {
+            LeftTaskTypeList.Width = LeftTaskTypeList.ActualWidth;
+            DoubleAnimation flodAnimation = new()
+            {
+                To = 0,
+                Duration = TimeSpan.FromSeconds(0.5),
+                EasingFunction = new CircleEase()
+                {
+                    EasingMode = EasingMode.EaseInOut
+                },
+                AutoReverse = false
+            };
+            LeftTaskTypeList.BeginAnimation(Grid.WidthProperty, flodAnimation);
+            TaskCatgoryList.Visibility = Visibility.Collapsed;
+            FlodGridButton.Visibility = Visibility.Collapsed;
+            ExpandGridButton.Visibility = Visibility.Visible;
+        }
+
+        private void GridExpandOpeartionButton_Click(object sender, RoutedEventArgs e)
+        {
+            LeftTaskTypeList.Width = LeftTaskTypeList.ActualWidth;
+            DoubleAnimation flodAnimation = new DoubleAnimation()
+            {
+                To = 318,
+                Duration = TimeSpan.FromSeconds(0.5),
+                EasingFunction = new CircleEase()
+                {
+                    EasingMode = EasingMode.EaseInOut
+                },
+                AutoReverse = false
+            };
+            LeftTaskTypeList.BeginAnimation(Grid.WidthProperty, flodAnimation);
+            TaskCatgoryList.Visibility = Visibility.Visible;
+            FlodGridButton.Visibility = Visibility.Visible;
+            ExpandGridButton.Visibility = Visibility.Collapsed;
+        }
     }
 }

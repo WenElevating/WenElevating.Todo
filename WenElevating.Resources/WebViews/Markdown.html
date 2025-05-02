@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+
+        pre code {
+            background: #f0f0f0;
+            padding: 5px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h3 id="previewHeader">Loading Header</h3>
+        <div id="preview">Loading...</div>
+    </div>
+
+    <script>
+        window.chrome.webview.addEventListener('messageHeader', event => {
+            // 处理消息头
+            const header = event.data;
+            console.log('Header:', header);
+        });
+        // 接收 WPF 发送的 Markdown 文本
+        window.chrome.webview.addEventListener('message', event => {
+            const md = event.data;
+            document.getElementById('preview').innerHTML = marked.parse(md);
+        });
+    </script>
+</body>
+</html>

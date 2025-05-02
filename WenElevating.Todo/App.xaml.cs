@@ -49,6 +49,11 @@ namespace WenElevating.Todo
         private IConfiguration? _configuration;
 
         /// <summary>
+        /// 公开日志服务
+        /// </summary>
+        public IApplicationLogService? Log => _logService;
+
+        /// <summary>
         /// 是否为调试模式
         /// </summary>
         public bool IsDebugMode = false;

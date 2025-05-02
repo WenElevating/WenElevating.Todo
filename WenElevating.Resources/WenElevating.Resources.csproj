@@ -25,4 +25,8 @@
     <Resource Include="Fonts\鸿蒙字体.ttf" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="WebViews\" />
+  </ItemGroup>
+
 </Project>

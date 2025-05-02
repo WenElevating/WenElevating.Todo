@@ -79,6 +79,45 @@
         </Setter>
     </Style>
 
+    <Style x:Key="Todo_CommonIconButtonWithBackgroundMouseOverStyle" TargetType="{x:Type controls:IconButton}">
+        <Setter Property="Opacity" Value="0.8" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:IconButton}">
+                    <Border
+                        x:Name="Border"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        Background="{TemplateBinding Background}"
+                        Cursor="Hand">
+                        <Image
+                            x:Name="Image"
+                            Width="{TemplateBinding Width}"
+                            Opacity="{TemplateBinding Opacity}"
+                            Source="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource ListBoxMouseBackground}" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True" />
+                                <Condition Property="IsEnabled" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="Border" Property="Cursor" Value="No" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="Todo_CommonIconButtonNoMouseOverStyle" TargetType="{x:Type controls:IconButton}">
         <Setter Property="Opacity" Value="0.9" />
         <Setter Property="Background" Value="Transparent" />
