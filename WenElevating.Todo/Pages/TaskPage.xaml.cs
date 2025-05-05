@@ -36,7 +36,7 @@ namespace WenElevating.Todo.Pages
         /// </summary>
         private TaskPageViewModel _viewModel;
 
-        private readonly DoubleAnimation expandAnimation = new DoubleAnimation()
+        private readonly DoubleAnimation expandAnimation = new()
         {
             To = 318,
             Duration = TimeSpan.FromSeconds(0.1),

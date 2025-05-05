@@ -24,11 +24,11 @@
 
     <script>
         window.chrome.webview.addEventListener('messageHeader', event => {
-            // ´¦ÀíÏûÏ¢Í·
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Í·
             const header = event.data;
             console.log('Header:', header);
         });
-        // ½ÓÊÕ WPF ·¢ËÍµÄ Markdown ÎÄ±¾
+        // ï¿½ï¿½ï¿½ï¿½ WPF ï¿½ï¿½ï¿½Íµï¿½ Markdown ï¿½Ä±ï¿½
         window.chrome.webview.addEventListener('message', event => {
             const md = event.data;
             document.getElementById('preview').innerHTML = marked.parse(md);

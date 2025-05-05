@@ -15,9 +15,9 @@ namespace WenElevating.Todo.Repositories.interfaces
 
         public bool Update(T task);
 
-        public T GetById(string id);
+        public T? GetById(string id);
 
-        public T GetByName(string name);
+        public T? GetByTitle(string title);
 
         public List<T> GetAll();
     }

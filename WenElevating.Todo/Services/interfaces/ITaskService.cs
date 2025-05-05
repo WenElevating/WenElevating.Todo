@@ -21,7 +21,7 @@ namespace WenElevating.Todo.Services.interfaces
 
         public T GetById(string id);
 
-        public T GetByName(string name);
+        public T GetByTitle(string title);
 
         public List<T> GetAll();
     }

@@ -62,22 +62,39 @@ namespace WenElevating.Todo.Services
 
         public List<ActualTask> GetAll()
         {
-            throw new NotImplementedException();
+            return _taskRespository.GetAll();
         }
 
         public ActualTask GetById(string id)
         {
-            throw new NotImplementedException();
+            ArgumentNullException.ThrowIfNullOrEmpty(id);
+            var task = _taskRespository.GetById(id);
+            return task ?? throw new ArgumentNullException(nameof(id), "Task not found");
         }
 
-        public ActualTask GetByName(string name)
+        public ActualTask GetByTitle(string title)
         {
-            throw new NotImplementedException();
+            ArgumentNullException.ThrowIfNullOrEmpty(title);
+            var task = _taskRespository.GetByTitle(title);
+            return task ?? throw new ArgumentNullException(nameof(title), "Task not found"); 
         }
 
         public TaskResultCode Update(ActualTask task)
         {
-            throw new NotImplementedException();
+            ArgumentNullException.ThrowIfNull(task, nameof(task));
+
+            try
+            {
+                if (_taskRespository.Update(task))
+                {
+                    return TaskResultCode.Success;
+                }
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine(ex);
+            }
+            return TaskResultCode.Failed;
         }
     }
 }

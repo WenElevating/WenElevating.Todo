@@ -27,6 +27,8 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="FreeSql" Version="3.5.204" />
+    <PackageReference Include="FreeSql.Provider.Sqlite" Version="3.5.204" />
     <PackageReference Include="log4net" Version="3.0.4" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0-preview.1.25080.5" />
     <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.183">

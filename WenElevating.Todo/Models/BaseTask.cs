@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace WenElevating.Todo.Models
 {
-    public abstract class BaseTask
+    public abstract class BaseTask : BaseCommon
     {
-        public string Id { get; } = Guid.NewGuid().ToString();
-
         public string Title { get; set; } = "";
 
         public string Content { get; set; } = "";
