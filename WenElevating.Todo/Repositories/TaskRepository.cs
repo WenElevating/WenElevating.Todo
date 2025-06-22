@@ -11,33 +11,29 @@ namespace WenElevating.Todo.Repositories
 {
     public class TaskRepository : ITaskRespository<ActualTask>
     {
-        private IDataBaseORM<ActualTask>? _orm;
-        public TaskRepository(FreeSqlORM<ActualTask> orm)
+        private IDataBaseORM? _orm;
+        public TaskRepository(FreeSqlORM orm)
         {
             _orm = orm;
         }
-
         public bool Create(ActualTask task)
         {
-            ArgumentNullException.ThrowIfNull(task);
-            return _orm?.Insert(task) == 1;
+            throw new NotImplementedException();
         }
 
         public bool Delete(ActualTask task)
         {
-            ArgumentNullException.ThrowIfNull(task);
-            return _orm?.Delete(task) == 1;
+            throw new NotImplementedException();
         }
 
         public List<ActualTask> GetAll()
         {
-            return _orm?.GetAll().ToList() ?? [];
+            throw new NotImplementedException();
         }
 
         public ActualTask? GetById(string id)
         {
-            ArgumentException.ThrowIfNullOrEmpty(id);
-            return _orm?.Get(id);
+            throw new NotImplementedException();
         }
 
         public ActualTask? GetByTitle(string title)
@@ -47,8 +43,7 @@ namespace WenElevating.Todo.Repositories
 
         public bool Update(ActualTask task)
         {
-            ArgumentNullException.ThrowIfNull(task);
-            return _orm?.Update(task) == 1;
+            throw new NotImplementedException();
         }
     }
 }

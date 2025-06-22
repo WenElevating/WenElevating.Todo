@@ -19,6 +19,11 @@ namespace WenElevating.Todo.Services
     public class MemoryMonitoringService : IHostedService, IHostedLifecycleService
     {
         /// <summary>
+        /// 默认2GB最大内存使用量
+        /// </summary>
+        public static readonly long DefaultMaximumMemoryUsage = 1024 * 1024 * 2; 
+
+        /// <summary>
         /// 日志
         /// </summary>
         private readonly ILogger _logger;
@@ -56,17 +61,14 @@ namespace WenElevating.Todo.Services
             _lifeTime.ApplicationStarted.Register(OnStopping);
             _lifeTime.ApplicationStarted.Register(OnStopped);
 
-            // 加载配置
             MaximumMemoryUsage = App.Current.settings.MaximumMemoryUsage;
             MemoryMonitorInterval = App.Current.settings.MemoryMonitorInterval;
 
-            // 启动定时器
             _timer = new System.Timers.Timer
             {
                 Interval = MemoryMonitorInterval * 1000,
             };
             _timer.Elapsed += MonitoringTimer_Elapsed;
-
         }
 
         private void MonitoringTimer_Elapsed(object? sender, ElapsedEventArgs e)
@@ -77,7 +79,7 @@ namespace WenElevating.Todo.Services
             }
 
             var process =Process.GetCurrentProcess();
-            // cpu
+            // Cpu
             _cpuCounter ??= new PerformanceCounter("Process", "% Processor Time", process.ProcessName, true);
             float cpuUsed = _cpuCounter.NextValue() / Environment.ProcessorCount;
             DebugWindowService.PrintInformation($"CPU使用率：{cpuUsed:F2}%");

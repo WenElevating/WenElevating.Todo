@@ -32,7 +32,11 @@ namespace WenElevating.Todo.ViewModels
         public TaskClassification SelectedClassifciation
         {
             get => _selectedClassification;
-            set => SetProperty(ref _selectedClassification, value);
+            set 
+            {
+
+                SetProperty(ref _selectedClassification, value);
+            }
         }
 
         public TaskPageViewModel(IApplicationLogService logService)

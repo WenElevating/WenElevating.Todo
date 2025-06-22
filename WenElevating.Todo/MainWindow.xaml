@@ -189,6 +189,7 @@
 
                 <!--  下半部分  -->
                 <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
+
                     <!--  同步  -->
                     <controls:IconButton
                         x:Name="LeftSidebarBottomAsyncButton"
@@ -199,6 +200,7 @@
                         Icon="{StaticResource Todo_AsyncIcon}"
                         Style="{StaticResource Todo_CommonIconButtonStyle}"
                         Tag="Todo_AsyncIcon" />
+
                     <!--  通知与提醒  -->
                     <controls:IconButton
                         x:Name="LeftSidebarBottomNotifyButton"
@@ -207,6 +209,7 @@
                         Icon="{StaticResource Todo_NotifyIcon}"
                         Style="{StaticResource Todo_CommonIconButtonStyle}"
                         Tag="Todo_NotifyIcon" />
+
                     <!--  更多  -->
                     <controls:IconButton
                         x:Name="LeftSidebarBottomMoreThingsButton"
@@ -232,6 +235,7 @@
                     <Border Style="{StaticResource Todo_PopupContentBorderStyle}">
                         <!--  主体内容  -->
                         <StackPanel Margin="0,5" Orientation="Vertical">
+
                             <controls:PopupItemIconButton
                                 x:Name="Setting"
                                 Background="{DynamicResource PopupContentBackground}"
@@ -240,6 +244,7 @@
                                 IconHeight="20"
                                 IconWidth="20"
                                 Style="{StaticResource Todo_PopupListItemButtonStyle}" />
+
                             <controls:PopupItemIconButton
                                 x:Name="Statistic"
                                 Background="{DynamicResource PopupContentBackground}"
@@ -248,6 +253,7 @@
                                 IconHeight="18"
                                 IconWidth="15"
                                 Style="{StaticResource Todo_PopupListItemButtonStyle}" />
+
                             <controls:PopupItemIconButton
                                 x:Name="SystemSetting"
                                 Background="{DynamicResource PopupContentBackground}"
@@ -266,7 +272,8 @@
         <Border
             x:Name="NoClientBorder"
             Grid.Column="1"
-            Margin="0,0,3,0">
+            Margin="0,0,3,0"
+            Panel.ZIndex="111">
             <Grid>
                 <StackPanel
                     Height="30"
@@ -275,6 +282,7 @@
                     Panel.ZIndex="100"
                     Orientation="Horizontal"
                     WindowChrome.IsHitTestVisibleInChrome="True">
+
                     <controls:IconButton
                         x:Name="VipButton"
                         Width="38"
@@ -283,6 +291,7 @@
                         IconHeight="23"
                         IconWidth="15"
                         Style="{StaticResource Todo_SystemIconButtonStyle}" />
+
                     <!--  非客户区 - 窗体操作  -->
                     <controls:IconButton
                         x:Name="MinimizeButton"
@@ -293,6 +302,7 @@
                         IconHeight="30"
                         IconWidth="20"
                         Style="{StaticResource Todo_SystemIconButtonStyle}" />
+
                     <controls:IconButton
                         x:Name="ResetButton"
                         Width="32"
@@ -303,6 +313,7 @@
                         IconHeight="30"
                         IconWidth="20"
                         Style="{StaticResource Todo_SystemIconButtonStyle}" />
+
                     <controls:IconButton
                         x:Name="CloseButton"
                         Width="32"
@@ -313,15 +324,19 @@
                         IconWidth="23"
                         Style="{StaticResource Todo_SystemIconButtonStyle}" />
                 </StackPanel>
-                <Frame
-                    x:Name="PageFrame"
-                    AutomationProperties.Name="PageFrame"
-                    Content="{Binding CurrentPage}"
-                    FocusVisualStyle="{x:Null}"
-                    Focusable="True"
-                    NavigationUIVisibility="Hidden" />
             </Grid>
         </Border>
+
+        <!--  页面内容  -->
+        <Frame
+            x:Name="PageFrame"
+            Grid.Column="1"
+            Panel.ZIndex="99"
+            AutomationProperties.Name="PageFrame"
+            Content="{Binding CurrentPage}"
+            FocusVisualStyle="{x:Null}"
+            Focusable="True"
+            NavigationUIVisibility="Hidden" />
 
         <StackPanel
             x:Name="MainStackPanel"

@@ -7,6 +7,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:WenElevating.Todo.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resource="clr-namespace:WenElevating.Resources.WebViews;assembly=WenElevating.Resources"
+    xmlns:userControls="clr-namespace:WenElevating.Resources.UserControls;assembly=WenElevating.Resources"
     xmlns:vm="clr-namespace:WenElevating.Todo.ViewModels"
     Title="TaskPage"
     d:DataContext="{d:DesignInstance Type=vm:TaskPageViewModel}"
@@ -17,6 +19,7 @@
     Focusable="True"
     MouseMove="TodoControl_MouseMove"
     MouseUp="TaskClassifiactionList_PreviewMouseLeftButtonUp"
+    PreviewMouseDown="ApplicationPageBase_PreviewMouseDown"
     mc:Ignorable="d">
     <Page.Resources>
         <!--  转换器  -->
@@ -203,10 +206,14 @@
             <!--  分类功能区  -->
             <Grid Grid.Row="2">
                 <StackPanel>
-                    <Expander
+                    <controls:CreateableExpander
+                        Height="140"
+                        Margin="5,0"
                         Content="这是一个清单..."
                         FocusVisualStyle="{x:Null}"
-                        Header="清单" />
+                        Header="清单"
+                        HeaderHeight="40"
+                        Style="{StaticResource Todo_CreateableExpanderStyle}" />
                 </StackPanel>
             </Grid>
 
@@ -301,7 +308,18 @@
                         Style="{StaticResource Todo_CommonIconButtonWithBackgroundMouseOverStyle}" />
                 </StackPanel>
             </Grid>
-            <Frame Grid.Column="1" />
+            <Frame Grid.Column="1" Visibility="Collapsed" />
+            <userControls:AddTaskBox
+                Grid.Row="1"
+                Grid.Column="1"
+                Height="38"
+                Margin="10,0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                HeaderIcon="{StaticResource Todo_AsyncIcon}"
+                HeaderIconHeight="18"
+                HeaderIconWidth="18"
+                TextPlaceholder="添加任务" />
         </Grid>
 
         <!--  可拉伸Grid  -->
@@ -315,6 +333,14 @@
             AutomationProperties.Name="TaskPageFrame"
             FocusVisualStyle="{x:Null}"
             Focusable="True"
-            NavigationUIVisibility="Hidden" />
+            NavigationUIVisibility="Hidden"
+            Visibility="Collapsed" />
+
+        <resource:MarkdownEditor
+            Grid.Column="2"
+            Margin="0,30,0,0"
+            CodeLanguage="C#"
+            TextWrap="True"
+            Visibility="Collapsed" />
     </Grid>
 </local:ApplicationPageBase>

@@ -9,30 +9,44 @@
             margin: 20px;
         }
 
-        pre code {
-            background: #f0f0f0;
-            padding: 5px;
-            display: block;
+        #markdown-input {
+            resize: none;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            word-break: break-all;
+            border: none;
+            outline: none;
+        }
+
+        .hidden-scrollbar::-webkit-scrollbar {
+            display: none; /* 隐藏滚动条 */
+        }
+
+        .hidden-scrollbar {
+            -ms-overflow-style: none; /* IE 和 Edge */
+            scrollbar-width: none; /* Firefox */
         }
     </style>
 </head>
 <body>
     <div>
-        <h3 id="previewHeader">Loading Header</h3>
-        <div id="preview">Loading...</div>
+        <textarea id="markdown-input" placeholder="输入 Markdown..."></textarea> 
+        <div id="html-output"></div>
     </div>
 
     <script>
-        window.chrome.webview.addEventListener('messageHeader', event => {
-            // ������Ϣͷ
-            const header = event.data;
-            console.log('Header:', header);
+        const markdownInput = document.getElementById('markdown-input');
+        const htmlOutput = document.getElementById('html-output');
+        
+        markdownInput.addEventListener('input', () => {
+            const markdownText = markdownInput.value;
+            htmlOutput.innerHTML = marked.parse(markdownText);
         });
-        // ���� WPF ���͵� Markdown �ı�
-        window.chrome.webview.addEventListener('message', event => {
-            const md = event.data;
-            document.getElementById('preview').innerHTML = marked.parse(md);
-        });
+        
+        // 设置默认 Markdown 示例
+        // markdownInput.value = "# Hello Markdown!\n\n- **加粗**\n- *斜体*\n- `代码块`\n\n[点击这里](https://github.com/markedjs/marked)";
+        // htmlOutput.innerHTML = marked.parse(markdownInput.value);
     </script>
 </body>
 </html>

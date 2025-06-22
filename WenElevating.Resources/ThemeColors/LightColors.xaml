@@ -11,4 +11,12 @@
     <SolidColorBrush x:Key="ListBoxSelectedBackground" Color="#F4F4F4" />
     <SolidColorBrush x:Key="TaskPageSpiltBursh" Color="#F3F3F3" />
     <SolidColorBrush x:Key="TaskPageIconBursh" Color="#757575" />
+    <SolidColorBrush x:Key="TaskPageSearchBackground" Color="#F9F9F9" />
+    <SolidColorBrush x:Key="TextBoxPlaceholderBrush" Color="#C1C1C1" />
+    <SolidColorBrush x:Key="AddTaskBorderBackgroundBrush" Color="#F9F9F9" />
+    <SolidColorBrush x:Key="ExpanderIconBursh" Color="#BDBDBD" />
+    <SolidColorBrush x:Key="Expander.Static.Arrow.Stroke" Color="#FF333333" />
+    <SolidColorBrush x:Key="Expander.MouseOver.Arrow.Stroke" Color="#FF000000" />
+    <SolidColorBrush x:Key="Expander.Pressed.Arrow.Stroke" Color="#FF000000" />
+    <SolidColorBrush x:Key="Expander.Disabled.Arrow.Stroke" Color="#FF707070" />
 </ResourceDictionary>

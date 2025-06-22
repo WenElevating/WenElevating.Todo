@@ -34,7 +34,7 @@ namespace WenElevating.Todo.Services
                     return TaskResultCode.Success;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) 
             {
                 Console.WriteLine(ex);
             }

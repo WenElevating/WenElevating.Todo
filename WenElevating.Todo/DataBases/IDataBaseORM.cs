@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace WenElevating.Todo.DataBases
 {
-    public abstract class IDataBaseORM<T>
+    public abstract class IDataBaseORM
     {
-        public abstract int Insert(T data);
+        public abstract int Insert<T>(T data);
 
-        public abstract int Update(T data);
+        public abstract int Update<T>(T data);
 
-        public abstract int Delete(T data);
+        public abstract int Delete<T>(T data);
 
-        public abstract T Get(string id);
+        public abstract T Get<T>(string id);
 
-        public abstract IEnumerable<T> GetAll();
+        public abstract IEnumerable<T> GetAll<T>();
     }
 }

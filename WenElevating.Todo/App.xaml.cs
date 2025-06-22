@@ -66,7 +66,7 @@ namespace WenElevating.Todo
         /// <summary>
         /// 加载配置
         /// </summary>
-        public Settings? settings;
+        public Settings settings;
 
         /// <summary>
         /// 全局应用实例
@@ -95,6 +95,7 @@ namespace WenElevating.Todo
                         // 配置DI服务
                         .ConfigureServices((context, services) =>
                         {
+                            // 应用页面
                             services.AddSystemPage<TaskPage>();
                             services.AddSystemPage<TodayPage>();
                             services.AddSystemPage<FourQuadrantsPage>();
@@ -102,6 +103,7 @@ namespace WenElevating.Todo
                             services.AddSystemPage<PunchPage>();
                             services.AddSystemPage<SearchPage>();
 #if DEBUG
+                            // Debug模式下添加调试页面
                             services.AddSystemPage<DebugPage>();
 #endif
                             services.AddSingleton<Settings>();
@@ -111,7 +113,7 @@ namespace WenElevating.Todo
                             services.AddKeyedSingleton<ILogService, ConsoleAndFileLogService>("ConsoleAndFile");
                             services.AddSingleton<IApplicationLogService, ApplicationLogService>();
 
-                            // host service
+                            // 内存监控服务
                             services.AddHostedService<MemoryMonitoringService>();
 
                             // viewmodels

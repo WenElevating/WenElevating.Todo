@@ -7,7 +7,7 @@ using WenElevating.Todo.Models;
 
 namespace WenElevating.Todo.DataBases
 {
-    public class FreeSqlORM<T> : IDataBaseORM<T> where T : BaseCommon
+    public class FreeSqlORM : IDataBaseORM
     {
         private IFreeSql Instance;
 
@@ -21,43 +21,29 @@ namespace WenElevating.Todo.DataBases
                     .Build();
         }
 
-        public override int Delete(T data)
+        public override int Delete<T>(T data)
         {
-            return Instance
-                .Update<T>()
-                .Set(item => item.IsDeleted, 1)
-                .Where(item => item.Id == data.Id)
-                .ExecuteAffrows();
+            throw new NotImplementedException();
         }
 
-        public override T Get(string id)
+        public override T Get<T>(string id)
         {
-            return Instance
-                .Select<T>()
-                .Where<T>(item => item.Id == id)
-                .First();
+            throw new NotImplementedException();
         }
 
-        public override IEnumerable<T> GetAll()
+        public override IEnumerable<T> GetAll<T>()
         {
-            return Instance
-                .Select<T>()
-                .Where(a => a.IsDeleted == 0)
-                .ToList() ?? [];
+            throw new NotImplementedException();
         }
 
-        public override int Insert(T data)
+        public override int Insert<T>(T data)
         {
-            return Instance
-                .Insert<T>(data)
-                .ExecuteAffrows();
+            throw new NotImplementedException();
         }
 
-        public override int Update(T data)
+        public override int Update<T>(T data)
         {
-            return Instance
-                .Update<T>(data)
-                .ExecuteAffrows();
+            throw new NotImplementedException();
         }
     }
 }

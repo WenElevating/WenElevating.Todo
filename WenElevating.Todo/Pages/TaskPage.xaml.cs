@@ -234,5 +234,10 @@ namespace WenElevating.Todo.Pages
             FlodGridButton.Visibility = Visibility.Visible;
             ExpandGridButton.Visibility = Visibility.Collapsed;
         }
+
+        private void ApplicationPageBase_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //Keyboard.ClearFocus();
+        }
     }
 }
