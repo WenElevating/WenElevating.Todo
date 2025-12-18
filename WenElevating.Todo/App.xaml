@@ -8,6 +8,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/WenElevating.Resources;Component/Fonts/FontsDictionary.xaml" />
                 <ResourceDictionary Source="/WenElevating.Resources;Component/ControlStyles.xaml" />
+                <ResourceDictionary Source="/WenElevating.Resources;Component/ControlStyles.RichTextBox.xaml" />
+                <ResourceDictionary Source="/WenElevating.Resources;Component/ControlStyles.Button.xaml" />
                 <ResourceDictionary Source="/WenElevating.Resources;Component/UserControlStryle.xaml" />
                 <ResourceDictionary Source="/WenElevating.Resources;Component/SvgXamlResources.xaml" />
                 <ResourceDictionary Source="/WenElevating.Resources;Component/SvgXamlSelectedResources.xaml" />

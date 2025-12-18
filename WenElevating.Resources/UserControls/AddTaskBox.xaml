@@ -7,10 +7,22 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    PreviewMouseDown="UserControl_PreviewMouseDown"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="EditBoxBorder" TargetType="{x:Type Border}">
+            <Setter Property="BorderBrush" Value="{DynamicResource IconSelectedBrush}" />
+            <Setter Property="BorderThickness" Value="1.5" />
+            <Setter Property="CornerRadius" Value="5" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <!--  失去焦点  -->
-        <Grid x:Name="LostFocusGrid">
+        <Grid x:Name="LostFocusGrid" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
             <Border Style="{StaticResource AddTaskBorderStyle}">
                 <StackPanel Margin="8,0,0,0" Orientation="Horizontal">
                     <Image
@@ -27,9 +39,47 @@
                         Text="{Binding TextPlaceholder, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:AddTaskBox}}" />
                 </StackPanel>
             </Border>
+            <!--  附件列表  -->
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding}" />
         </Grid>
 
         <!--  获取焦点  -->
-        <Grid x:Name="GetFocusGrid" />
+        <Grid x:Name="GetFocusGrid" Visibility="Collapsed">
+            <Border x:Name="AddNoteBorder" Style="{DynamicResource EditBoxBorder}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBox
+                        x:Name="TaskTextBox"
+                        Grid.Row="0"
+                        Margin="5,7,5,5"
+                        AcceptsReturn="True"
+                        BorderThickness="0"
+                        LostFocus="TextBox_LostFocus" />
+                    <Grid Grid.Row="1" Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                            <ItemsControl />
+                        </StackPanel>
+                        <DockPanel Grid.Column="1" HorizontalAlignment="Right">
+                            <Button
+                                Width="40"
+                                Padding="5"
+                                Background="{DynamicResource AddTaskButtonBackground}"
+                                BorderBrush="{DynamicResource AddTaskButtonBackground}"
+                                Content="添加"
+                                FocusVisualStyle="{x:Null}"
+                                Foreground="{DynamicResource AddTaskButtonForeground}"
+                                Style="{DynamicResource AddTaskButton}" />
+                        </DockPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>

@@ -22,6 +22,7 @@ using WenElevating.Todo.ViewModels;
 using System.Diagnostics;
 using System.Windows.Media.Animation;
 using WenElevating.Todo.Extensions;
+using WenElevating.Resources.CustomControls;
 
 namespace WenElevating.Todo.Pages
 {
@@ -36,6 +37,8 @@ namespace WenElevating.Todo.Pages
         /// </summary>
         private TaskPageViewModel _viewModel;
 
+        private NavigationService _pageDataNavigationService;
+
         private readonly DoubleAnimation expandAnimation = new()
         {
             To = 318,
@@ -47,8 +50,23 @@ namespace WenElevating.Todo.Pages
         public TaskPage()
         {
             InitializeComponent();
+            InitLayout();
             _viewModel = App.host.Services.GetRequiredService<TaskPageViewModel>();
+            _pageDataNavigationService = TaskDataFrame.NavigationService;
             DataContext = _viewModel;
+        }
+
+        private void InitLayout()
+        {
+            //CreateableExpander expander = new()
+            //{
+            //    Margin = new Thickness(5, 0, 5, 0),
+            //    Header = "标签",
+            //    HeaderHeight = 40,
+            //    Content = "这是一个标签扩展器",
+            //    Style = (Style)Application.Current.TryFindResource("Todo_CreateableExpanderStyle")
+            //};
+            //ClassificationFuctionPanel.Children.Add(expander);
         }
 
         #region ListBox drag

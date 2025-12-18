@@ -17,5 +17,7 @@ namespace WenElevating.Todo.Models
         public int LogType { get; set; }
 
         public List<string> NoteClassification { get; set; }
+
+        public List<string> ArchivedCollection { get; set; }
     }
 }

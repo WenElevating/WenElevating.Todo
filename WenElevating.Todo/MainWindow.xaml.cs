@@ -156,5 +156,17 @@ namespace WenElevating.Todo
         }
         private void CloseButton_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
         #endregion
+
+        private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var element = FocusManager.GetFocusedElement(this);
+
+            if (element != null && element is TextBox) 
+            {
+                FocusManager.SetFocusedElement(this, this);    
+            }
+
+            base.OnPreviewMouseDown(e);
+        }
     }
 }

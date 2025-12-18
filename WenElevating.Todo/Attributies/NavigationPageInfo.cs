@@ -36,7 +36,12 @@ namespace WenElevating.Todo.Attributies
         /// </summary>
         public string Id { get; set; } = "";
 
-        public NavigationPageInfo(string noSelectedIcon, string selectedIcon, string title, string id = "", double iconWidth = 35, double iconHeight = 25)
+        /// <summary>
+        /// 父页面
+        /// </summary>
+        public string ParentPage { get; set; } = "";
+
+        public NavigationPageInfo(string noSelectedIcon, string selectedIcon, string title, string id = "", double iconWidth = 35, double iconHeight = 25, string parentPage = "")
         {
             NoSelectedIcon = (DrawingImage?)App.Current.Resources[noSelectedIcon] ?? (DrawingImage)App.Current.Resources["NormalNoSelectedIcon"];
             SelectedIcon = (DrawingImage?)App.Current.Resources[selectedIcon] ?? (DrawingImage)App.Current.Resources["NormalSelectedIcon"];
@@ -44,6 +49,12 @@ namespace WenElevating.Todo.Attributies
             Id = id;
             IconWidth = iconWidth;
             IconHeight = iconHeight;
+            ParentPage = parentPage;
+        }
+
+        public NavigationPageInfo(string title, string id = "", double iconWidth = 35, double iconHeight = 25, string parentPageId = "") : this(string.Empty, string.Empty, title, id, iconWidth, iconHeight, parentPageId)
+        {
+
         }
 
         public NavigationPageInfo(string title, string id = ""): this("NormalNoSelectedIcon", "NormalSelectedIcon", title, id)

@@ -74,5 +74,20 @@ namespace WenElevating.Resources.UserControls
         {
 
         }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            GetFocusGrid.Visibility = Visibility.Collapsed;
+            LostFocusGrid.Visibility = Visibility.Visible;
+        }
+
+        private void UserControl_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            LostFocusGrid.Visibility = Visibility.Collapsed;
+            GetFocusGrid.Visibility = Visibility.Visible;
+            TaskTextBox.Focus();
+        }
+
+
     }
 }

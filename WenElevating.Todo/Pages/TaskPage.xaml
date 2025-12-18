@@ -148,8 +148,161 @@
             </Setter>
         </Style>
 
+        <Style x:Key="IconNoNumberListItemStyle" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Margin" Value="6,0,7,1" />
+            <Setter Property="Height" Value="42" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="AutomationProperties.Name" Value="{Binding Title}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border
+                            x:Name="border"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            AllowDrop="True"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5"
+                            FocusVisualStyle="{x:Null}"
+                            PreviewMouseLeftButtonDown="TaskClassifiactionList_PreviewMouseLeftButtonDown">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="55" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="25" />
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    Grid.Column="1"
+                                    Width="19"
+                                    Source="{Binding Icon}" />
+                                <TextBlock
+                                    Grid.Column="3"
+                                    VerticalAlignment="Center"
+                                    Foreground="#191919"
+                                    Text="{Binding Title}" />
+                                <Grid
+                                    Grid.Column="5"
+                                    Margin="0,0,9,0"
+                                    HorizontalAlignment="Stretch">
+                                    <controls:IconRadioButton
+                                        x:Name="MoreOperationButton"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Icon="{StaticResource Todo_NoteList_More}"
+                                        Style="{StaticResource Todo_CommonRadioIconButtonNoMouseOverStyle}"
+                                        Visibility="Collapsed" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{DynamicResource ListBoxMouseBackground}" />
+                                <Setter TargetName="MoreOperationButton" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{DynamicResource ListBoxSelectedBackground}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
         <Style x:Key="ExpanderStyle" TargetType="{x:Type Expander}">
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        </Style>
+
+        <!--  扁平风格 CheckBox 样式（全局可用）  -->
+        <Style x:Key="FlatCheckBoxStyle" TargetType="CheckBox">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Padding" Value="4" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Grid VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="8" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <!--  复选框视觉  -->
+                            <Border
+                                x:Name="Box"
+                                Width="{TemplateBinding Width}"
+                                Height="{TemplateBinding Height}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Background="Transparent"
+                                BorderBrush="#888"
+                                BorderThickness="1.5"
+                                CornerRadius="2" />
+
+                            <!--  打勾图形，用 Path 更清晰  -->
+                            <Path
+                                x:Name="CheckMark"
+                                Grid.Column="0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Data="M4,10 L8,14 L16,6"
+                                Stroke="#fff"
+                                StrokeEndLineCap="Round"
+                                StrokeLineJoin="Round"
+                                StrokeStartLineCap="Round"
+                                StrokeThickness="2.2"
+                                Visibility="Collapsed" />
+
+                            <!--  文本  -->
+                            <ContentPresenter
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                RecognizesAccessKey="True" />
+
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <!--  鼠标悬停  -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Box" Property="BorderBrush" Value="#555" />
+                                <Setter TargetName="Box" Property="Background" Value="#f6f6f6" />
+                            </Trigger>
+
+                            <!--  选中  -->
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Box" Property="Background" Value="#A0A0A0" />
+                                <Setter TargetName="Box" Property="BorderBrush" Value="#A0A0A0" />
+                                <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
+                            </Trigger>
+
+                            <!--  禁用  -->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Box" Property="BorderBrush" Value="#CCC" />
+                                <Setter Property="Foreground" Value="#AAA" />
+                                <Setter TargetName="CheckMark" Property="Stroke" Value="#EEE" />
+                            </Trigger>
+
+                            <!--  半选（Indeterminate）  -->
+                            <Trigger Property="IsThreeState" Value="True">
+                                <!--  仅声明，实际按需要处理  -->
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="{x:Null}">
+                                <!--  半选时显示一个短条  -->
+                                <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed" />
+                                <Setter TargetName="Box" Property="Background" Value="#0078D7" />
+                                <Setter TargetName="Box" Property="BorderBrush" Value="#0078D7" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Page.Resources>
 
@@ -169,7 +322,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="315" />
                 <RowDefinition Height="5" />
-                <RowDefinition />
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="5" />
                 <RowDefinition />
             </Grid.RowDefinitions>
@@ -185,6 +338,7 @@
                 ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
                 SelectedItem="{Binding SelectedClassifciation}" />
+
             <!--  拖拽功能区  -->
             <Canvas
                 x:Name="TaskClassifiactionCanvas"
@@ -205,15 +359,46 @@
 
             <!--  分类功能区  -->
             <Grid Grid.Row="2">
-                <StackPanel>
+                <StackPanel x:Name="ClassificationFuctionPanel">
                     <controls:CreateableExpander
-                        Height="140"
+                        x:Name="MenuExpander"
                         Margin="5,0"
-                        Content="这是一个清单..."
                         FocusVisualStyle="{x:Null}"
                         Header="清单"
                         HeaderHeight="40"
-                        Style="{StaticResource Todo_CreateableExpanderStyle}" />
+                        Style="{StaticResource Todo_CreateableExpanderStyle}">
+                        <controls:CreateableExpander.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="测试..." />
+                            </StackPanel>
+                        </controls:CreateableExpander.Content>
+                    </controls:CreateableExpander>
+                    <controls:CreateableExpander
+                        x:Name="TagExpander"
+                        Margin="5,0"
+                        FocusVisualStyle="{x:Null}"
+                        Header="标签"
+                        HeaderHeight="40"
+                        Style="{StaticResource Todo_CreateableExpanderStyle}">
+                        <controls:CreateableExpander.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="这是一个标签..." />
+                            </StackPanel>
+                        </controls:CreateableExpander.Content>
+                    </controls:CreateableExpander>
+                    <controls:CreateableExpander
+                        x:Name="FilterExpander"
+                        Margin="5,0"
+                        FocusVisualStyle="{x:Null}"
+                        Header="过滤器"
+                        HeaderHeight="40"
+                        Style="{StaticResource Todo_CreateableExpanderStyle}">
+                        <controls:CreateableExpander.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="这是一个过滤器..." />
+                            </StackPanel>
+                        </controls:CreateableExpander.Content>
+                    </controls:CreateableExpander>
                 </StackPanel>
             </Grid>
 
@@ -230,6 +415,17 @@
                 Y2="0" />
 
             <!--  归档区  -->
+            <ListBox
+                x:Name="TaskCollection"
+                Grid.Row="4"
+                AutomationProperties.Name="TaskCollection"
+                BorderThickness="0"
+                FocusVisualStyle="{x:Null}"
+                ItemContainerStyle="{StaticResource IconNoNumberListItemStyle}"
+                ItemsSource="{Binding Classifications}"
+                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                SelectedItem="{Binding SelectedClassifciation}" />
 
         </Grid>
 
@@ -308,18 +504,56 @@
                         Style="{StaticResource Todo_CommonIconButtonWithBackgroundMouseOverStyle}" />
                 </StackPanel>
             </Grid>
-            <Frame Grid.Column="1" Visibility="Collapsed" />
-            <userControls:AddTaskBox
-                Grid.Row="1"
+            <Frame
+                x:Name="TaskDataFrame"
                 Grid.Column="1"
-                Height="38"
-                Margin="10,0"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Top"
-                HeaderIcon="{StaticResource Todo_AsyncIcon}"
-                HeaderIconHeight="18"
-                HeaderIconWidth="18"
-                TextPlaceholder="添加任务" />
+                Visibility="Collapsed" />
+            <StackPanel Grid.Row="1" Grid.Column="1">
+                <!--  新增任务  -->
+                <userControls:AddTaskBox
+                    Height="auto"
+                    MinHeight="40"
+                    Margin="5,15,5,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    HeaderIcon="{StaticResource Todo_AsyncIcon}"
+                    HeaderIconHeight="18"
+                    HeaderIconWidth="18"
+                    TextPlaceholder="添加任务"
+                    Visibility="Visible" />
+                <!--  任务列表  -->
+                <ListBox Margin="5,5,5,0" BorderThickness="0">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <Border CornerRadius="5">
+                                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                                <CheckBox
+                                                    Width="18"
+                                                    Height="18"
+                                                    VerticalContentAlignment="Center"
+                                                    Style="{StaticResource FlatCheckBoxStyle}" />
+                                                <Grid>
+                                                    <TextBox
+                                                        VerticalContentAlignment="Center"
+                                                        BorderThickness="0"
+                                                        Text="111" />
+                                                    <!--  预留图标叠加  -->
+                                                </Grid>
+                                            </StackPanel>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBoxItem />
+                </ListBox>
+            </StackPanel>
+
         </Grid>
 
         <!--  可拉伸Grid  -->

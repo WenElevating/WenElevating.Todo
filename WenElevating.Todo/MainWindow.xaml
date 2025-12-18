@@ -13,6 +13,7 @@
     MinHeight="400"
     d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
     FontFamily="{DynamicResource Font_HongMeng}"
+    PreviewMouseDown="Window_PreviewMouseDown"
     Style="{StaticResource Todo_CommonWindowStyle}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
